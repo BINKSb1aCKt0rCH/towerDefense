@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         System.out.println("MENU");
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Vue.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 500);
         stage.setTitle("Menu Tower Defense!");
         stage.setScene(scene);
