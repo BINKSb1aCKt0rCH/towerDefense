@@ -38,8 +38,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
         tuile = new TilePane();
-        tuile.setPrefRows(5);
-        tuile.setPrefColumns(9);
+        tuile.setPrefRows(10);
+        tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
         this.mapModele = new MapModele();
         this.mapVue = new MapVue();
