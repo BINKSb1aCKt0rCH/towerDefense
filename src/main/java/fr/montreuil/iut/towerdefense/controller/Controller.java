@@ -1,9 +1,6 @@
 package fr.montreuil.iut.towerdefense.controller;
 
-import fr.montreuil.iut.towerdefense.modele.MapModele;
-import fr.montreuil.iut.towerdefense.modele.Monstre;
-import fr.montreuil.iut.towerdefense.modele.Partie;
-import fr.montreuil.iut.towerdefense.modele.Slime;
+import fr.montreuil.iut.towerdefense.modele.*;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -52,7 +49,7 @@ public class Controller implements Initializable {
         this.partie = new Partie(500,500);
         initAnimation();
         this.monstre = new Monstre(350,5,"Slime");
-
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {
@@ -67,7 +64,7 @@ public class Controller implements Initializable {
         }*/
     }
     //
-    void creerSprite(Monstre m){
+   /* void creerSprite(Monstre m){
         Circle c = new Circle(5);
         c.setFill(Color.BLUEVIOLET);
         c.translateXProperty().bind(m.PositionXProperty());
@@ -78,34 +75,25 @@ public class Controller implements Initializable {
     void ajouter(Monstre m){
             partie.ajouter(m);
             creerSprite(m);
-    }
+    }*/
 
-    void unTour(){
-        partie.unTour();
-    }
 
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-            Monstre m = new Slime();
+            /*Monstre m = new Slime();
             creerSprite(m);
-            ajouter(m);
+            ajouter(m);*/
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.1),
+                Duration.seconds(0.017),
                 // on définit ce qui se passe à chaque frame 
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-                    if(temps==100){
-                        System.out.println("fini");
-                       // gameLoop.stop();
-                    }
-                    else if (temps%5==0){
-                        System.out.println("un tour");
-                        m.bouge();
-                    }
+
+                    this.partie.unTour(temps);
                     temps++;
                 })
         );

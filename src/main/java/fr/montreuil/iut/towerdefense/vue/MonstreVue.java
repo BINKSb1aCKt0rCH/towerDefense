@@ -36,4 +36,7 @@ public class MonstreVue {
             panneauDeJeu.getChildren().add(k);
         }
     }
+    public void retirerSprite(Monstre m){
+        this.panneauDeJeu.getChildren().remove(m);
+    }
 }

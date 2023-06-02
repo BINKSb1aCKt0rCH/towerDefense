@@ -10,8 +10,6 @@ public class Monstre {
     private IntegerProperty positionXProperty;
     private IntegerProperty positionYProperty;
     public Partie partie;
-    private int directionX;
-    private int directionY;
     private MapModele mapModele;
     public Monstre(int pv, int v,String nom){
         this.pv = pv;
@@ -35,6 +33,9 @@ public class Monstre {
     }
     public IntegerProperty PositionYProperty(){
         return this.positionYProperty;
+    }
+    public boolean estMort(Monstre m){
+        return pv <0;
     }
 
     public void bouge(){

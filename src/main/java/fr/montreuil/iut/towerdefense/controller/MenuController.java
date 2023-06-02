@@ -33,10 +33,11 @@ public class MenuController implements Initializable {
         System.out.println("Click sur PLAY");
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Lore.fxml"));
         root = fxmlLoader.load();
-        //Controller controller = fxmlLoader.getController();
-        stage = new Stage();
+     /*   stage = new Stage();
         stage.setScene(new Scene(root));
-        stage.show();
+        stage.show();*/
+        Main.stg.setScene(new Scene(root));
+        Main.stg.show();
     }
 
     @FXML

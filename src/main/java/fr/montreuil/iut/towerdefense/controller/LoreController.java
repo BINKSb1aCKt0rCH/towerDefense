@@ -27,9 +27,8 @@ public class LoreController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Vue.fxml"));
         root = fxmlLoader.load();
         //Controller controller = fxmlLoader.getController();
-        stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+        Main.stg.setScene(new Scene(root));
+        Main.stg.show();
     }
 
 }
