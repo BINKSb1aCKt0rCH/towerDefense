@@ -1,2 +1,4 @@
-package fr.montreuil.iut.towerdefense.controller;public class proprieteTours {
+package fr.montreuil.iut.towerdefense.controller;
+
+public class ProprieteToursController {
 }

@@ -30,5 +30,18 @@ public class LoreController implements Initializable {
         Main.stg.setScene(new Scene(root));
         Main.stg.show();
     }
+    @FXML
+    void proprieteTours(ActionEvent event){
+
+    }
+    @FXML
+    void imageContinent(ActionEvent event) throws IOException {
+        System.out.println("Click sur defendre Arrassia");
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Continent.fxml"));
+        root = fxmlLoader.load();
+        //Controller controller = fxmlLoader.getController();
+        Main.stg.setScene(new Scene(root));
+        Main.stg.show();
+    }
 
 }
