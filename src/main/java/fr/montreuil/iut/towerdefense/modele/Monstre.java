@@ -34,8 +34,8 @@ public class Monstre {
     public IntegerProperty PositionYProperty(){
         return this.positionYProperty;
     }
-    public boolean estMort(Monstre m){
-        return pv <0;
+    public boolean estMort(){
+        return this.pv <= 0;
     }
 
     public void bouge(){

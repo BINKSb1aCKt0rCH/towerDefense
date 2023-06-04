@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -31,6 +32,8 @@ public class Controller implements Initializable {
     private Monstre monstre;
     @FXML
     private Button commencerPartie;
+    @FXML
+    private Label berrys;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -50,6 +53,7 @@ public class Controller implements Initializable {
         initAnimation();
         this.monstre = new Monstre(350,5,"Slime");
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
+        this.berrys.textProperty().bind(partie.berrysProperty().asString());
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {

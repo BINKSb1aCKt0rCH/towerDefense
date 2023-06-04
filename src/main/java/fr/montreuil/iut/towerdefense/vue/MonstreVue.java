@@ -22,18 +22,28 @@ public class MonstreVue {
             c.translateYProperty().bind(m.PositionYProperty());
             panneauDeJeu.getChildren().add(c);
         } else if (m instanceof Zodd) {
-            Polygon p = new Polygon(5,5,5);
+            /*Polygon p = new Polygon(5,5,5);
             p.setFill(Color.BLACK);
             p.translateXProperty().bind(m.PositionXProperty());
             p.translateYProperty().bind(m.PositionYProperty());
-            panneauDeJeu.getChildren().add(p);
+            panneauDeJeu.getChildren().add(p);*/
+            Circle c = new Circle(8);
+            c.setFill(Color.BLACK);
+            c.translateXProperty().bind(m.PositionXProperty());
+            c.translateYProperty().bind(m.PositionYProperty());
+            panneauDeJeu.getChildren().add(c);
         }
         else {
-            Polygon k = new Polygon(8,8,8,8,8);
+           /* Polygon k = new Polygon(5,5,5,5,5);
             k.setFill(Color.GOLD);
             k.translateXProperty().bind(m.PositionXProperty());
             k.translateYProperty().bind(m.PositionYProperty());
-            panneauDeJeu.getChildren().add(k);
+            panneauDeJeu.getChildren().add(k);*/
+            Circle c = new Circle(10);
+            c.setFill(Color.GOLD);
+            c.translateXProperty().bind(m.PositionXProperty());
+            c.translateYProperty().bind(m.PositionYProperty());
+            panneauDeJeu.getChildren().add(c);
         }
     }
     public void retirerSprite(Monstre m){
