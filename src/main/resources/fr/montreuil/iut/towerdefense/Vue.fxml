@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="jeu" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #9ACD32;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
+<BorderPane fx:id="borderPane" onMouseClicked="#placerTour" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #9ACD32;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
 <top>
    <Label prefHeight="52.0" prefWidth="217.0" text="Tower Defense">
          <font>
@@ -17,7 +25,8 @@
       <Pane fx:id="panneauDeJeu" maxHeight="303.0" maxWidth="470.0" prefHeight="303.0" prefWidth="470.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="60.0" />
-         </BorderPane.margin></Pane>
+         </BorderPane.margin>
+      </Pane>
    </left>
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -48,7 +57,7 @@
                 <RowConstraints maxHeight="26.0" minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="commencerPartie" mnemonicParsing="false" onAction="#commencerPartie" prefHeight="39.0" prefWidth="144.0" text="Commencer">
+                  <Button fx:id="commencerPartie" mnemonicParsing="false" onAction="#commencerPartie" onMouseClicked="#cliquerTour" prefHeight="39.0" prefWidth="144.0" text="Commencer">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -117,8 +126,8 @@
                         <Image url="@tour feu.png" />
                      </image>
                   </ImageView>
-                  <Label text="       " />
-                  <ImageView fx:id="tourElectro" fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                  <Label text="test" />
+                  <ImageView fx:id="tourElectro" fitHeight="108.0" fitWidth="110.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@foudre.png" />
                      </image>

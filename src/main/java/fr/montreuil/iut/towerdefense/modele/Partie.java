@@ -4,16 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
     private int width,height;
     private int berrys  = 75;
-    private ObservableList<Monstre> monstres;public Partie(int width,int height){
+
+    private ObservableList<Tour> listeTours;
+
+    private ObservableList<Monstre> monstres;
+
+    public Partie(int width,int height){
         this.width = width;
         this.height=height;
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
+        this.listeTours = FXCollections.observableArrayList();
 
     }
     public void ajouter(Monstre m){
@@ -46,5 +53,21 @@ public class Partie {
             }
         }
         return 0;
+    }
+
+
+    public void ajouterTour (Tour t){
+        listeTours.add(t);
+    }
+
+    public void ajouterPositionTour (double x, double y, MapModele mapModele){
+        listeTours.add(new TourElectro(x,y,mapModele));
+    }
+    public ObservableList<Tour> getListeTours() {
+        return listeTours;
+    }
+
+    public MapModele getMapModele (){
+        return this.mapModele;
     }
 }

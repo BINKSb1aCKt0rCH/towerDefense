@@ -19,4 +19,8 @@ public class MapModele {
         return this.map;
     }
 
+    public int getTile (int x, int y){
+        return this.map[x][y];
+    }
+
 }
