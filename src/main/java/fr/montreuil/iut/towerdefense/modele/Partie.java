@@ -11,12 +11,15 @@ public class Partie {
     MapModele mapModele;
     private int width,height;
     private IntegerProperty berrys;
-    private ObservableList<Monstre> monstres;public Partie(int width,int height){
+    public IntegerProperty tempsSurvie;
+    private ObservableList<Monstre> monstres;
+    public Partie(int width,int height){
         this.width = width;
         this.height=height;
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
         this.berrys = new SimpleIntegerProperty(75);
+        this.tempsSurvie = new SimpleIntegerProperty(0);
 
     }
     public void ajouter(Monstre m){
@@ -49,15 +52,29 @@ public class Partie {
         }
         return berrys;
     }
-
+    public void apparitionEnnemis(){
+        int i = 0;
+        while(!monstres.isEmpty()){
+            //spawn de slime
+            i++;
+        }
+    }
+    public void setTempsSurvie(int x){
+        tempsSurvie.setValue(x);
+    }
+    public IntegerProperty tempsSurvie(){
+        return tempsSurvie;
+    }
+    public int getTempsSurvie(){return tempsSurvie.getValue();}
     public void unTour(int temps){
-        if (temps % 20 == 0){
+        setTempsSurvie(temps);
+        if (temps % 10 == 0){
             Monstre m = new Slime();
             ajouter(m);
-        } else if (temps % 50 ==0) {
+        } else if (temps % 17 ==0) {
             Monstre m = new Zodd();
             ajouter(m);
-        } else if (temps % 300 == 0) {
+        } else if (temps % 29 == 0) {
             Monstre m = new Kaido();
             ajouter(m);
         }

@@ -34,6 +34,8 @@ public class Controller implements Initializable {
     private Button commencerPartie;
     @FXML
     private Label berrys;
+    @FXML
+    private Label tempsSurvie;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -54,6 +56,10 @@ public class Controller implements Initializable {
         this.monstre = new Monstre(350,5,"Slime");
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
+        this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
+        if (this.tempsSurvie.textProperty().toString().equals(10) ){
+            tempsSurvie.textProperty().toString();
+        }
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {
@@ -96,7 +102,6 @@ public class Controller implements Initializable {
                 // on définit ce qui se passe à chaque frame 
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-
                     this.partie.unTour(temps);
                     temps++;
                 })

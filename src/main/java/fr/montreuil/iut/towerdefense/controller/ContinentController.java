@@ -13,10 +13,11 @@ public class ContinentController {
     private Parent root;
         @FXML
     void revenirAuLore(ActionEvent event) throws IOException {
-            System.out.println("Lore");
+            System.out.println("click sur Lore");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Lore.fxml"));
             root = fxmlLoader.load();
             Main.stg.setScene(new Scene(root));
+            Main.stg.setTitle("Lore!");
             Main.stg.show();
         }
 }
