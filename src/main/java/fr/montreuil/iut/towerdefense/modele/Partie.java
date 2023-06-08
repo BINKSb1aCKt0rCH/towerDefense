@@ -7,18 +7,21 @@ import javafx.collections.ObservableList;
 import javafx.scene.paint.LinearGradient;
 
 import java.util.ArrayList;
+import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
     private int width,height;
     private IntegerProperty berrys;
     public IntegerProperty tempsSurvie;
+    private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
         this.berrys = new SimpleIntegerProperty(75);
         this.tempsSurvie = new SimpleIntegerProperty(0);
+        this.listeTours = FXCollections.observableArrayList();
 
     }
     public void ajouter(Monstre m){
@@ -78,5 +81,22 @@ public class Partie {
             Monstre a = monstres.get(i);
             a.bouge();
         }
+    }
+
+
+
+    public void ajouterTour (Tour t){
+        listeTours.add(t);
+    }
+
+    public void ajouterPositionTour (double x, double y, MapModele mapModele){
+        listeTours.add(new TourElectro(x,y,mapModele));
+    }
+    public ObservableList<Tour> getListeTours() {
+        return listeTours;
+    }
+
+    public MapModele getMapModele (){
+        return this.mapModele;
     }
 }
