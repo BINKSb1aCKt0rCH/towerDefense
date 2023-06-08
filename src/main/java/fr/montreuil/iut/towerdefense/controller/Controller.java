@@ -45,57 +45,27 @@ public class Controller implements Initializable {
         panneauDeJeu.getChildren().add(tuile);
         this.mapModele = new MapModele();
         this.mapVue = new MapVue();
-
+        //affiche la map composée de tuiles
         try {
             mapVue.afficherMap2D(mapModele,tuile);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        this.partie = new Partie(500,500);
+        this.partie = new Partie();
         initAnimation();
         this.monstre = new Monstre(350,5,"Slime");
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
-        if (this.tempsSurvie.textProperty().toString().equals(10) ){
-            tempsSurvie.textProperty().toString();
-        }
     }
     @FXML
-    void commencerPartie(ActionEvent event) throws InterruptedException {
+    void commencerPartie(ActionEvent event) {
         gameLoop.play();
-        commencerPartie.setText("Pause");
-        /*if(commencerPartie.getText().equals("Pause") ){
-            System.out.println("Click sur Pause");
-            gameLoop.pause();
-            commencerPartie.setText("Reprendre");
-        } else if (commencerPartie.getText().equals("Reprendre")) {
-            gameLoop.wait();
-        }*/
     }
-    //
-   /* void creerSprite(Monstre m){
-        Circle c = new Circle(5);
-        c.setFill(Color.BLUEVIOLET);
-        c.translateXProperty().bind(m.PositionXProperty());
-        c.translateYProperty().bind(m.PositionYProperty());
-        panneauDeJeu.getChildren().add(c);
-    }
-
-    void ajouter(Monstre m){
-            partie.ajouter(m);
-            creerSprite(m);
-    }*/
-
-
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-            /*Monstre m = new Slime();
-            creerSprite(m);
-            ajouter(m);*/
-
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.1),

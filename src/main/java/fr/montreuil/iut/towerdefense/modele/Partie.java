@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.LinearGradient;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,7 @@ public class Partie {
     private IntegerProperty berrys;
     public IntegerProperty tempsSurvie;
     private ObservableList<Monstre> monstres;
-    public Partie(int width,int height){
-        this.width = width;
-        this.height=height;
+    public Partie(){
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
         this.berrys = new SimpleIntegerProperty(75);
@@ -52,13 +51,6 @@ public class Partie {
         }
         return berrys;
     }
-    public void apparitionEnnemis(){
-        int i = 0;
-        while(!monstres.isEmpty()){
-            //spawn de slime
-            i++;
-        }
-    }
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
@@ -66,18 +58,22 @@ public class Partie {
         return tempsSurvie;
     }
     public int getTempsSurvie(){return tempsSurvie.getValue();}
+    public void vagueMonstres(int temps){
+
+    }
     public void unTour(int temps){
-        setTempsSurvie(temps);
-        if (temps % 10 == 0){
+        setTempsSurvie(temps/10);
+        /*if (temps % 10 == 0){
             Monstre m = new Slime();
             ajouter(m);
-        } else if (temps % 17 ==0) {
+        }else if (temps % 17 ==0) {
             Monstre m = new Zodd();
             ajouter(m);
         } else if (temps % 29 == 0) {
             Monstre m = new Kaido();
             ajouter(m);
-        }
+        }*/
+        vagueMonstres(temps);
         for (int i = 0; i < monstres.size(); i++) {
             Monstre a = monstres.get(i);
             a.bouge();
