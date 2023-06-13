@@ -15,7 +15,8 @@ public class MapModele {
                 {3,3,3,3,3,3,3,3,3,3,4,4,4,4,4},
                 {3,3,3,3,3,3,3,3,3,3,4,4,4,4,4},
         };
-    }public int[][]getTuileMap(){
+    }
+    public int[][]getTuileMap(){
         return this.map;
     }
 

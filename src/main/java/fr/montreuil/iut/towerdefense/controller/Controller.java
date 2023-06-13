@@ -52,13 +52,15 @@ public class Controller implements Initializable {
     @FXML
     private Label tempsSurvie1;
     @FXML
-    private ImageView tourElectro;
+    private Button pyroBoutton;
     @FXML
-    private ImageView tourFeu;
+    private Button electroBoutton;
     @FXML
-    private ImageView tourGlace;
+    private Button terreBoutton;
     @FXML
-    private ImageView tourTerre;
+    private Button glaceBoutton;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -89,24 +91,29 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    //verif que
     public void cliquerTour (MouseEvent eventSouris){
-        System.out.println("OK apuyer");
         this.autorisationPlacement = true;
     }
 
     @FXML
     public void placerTour (MouseEvent eventSouris){
-        System.out.println("enter2");
+
         double x = eventSouris.getX();
         double y = eventSouris.getY(); //obtient les coordonnée de la souris
+
        // int choix = (tourElectro.is)
 //button.isArmed
+
         //vérifie qu'on est bien dans le panneau de jeu
-        if (x >= panneauDeJeu.getLayoutX() && x <= panneauDeJeu.getLayoutX() + panneauDeJeu.getWidth() && y >= panneauDeJeu.getLayoutY() && y <= panneauDeJeu.getLayoutY() + panneauDeJeu.getHeight()){
-            System.out.println("enter");
+        if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()){
+
             //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
-            if (partie.getMapModele().getTile((int)((y - panneauDeJeu.getLayoutY())/32), (int)((x - panneauDeJeu.getLayoutX())/32)) == 2 && autorisationPlacement){
-                this.partie.ajouterPositionTour((int) (x- panneauDeJeu.getLayoutX()), (int) (y- panneauDeJeu.getLayoutY()), mapModele);
+            if (partie.getMapModele().getTile((int)(y/32), (int)((x/32))) == 2 && autorisationPlacement){
+
+                int positionX =((int)x/32) * 32;
+                int positionY =((int)y/32) * 32;
+                this.partie.ajouterPositionTour(positionX, positionY, mapModele);
                 autorisationPlacement = false;
             }
         }

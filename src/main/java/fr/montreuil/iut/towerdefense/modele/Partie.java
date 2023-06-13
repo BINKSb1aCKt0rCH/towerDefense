@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.LinearGradient;
-
 import java.util.ArrayList;
 import javafx.collections.ObservableArray;
 
@@ -16,6 +15,7 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
@@ -24,6 +24,7 @@ public class Partie {
         this.listeTours = FXCollections.observableArrayList();
 
     }
+
     public void ajouter(Monstre m){
         monstres.add(m);
     }
@@ -40,15 +41,22 @@ public class Partie {
         return listeTours;
     }
 
-    public boolean dansTerrain(int x, int y){return x < 5 && y <9 && x >0 && y>0;}
+    public boolean dansTerrain(int x, int y){
+        return x < 5 && y <9 && x >0 && y>0;
+    }
 
-    public int getBerrys(){return this.berrys.getValue();}
+    public int getBerrys(){
+        return this.berrys.getValue();
+    }
+
     public void setBerrys(int b){
         berrys.setValue(b);
     }
+
     public IntegerProperty berrysProperty(){
         return this.berrys;
     }
+
     public IntegerProperty compteurBerrys(){
         for (int i = 0; i < monstres.size(); i++) {
             if (monstres.get(i).estMort()){
@@ -65,12 +73,15 @@ public class Partie {
         }
         return berrys;
     }
+
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
+
     public IntegerProperty tempsSurvie(){
         return tempsSurvie;
     }
+
     public int getTempsSurvie(){return tempsSurvie.getValue();}
     /*
     au debut faire ppop 2ennemis puis
@@ -83,14 +94,17 @@ public class Partie {
                 ajouter(s);
             }
     }
+
     public void vagueMonstres(int temps){
             if (getTempsSurvie() < 40){
                 vagueMonstres1(temps);
             }
     }
+
     public MapModele getMapModele(){
         return mapModele;
     }
+
     public void unTour(int temps){
         setTempsSurvie(temps/10);
         /*if (temps % 10 == 0){

@@ -19,7 +19,7 @@ public class TourVue {
     public void creerSpriteTourImage (Tour tour) throws FileNotFoundException {
 
         if (tour instanceof TourElectro) {
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/foudre.png"));
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourElectro.jpg"));
             ImageView imageView = new ImageView(image);
             imageView.translateXProperty().bind(tour.XProperty());
             imageView.translateYProperty().bind(tour.YProperty());
@@ -27,7 +27,7 @@ public class TourVue {
             panneauDeJeu.getChildren().add(imageView);
         }
         else if (tour instanceof TourCryo) {
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/glace.png"));
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourGlace.png"));
             ImageView imageView = new ImageView(image);
             imageView.translateXProperty().bind(tour.XProperty());
             imageView.translateYProperty().bind(tour.YProperty());
@@ -35,7 +35,7 @@ public class TourVue {
             panneauDeJeu.getChildren().add(imageView);
         }
         else if (tour instanceof TourPyro) {
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tour feu.png"));
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourFeu.jpg"));
             ImageView imageView = new ImageView(image);
             imageView.translateXProperty().bind(tour.XProperty());
             imageView.translateYProperty().bind(tour.YProperty());
@@ -43,7 +43,7 @@ public class TourVue {
             panneauDeJeu.getChildren().add(imageView);
         }
         else {
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tour terre.png"));
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourTerre.png"));
             ImageView imageView = new ImageView(image);
             imageView.translateXProperty().bind(tour.XProperty());
             imageView.translateYProperty().bind(tour.YProperty());
