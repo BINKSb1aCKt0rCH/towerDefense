@@ -160,4 +160,19 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
+
+    public Projectile conversionProjectile(Tour tour){
+
+        Projectile p = new Projectile();
+
+        /*
+        if(){
+
+        }else if(){
+
+        }
+        return p;
+
+         */
+    }
 }
