@@ -3,7 +3,7 @@ package fr.montreuil.iut.towerdefense.modele;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Monstre {
+public abstract class Monstre {
     private int pv;
     private int vitesse;
     private String nom;
@@ -18,10 +18,14 @@ public class Monstre {
         this.positionXProperty = new SimpleIntegerProperty(1);
         this.positionYProperty = new SimpleIntegerProperty(1);
         this.partie = new Partie(500,500);
-        this.mapModele = new MapModele();
+        //this.mapModele = mapModele;
     }
-    public int getPositionX(){return this.positionXProperty.getValue();}
-    public int getPositionY(){return this.positionYProperty.getValue();}
+    public int getPositionX(){
+        return this.positionXProperty.getValue();
+    }
+    public int getPositionY(){
+        return this.positionYProperty.getValue();
+    }
     public void setX(int x){
         positionXProperty.setValue(x);
     }

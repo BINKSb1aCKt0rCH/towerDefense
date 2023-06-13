@@ -120,7 +120,8 @@ public class Controller implements Initializable {
         System.out.println("enter2");
         double x = eventSouris.getX();
         double y = eventSouris.getY(); //obtient les coordonnée de la souris
-
+        int choix = (tourElectro.is)
+//button.isArmed
         //vérifie qu'on est bien dans le panneau de jeu
         if (x >= panneauDeJeu.getLayoutX() && x <= panneauDeJeu.getLayoutX() + panneauDeJeu.getWidth() && y >= panneauDeJeu.getLayoutY() && y <= panneauDeJeu.getLayoutY() + panneauDeJeu.getHeight()){
             System.out.println("enter");
