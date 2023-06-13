@@ -2,8 +2,10 @@ package fr.montreuil.iut.towerdefense.modele;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 
 import java.lang.annotation.Target;
+import java.util.ArrayList;
 
 public class Projectile {
 
@@ -16,13 +18,11 @@ public class Projectile {
     private double distance;
     //private Tour tour;
     private IntegerProperty xProperty, yProperty;
+    private ArrayList<Projectile> projectiles;
 
     private Target target;
 
     //Connaitre la position de l'ennemi;
-
-    //
-
 
     public Projectile(int degats, int vitesseAtk, int portee, String couleur){
 
@@ -38,6 +38,7 @@ public class Projectile {
         this.yProperty= new SimpleIntegerProperty();
         //this.partie = new Partie();
         //this.mapModele = new MapModele();
+        this.projectiles= new ArrayList<>();
     }
 
     public int getPositionX(){return this.xProperty.getValue();}
@@ -55,10 +56,30 @@ public class Projectile {
         return this.yProperty;
     }
 
-    public void seDeplace(){
-        setX(getPositionX() +3);
-        setY(getPositionY()+ 3);
+    public void seDeplace() {
+        setX(getPositionX() + 3);
+        setY(getPositionY() + 3);
+    }
+
+    public final IntegerProperty getxProperty() {
+
+        return this.xProperty;
+    }
+
+    public final int getValue(){
+
+        return this.xProperty.getValue();
+
     }
 
 
+    public final IntegerProperty getyProperty() {
+
+        return this.yProperty;
+    }
+
+    public String getId(){
+
+        return this.id;
+    }
 }
