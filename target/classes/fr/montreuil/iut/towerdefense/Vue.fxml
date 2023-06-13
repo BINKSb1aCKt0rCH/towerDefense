@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" onMouseClicked="#placerTour" prefHeight="564.0" prefWidth="798.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
+<BorderPane fx:id="borderPane" prefHeight="564.0" prefWidth="798.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
 <top>
    <Label prefHeight="52.0" prefWidth="217.0" text="SAUVE ARRASSIA">
          <font>
@@ -101,13 +101,13 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="tourTerre" fitHeight="107.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tourTerre" fitHeight="107.0" fitWidth="118.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tourTerre.png" />
                      </image>
                   </ImageView>
-                  <Label text="   " />
-                  <ImageView fx:id="tourGlace" fitHeight="108.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                  <Label text="     " />
+                  <ImageView fx:id="tourGlace" fitHeight="108.0" fitWidth="117.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tourGlace.png" />
                      </image>
@@ -122,7 +122,7 @@
             </HBox>
             <HBox prefHeight="108.0" prefWidth="222.0">
                <children>
-                  <ImageView fx:id="tourFeu" fitHeight="108.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tourFeu" fitHeight="108.0" fitWidth="126.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tourFeu.jpg" />
                      </image>

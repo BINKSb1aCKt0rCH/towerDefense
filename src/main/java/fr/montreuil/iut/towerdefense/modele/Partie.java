@@ -110,10 +110,8 @@ public class Partie {
         }
     }
 
-
-
-
-    public void ajouterPositionTour (double x, double y, MapModele mapModele){
+    public void ajouterPositionTour (double x, double y, MapModele mapModele){ //int choix
+    //if (choix == 1){}
         listeTours.add(new TourElectro(x,y,mapModele));
     }
 

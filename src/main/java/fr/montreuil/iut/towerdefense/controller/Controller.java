@@ -76,39 +76,17 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
         initAnimation();
-        this.monstre = new Monstre(350,5,"Slime");
-        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.monstre = new Slime();
-
-        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
 
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
-
-        this.partie.getListeTours().addListener(listenerTours);
-        this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
-
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {
         gameLoop.play();
     }
-
-    //
-   /* void creerSprite(Monstre m){
-        Circle c = new Circle(5);
-        c.setFill(Color.BLUEVIOLET);
-        c.translateXProperty().bind(m.PositionXProperty());
-        c.translateYProperty().bind(m.PositionYProperty());
-        panneauDeJeu.getChildren().add(c);
-    }
-
-    void ajouter(Monstre m){
-            partie.ajouter(m);
-            creerSprite(m);
-    }*/
-
 
     @FXML
     public void cliquerTour (MouseEvent eventSouris){
@@ -121,7 +99,7 @@ public class Controller implements Initializable {
         System.out.println("enter2");
         double x = eventSouris.getX();
         double y = eventSouris.getY(); //obtient les coordonnée de la souris
-        int choix = (tourElectro.is)
+       // int choix = (tourElectro.is)
 //button.isArmed
         //vérifie qu'on est bien dans le panneau de jeu
         if (x >= panneauDeJeu.getLayoutX() && x <= panneauDeJeu.getLayoutX() + panneauDeJeu.getWidth() && y >= panneauDeJeu.getLayoutY() && y <= panneauDeJeu.getLayoutY() + panneauDeJeu.getHeight()){
