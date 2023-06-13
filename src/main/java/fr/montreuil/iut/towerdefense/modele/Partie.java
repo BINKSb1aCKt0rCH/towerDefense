@@ -62,7 +62,7 @@ public class Partie {
         }
         return 0;
     }
-
+    //
     public void ajouterPositionTour (double x, double y, MapModele mapModele){
         listeTours.add(new TourElectro(x,y,mapModele));
     }

@@ -100,13 +100,13 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="tourTerre" fitHeight="107.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tourTerre" fitHeight="107.0" fitWidth="118.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tour terre.png" />
                      </image>
                   </ImageView>
                   <Label text="     " />
-                  <ImageView fx:id="tourGlace" fitHeight="108.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tourGlace" fitHeight="108.0" fitWidth="117.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@glace.png" />
                      </image>
@@ -121,7 +121,7 @@
             </HBox>
             <HBox prefHeight="108.0" prefWidth="222.0">
                <children>
-                  <ImageView fx:id="tourFeu" fitHeight="108.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tourFeu" fitHeight="108.0" fitWidth="126.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@tour feu.png" />
                      </image>
