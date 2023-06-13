@@ -2,6 +2,7 @@ package fr.montreuil.iut.towerdefense.controller;
 
 import fr.montreuil.iut.towerdefense.modele.*;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
+import fr.montreuil.iut.towerdefense.vue.TourVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
@@ -63,7 +64,8 @@ public class Controller implements Initializable {
         tuile.setPrefRows(10);
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
-        //this.mapModele = new MapModele();
+        this.partie = new Partie(500,500);
+        this.mapModele = partie.getMapModele();
         this.mapVue = new MapVue();
 
         try {
@@ -71,25 +73,13 @@ public class Controller implements Initializable {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        this.partie = new Partie(500,500);
+
         initAnimation();
-        this.monstre = new Monstre(350,5,"Slime", mapModele);
+        this.monstre = new Slime();
+
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
-        ListChangeListener<Tour> listenerTours = new ListChangeListener<Tour>() {
-            @Override
-            public void onChanged(Change<? extends Tour> change) {
-                while (change.next()){
-                    for(Tour tour : change.getAddedSubList()){
-                        try {
-                            creerSpriteTour(tour);
-                        } catch (FileNotFoundException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }
-        };
-        this.partie.getListeTours().addListener(listenerTours);
+        this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
+
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {
@@ -118,22 +108,7 @@ public class Controller implements Initializable {
             creerSprite(m);
     }*/
 
-    public void creerSpriteTour (Tour tour) throws FileNotFoundException {
-//        Rectangle r = new Rectangle();
-//        r.translateXProperty().bind(tour.XProperty());
-//        r.translateYProperty().bind(tour.YProperty());
-//        r.setWidth(5);
-//        r.setHeight(10);
-//        r.setFill(Color.VIOLET);
 
-        Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/foudre.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.translateXProperty().bind(tour.XProperty());
-        imageView.translateYProperty().bind(tour.YProperty());
-        imageView.setId(tour.getId());
-
-        panneauDeJeu.getChildren().add(imageView);
-    }
     @FXML
     public void cliquerTour (MouseEvent eventSouris){
         System.out.println("OK apuyer");

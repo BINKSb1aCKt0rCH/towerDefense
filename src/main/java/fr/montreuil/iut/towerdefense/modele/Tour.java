@@ -5,7 +5,7 @@ package fr.montreuil.iut.towerdefense.modele;
         import javafx.beans.property.SimpleDoubleProperty;
         import javafx.beans.property.SimpleIntegerProperty;
 
-public class Tour {
+public abstract class Tour {
 
     private int cout;
     private String element;

@@ -10,9 +10,7 @@ public class Partie {
     MapModele mapModele;
     private int width,height;
     private int berrys  = 75;
-
     private ObservableList<Tour> listeTours;
-
     private ObservableList<Monstre> monstres;
 
     public Partie(int width,int height){
@@ -26,9 +24,19 @@ public class Partie {
     public void ajouter(Monstre m){
         monstres.add(m);
     }
+
+    public void ajouterTour (Tour t){
+        listeTours.add(t);
+    }
+
     public ObservableList<Monstre> getMonstres(){
         return monstres;
     }
+
+    public ObservableList<Tour> getListeTours() {
+        return listeTours;
+    }
+
     public boolean dansTerrain(int x, int y){return x < 5 && y <9 && x >0 && y>0;}
 
     public void unTour(int temps){
@@ -55,17 +63,10 @@ public class Partie {
         return 0;
     }
 
-
-    public void ajouterTour (Tour t){
-        listeTours.add(t);
-    }
-
     public void ajouterPositionTour (double x, double y, MapModele mapModele){
         listeTours.add(new TourElectro(x,y,mapModele));
     }
-    public ObservableList<Tour> getListeTours() {
-        return listeTours;
-    }
+
 
     public MapModele getMapModele (){
         return this.mapModele;
