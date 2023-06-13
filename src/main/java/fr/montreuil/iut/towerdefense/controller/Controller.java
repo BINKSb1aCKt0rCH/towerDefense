@@ -49,8 +49,6 @@ public class Controller implements Initializable {
     @FXML
     private Label nbmonstresTues;
     @FXML
-    private Label tempsSurvie;
-    @FXML
     private Label tempsSurvie1;
     @FXML
     private ImageView tourElectro;
@@ -67,7 +65,8 @@ public class Controller implements Initializable {
         tuile.setPrefRows(10);
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
-        this.mapModele = new MapModele();
+        this.partie = new Partie();
+        this.mapModele = partie.getMapModele();
         this.mapVue = new MapVue();
         //affiche la map composée de tuiles
         try {
@@ -75,12 +74,12 @@ public class Controller implements Initializable {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        this.partie = new Partie();
         initAnimation();
         this.monstre = new Monstre(350,5,"Slime");
-        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
+        //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
         ListChangeListener<Tour> listenerTours = new ListChangeListener<Tour>() {
             @Override
             public void onChanged(Change<? extends Tour> change) {
@@ -102,20 +101,6 @@ public class Controller implements Initializable {
         gameLoop.play();
     }
 
-    //
-   /* void creerSprite(Monstre m){
-        Circle c = new Circle(5);
-        c.setFill(Color.BLUEVIOLET);
-        c.translateXProperty().bind(m.PositionXProperty());
-        c.translateYProperty().bind(m.PositionYProperty());
-        panneauDeJeu.getChildren().add(c);
-    }
-
-    void ajouter(Monstre m){
-            partie.ajouter(m);
-            creerSprite(m);
-    }*/
-
     public void creerSpriteTour (Tour tour) throws FileNotFoundException {
 //        Rectangle r = new Rectangle();
 //        r.translateXProperty().bind(tour.XProperty());
@@ -129,7 +114,6 @@ public class Controller implements Initializable {
         imageView.translateXProperty().bind(tour.XProperty());
         imageView.translateYProperty().bind(tour.YProperty());
         imageView.setId(tour.getId());
-
         panneauDeJeu.getChildren().add(imageView);
     }
     @FXML
@@ -149,7 +133,7 @@ public class Controller implements Initializable {
             System.out.println("enter");
             //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
             if (partie.getMapModele().getTile((int)((y - panneauDeJeu.getLayoutY())/32), (int)((x - panneauDeJeu.getLayoutX())/32)) == 2 && autorisationPlacement){
-                this.partie.ajouterPositionTour(x- panneauDeJeu.getLayoutX(),y- panneauDeJeu.getLayoutY(), mapModele);
+                this.partie.ajouterPositionTour((int) (x- panneauDeJeu.getLayoutX()), (int) (y- panneauDeJeu.getLayoutY()), mapModele);
                 autorisationPlacement = false;
             }
         }
