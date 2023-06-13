@@ -4,6 +4,8 @@ import fr.montreuil.iut.towerdefense.vue.MonstreVue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
 
+import java.io.FileNotFoundException;
+
 public class ObservateurMonstre implements ListChangeListener<Monstre> {
     private Pane panneauDeJeu;
     private MonstreVue monstreVue;
@@ -16,7 +18,11 @@ public class ObservateurMonstre implements ListChangeListener<Monstre> {
     public void onChanged(javafx.collections.ListChangeListener.Change<? extends Monstre> m){
         while (m.next()){
             for(Monstre nouveau: m.getAddedSubList()){
-                monstreVue.creerSprite(nouveau);
+                try {
+                    monstreVue.creerSprite(nouveau);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
             for(Monstre mort:m.getRemoved()){
                 monstreVue.retirerSprite(mort);

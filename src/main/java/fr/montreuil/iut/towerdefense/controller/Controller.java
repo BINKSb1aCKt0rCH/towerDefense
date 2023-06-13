@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +40,10 @@ public class Controller implements Initializable {
     @FXML
     private Button commencerPartie;
     @FXML
+    private Label berrys;
+    @FXML
+    private Label tempsSurvie;
+    @FXML
     private BorderPane borderPane;
     private Tour tour;
     private boolean autorisationPlacement = false;
@@ -59,15 +64,15 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
-        System.out.println("Début");
         tuile = new TilePane();
         tuile.setPrefRows(10);
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
+        this.mapModele = new MapModele();
         this.partie = new Partie(500,500);
         this.mapModele = partie.getMapModele();
         this.mapVue = new MapVue();
-
+        //affiche la map composée de tuiles
         try {
             mapVue.afficherMap2D(mapModele,tuile);
         } catch (FileNotFoundException e) {
@@ -80,18 +85,16 @@ public class Controller implements Initializable {
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
 
+        this.berrys.textProperty().bind(partie.berrysProperty().asString());
+        this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
+
+        this.partie.getListeTours().addListener(listenerTours);
+        this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
+
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {
         gameLoop.play();
-        commencerPartie.setText("Pause");
-        /*if(commencerPartie.getText().equals("Pause") ){
-            System.out.println("Click sur Pause");
-            gameLoop.pause();
-            commencerPartie.setText("Reprendre");
-        } else if (commencerPartie.getText().equals("Reprendre")) {
-            gameLoop.wait();
-        }*/
     }
 
     //
@@ -144,11 +147,10 @@ public class Controller implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
-                Duration.seconds(0.017),
+                Duration.seconds(0.1),
                 // on définit ce qui se passe à chaque frame 
                 // c'est un eventHandler d'ou le lambda
                 (ev ->{
-
                     this.partie.unTour(temps);
                     temps++;
                 })
