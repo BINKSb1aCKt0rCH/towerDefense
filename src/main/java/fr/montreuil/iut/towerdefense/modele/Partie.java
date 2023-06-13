@@ -57,7 +57,8 @@ public class Partie {
                 }
                 else if (monstres.get(i)instanceof Zodd) {
                     setBerrys(getBerrys()+15);
-                } else if (monstres.get(i)instanceof Kaido) {
+                }
+                else if (monstres.get(i)instanceof Kaido) {
                     setBerrys(getBerrys()+45);
                 }
             }
@@ -71,8 +72,24 @@ public class Partie {
         return tempsSurvie;
     }
     public int getTempsSurvie(){return tempsSurvie.getValue();}
-    public void vagueMonstres(int temps){
+    /*
+    au debut faire ppop 2ennemis puis
+    si il n'ya a palus d'ennemis attendre et en faire pop d'autres
+     */
 
+    public void vagueMonstres1(int temps){
+            if (temps%20 == 0){
+                Slime s  =  new Slime();
+                ajouter(s);
+            }
+    }
+    public void vagueMonstres(int temps){
+            if (getTempsSurvie() < 40){
+                vagueMonstres1(temps);
+            }
+    }
+    public MapModele getMapModele(){
+        return mapModele;
     }
     public void unTour(int temps){
         setTempsSurvie(temps/10);
@@ -95,19 +112,10 @@ public class Partie {
 
 
 
-    public void ajouterTour (Tour t){
-        listeTours.add(t);
-    }
 
     public void ajouterPositionTour (double x, double y, MapModele mapModele){
         listeTours.add(new TourElectro(x,y,mapModele));
     }
-    public ObservableList<Tour> getListeTours() {
-        return listeTours;
-    }
 
 
-    public MapModele getMapModele (){
-        return this.mapModele;
-    }
 }

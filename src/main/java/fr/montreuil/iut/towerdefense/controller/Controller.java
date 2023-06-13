@@ -50,8 +50,6 @@ public class Controller implements Initializable {
     @FXML
     private Label nbmonstresTues;
     @FXML
-    private Label tempsSurvie;
-    @FXML
     private Label tempsSurvie1;
     @FXML
     private ImageView tourElectro;
@@ -68,8 +66,7 @@ public class Controller implements Initializable {
         tuile.setPrefRows(10);
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
-        this.mapModele = new MapModele();
-        this.partie = new Partie(500,500);
+        this.partie = new Partie();
         this.mapModele = partie.getMapModele();
         this.mapVue = new MapVue();
         //affiche la map composée de tuiles
@@ -78,8 +75,9 @@ public class Controller implements Initializable {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         initAnimation();
+        this.monstre = new Monstre(350,5,"Slime");
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.monstre = new Slime();
 
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
@@ -130,7 +128,7 @@ public class Controller implements Initializable {
             System.out.println("enter");
             //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
             if (partie.getMapModele().getTile((int)((y - panneauDeJeu.getLayoutY())/32), (int)((x - panneauDeJeu.getLayoutX())/32)) == 2 && autorisationPlacement){
-                this.partie.ajouterPositionTour(x- panneauDeJeu.getLayoutX(),y- panneauDeJeu.getLayoutY(), mapModele);
+                this.partie.ajouterPositionTour((int) (x- panneauDeJeu.getLayoutX()), (int) (y- panneauDeJeu.getLayoutY()), mapModele);
                 autorisationPlacement = false;
             }
         }
