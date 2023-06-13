@@ -80,6 +80,7 @@ public class Controller implements Initializable {
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
+        gameLoop.play();
         ListChangeListener<Tour> listenerTours = new ListChangeListener<Tour>() {
             @Override
             public void onChanged(Change<? extends Tour> change) {
@@ -98,7 +99,7 @@ public class Controller implements Initializable {
     }
     @FXML
     void commencerPartie(ActionEvent event) throws InterruptedException {
-        gameLoop.play();
+        //gameLoop.play();
     }
 
     public void creerSpriteTour (Tour tour) throws FileNotFoundException {
