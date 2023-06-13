@@ -17,7 +17,7 @@ public class Monstre {
         this.nom =nom;
         this.positionXProperty = new SimpleIntegerProperty(1);
         this.positionYProperty = new SimpleIntegerProperty(1);
-        this.partie = new Partie(500,500);
+        this.partie = new Partie();
         this.mapModele = new MapModele();
     }
     public int getPositionX(){return this.positionXProperty.getValue();}
@@ -34,13 +34,13 @@ public class Monstre {
     public IntegerProperty PositionYProperty(){
         return this.positionYProperty;
     }
-    public boolean estMort(Monstre m){
-        return pv <0;
+    public boolean estMort(){
+        return this.pv <= 0;
     }
 
     public void bouge(){
-            setX(getPositionX() +5);
-            setY(getPositionY()+ 5);
+            setX(getPositionX() +3);
+            setY(getPositionY()+ 3);
     }
 
 }

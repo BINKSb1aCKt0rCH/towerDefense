@@ -33,9 +33,7 @@ public class MenuController implements Initializable {
         System.out.println("Click sur PLAY");
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Lore.fxml"));
         root = fxmlLoader.load();
-     /*   stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();*/
+        Main.stg.setTitle("Lore!");
         Main.stg.setScene(new Scene(root));
         Main.stg.show();
     }

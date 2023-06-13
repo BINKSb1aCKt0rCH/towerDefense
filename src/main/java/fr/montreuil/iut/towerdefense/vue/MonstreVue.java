@@ -3,10 +3,14 @@ package fr.montreuil.iut.towerdefense.vue;
 import fr.montreuil.iut.towerdefense.modele.Monstre;
 import fr.montreuil.iut.towerdefense.modele.Slime;
 import fr.montreuil.iut.towerdefense.modele.Zodd;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class MonstreVue {
     
     private Pane panneauDeJeu;
@@ -14,26 +18,28 @@ public class MonstreVue {
     public MonstreVue(Pane pane){
         this.panneauDeJeu = pane;
     }
-    public void creerSprite(Monstre m){
+    public void creerSprite(Monstre m) throws FileNotFoundException {
         if(m instanceof Slime){
-            Circle c = new Circle(5);
-            c.setFill(Color.BLUE);
-            c.translateXProperty().bind(m.PositionXProperty());
-            c.translateYProperty().bind(m.PositionYProperty());
-            panneauDeJeu.getChildren().add(c);
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/slime.png"));
+            ImageView image1Bis = new ImageView(image);
+            image1Bis.translateXProperty().bind(m.PositionXProperty());
+            image1Bis.translateYProperty().bind(m.PositionYProperty());
+            panneauDeJeu.getChildren().add(image1Bis);
         } else if (m instanceof Zodd) {
-            Polygon p = new Polygon(5,5,5);
-            p.setFill(Color.BLACK);
-            p.translateXProperty().bind(m.PositionXProperty());
-            p.translateYProperty().bind(m.PositionYProperty());
-            panneauDeJeu.getChildren().add(p);
+
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/zodd.png"));
+            ImageView image1Bis = new ImageView(image);
+            image1Bis.translateXProperty().bind(m.PositionXProperty());
+            image1Bis.translateYProperty().bind(m.PositionYProperty());
+            panneauDeJeu.getChildren().add(image1Bis);
         }
         else {
-            Polygon k = new Polygon(8,8,8,8,8);
-            k.setFill(Color.GOLD);
-            k.translateXProperty().bind(m.PositionXProperty());
-            k.translateYProperty().bind(m.PositionYProperty());
-            panneauDeJeu.getChildren().add(k);
+
+            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/kaido.jpg"));
+            ImageView image1Bis = new ImageView(image);
+            image1Bis.translateXProperty().bind(m.PositionXProperty());
+            image1Bis.translateYProperty().bind(m.PositionYProperty());
+            panneauDeJeu.getChildren().add(image1Bis);
         }
     }
     public void retirerSprite(Monstre m){

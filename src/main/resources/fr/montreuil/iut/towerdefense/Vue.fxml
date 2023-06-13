@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="jeu" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #9ACD32;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
+<BorderPane fx:id="borderPane" onMouseClicked="#placerTour" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #9ACD32;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
 <top>
-   <Label prefHeight="52.0" prefWidth="217.0" text="Tower Defense">
+   <Label prefHeight="52.0" prefWidth="217.0" text="SAUVE ARRASSIA">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font></Label>
@@ -20,7 +20,7 @@
          </BorderPane.margin></Pane>
    </left>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="86.0" prefWidth="801.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="100.0" prefWidth="150.0" text="Temps de survie :">
                <font>
@@ -32,7 +32,10 @@
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="100.0" prefWidth="217.0" text="Temps avant la prochaine vague :" />
+            <Label prefHeight="100.0" prefWidth="217.0" text="Temps avant la prochaine vague :">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <Label fx:id="tempsSurvie1" prefHeight="100.0" prefWidth="92.0" text="0.0" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -56,14 +59,13 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button fx:id="ajoutTour" mnemonicParsing="false" prefHeight="25.0" prefWidth="185.0" text="ajouter une tour" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #fea347;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="48.0" prefWidth="84.0">
                <children>
@@ -117,8 +119,8 @@
                         <Image url="@tour feu.png" />
                      </image>
                   </ImageView>
-                  <Label text="       " />
-                  <ImageView fx:id="tourElectro" fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                  <Label text="test" />
+                  <ImageView fx:id="tourElectro" fitHeight="108.0" fitWidth="110.0" onMouseClicked="#cliquerTour" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@foudre.png" />
                      </image>
@@ -138,7 +140,7 @@
                         <Font name="System Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="66.0" prefWidth="171.0" text="0.0">
+                  <Label fx:id="berrys" alignment="CENTER" prefHeight="66.0" prefWidth="171.0" text="0.0">
                      <font>
                         <Font name="System Bold Italic" size="24.0" />
                      </font>

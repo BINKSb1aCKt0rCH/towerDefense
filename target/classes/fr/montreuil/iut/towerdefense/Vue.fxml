@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="jeu" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #9ACD32;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
+<BorderPane fx:id="jeu" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
 <top>
-   <Label prefHeight="52.0" prefWidth="217.0" text="Tower Defense">
+   <Label prefHeight="52.0" prefWidth="217.0" text="SAUVE ARRASSIA">
          <font>
             <Font name="System Bold Italic" size="24.0" />
          </font></Label>
@@ -20,7 +28,7 @@
          </BorderPane.margin></Pane>
    </left>
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="86.0" prefWidth="801.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="100.0" prefWidth="150.0" text="Temps de survie :">
                <font>
@@ -32,7 +40,10 @@
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="100.0" prefWidth="217.0" text="Temps avant la prochaine vague :" />
+            <Label prefHeight="100.0" prefWidth="217.0" text="Temps avant la prochaine vague :">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
             <Label fx:id="tempsSurvie1" prefHeight="100.0" prefWidth="92.0" text="0.0" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
@@ -48,7 +59,7 @@
                 <RowConstraints maxHeight="26.0" minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="commencerPartie" mnemonicParsing="false" onAction="#commencerPartie" prefHeight="39.0" prefWidth="144.0" text="Commencer">
+                  <Button fx:id="commencerPartie" mnemonicParsing="false" onAction="#commencerPartie" prefHeight="39.0" prefWidth="144.0" style="-fx-background-color: #a7e0e0;" text="Commencer">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -56,14 +67,13 @@
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button fx:id="ajoutTour" mnemonicParsing="false" prefHeight="25.0" prefWidth="185.0" text="ajouter une tour" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #fea347;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="48.0" prefWidth="84.0">
                <children>
@@ -138,7 +148,7 @@
                         <Font name="System Bold Italic" size="16.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="66.0" prefWidth="171.0" text="0.0">
+                  <Label fx:id="berrys" alignment="CENTER" prefHeight="66.0" prefWidth="171.0" text="0.0">
                      <font>
                         <Font name="System Bold Italic" size="24.0" />
                      </font>
