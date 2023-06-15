@@ -11,7 +11,7 @@
    <top>
       <Label alignment="CENTER" prefHeight="64.0" prefWidth="264.0" text="TOWER DEFENSE" textFill="#d7d4d4" BorderPane.alignment="CENTER">
          <font>
-            <Font name="Imprint MT Shadow" size="26.0" />
+            <Font name="System Bold Italic" size="26.0" />
          </font>
       </Label>
    </top>

@@ -12,7 +12,7 @@
    <top>
       <Label alignment="CENTER" prefHeight="88.0" prefWidth="399.0" text="Royaume d'ARRASSIA" textFill="#e8e8e8" BorderPane.alignment="CENTER">
          <font>
-            <Font name="Imprint MT Shadow" size="27.0" />
+            <Font name="System Bold Italic" size="27.0" />
          </font>
       </Label>
    </top>
@@ -36,7 +36,7 @@
             </Label>
             <Label prefHeight="30.0" prefWidth="676.0" text=" les slimes, les zodds et les kaidos. Ces créatures attaquent le royaume pour satisfaire leurs désirs destructeurs.">
                <font>
-                  <Font name="Imprint MT Shadow" size="13.5" />
+                  <Font name="System Italic" size="13.5" />
                </font>
             </Label>
             <Label prefHeight="30.0" prefWidth="673.0" text="En réponse, Arrassia a érigé des tours élémentaires pour se défendre.  Les tours de terre ont une forte vitesse d'ATK,">
@@ -51,7 +51,7 @@
             </Label>
             <Label prefHeight="30.0" prefWidth="673.0" text="les tours electro les plus redoutables attaquent plusieurs ennemis et leurs infligent de gros dégats.">
                <font>
-                  <Font name="Imprint MT Shadow" size="13.5" />
+                  <Font name="System Italic" size="13.5" />
                </font>
             </Label>
             <HBox prefHeight="50.0" prefWidth="574.0">
