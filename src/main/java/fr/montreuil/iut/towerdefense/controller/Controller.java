@@ -51,13 +51,7 @@ public class Controller implements Initializable {
     @FXML
     private Label tempsSurvie1;
     @FXML
-    private ImageView tourElectro;
-    @FXML
-    private ImageView tourFeu;
-    @FXML
-    private ImageView tourGlace;
-    @FXML
-    private ImageView tourTerre;
+    private Label vies;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -79,6 +73,7 @@ public class Controller implements Initializable {
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
+        this.vies.textProperty().bind(partie.vies);
         ListChangeListener<Tour> listenerTours = new ListChangeListener<Tour>() {
             @Override
             public void onChanged(Change<? extends Tour> change) {
