@@ -74,7 +74,7 @@
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="426.0" prefWidth="242.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="48.0" prefWidth="84.0">
                <children>
@@ -130,8 +130,7 @@
                   <Label alignment="CENTER" prefHeight="34.0" prefWidth="136.0" text="GEO">
                      <HBox.margin>
                         <Insets right="10.0" />
-                     </HBox.margin>
-                  </Label>
+                     </HBox.margin></Label>
                   <Label alignment="CENTER" prefHeight="34.0" prefWidth="134.0" text="CRYO" />
                </children>
             </HBox>
@@ -166,8 +165,7 @@
                   <Label alignment="CENTER" prefHeight="32.0" prefWidth="129.0" text="ELECTRO">
                      <HBox.margin>
                         <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
+                     </HBox.margin></Label>
                </children>
             </HBox>
             <HBox prefHeight="67.0" prefWidth="230.0">

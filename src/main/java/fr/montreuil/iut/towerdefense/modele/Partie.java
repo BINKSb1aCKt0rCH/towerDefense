@@ -98,17 +98,8 @@ public class Partie {
         Zodd z = new Zodd();
         ajouter(z);
     }
-    public void apparitionKaido(){
-        Kaido k = new Kaido();
-        ajouter(k);
-    }
 
-    public void vagueMonstres1(int temps){
-            if (temps%20 == 0){
-                Slime s  =  new Slime();
-                ajouter(s);
-            }
-    }
+
     public void apparitionKaido(){
         Kaido k = new Kaido();
         ajouter(k);

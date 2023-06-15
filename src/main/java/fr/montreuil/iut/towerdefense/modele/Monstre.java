@@ -134,9 +134,8 @@ public abstract class Monstre {
         this.listePositions = listePos; // Met à jour la liste des positions du monstre
         System.out.println(listePositions);
     }
-/*
-    public int getPositionX(){return this.positionXProperty.getValue();}
-    public int getPositionY(){return this.positionYProperty.getValue();}
+
+
     public void setX(int x){
         positionXProperty.setValue(x);
     }
@@ -149,7 +148,7 @@ public abstract class Monstre {
     public IntegerProperty getYProperty(){
         return this.positionYProperty;
     }
- */
+
 
     public boolean estMort(){
         return this.pv <= 0;
