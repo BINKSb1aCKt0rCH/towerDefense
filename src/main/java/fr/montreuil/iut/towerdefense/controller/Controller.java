@@ -118,7 +118,7 @@ public class Controller implements Initializable {
     }
     @FXML
     public void cliquerTour (MouseEvent eventSouris){
-        System.out.println("OK apuyer");
+        System.out.println("OK appuyer");
         this.autorisationPlacement = true;
     }
 
@@ -161,18 +161,19 @@ public class Controller implements Initializable {
         gameLoop.getKeyFrames().add(kf);
     }
 
+    /*
     public Projectile conversionProjectile(Tour tour){
 
         Projectile p = new Projectile();
 
-        /*
+
         if(){
 
         }else if(){
 
         }
         return p;
-
-         */
     }
+
+     */
 }

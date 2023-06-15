@@ -5,6 +5,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+import java.util.ArrayList;
+
 public class Tour {
 
     private int cout;
@@ -12,6 +14,8 @@ public class Tour {
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
+
+    private ArrayList<Projectile> projectiles;
 
     private static int compteur =0;
     public Tour(int cout, String couleur, double x, double y, MapModele mapModele){
@@ -22,6 +26,7 @@ public class Tour {
         this.mapModele = mapModele;
         compteur++;
         this.id = "T"+compteur;
+        this.projectiles = new ArrayList<>();
     }
 
     public String getId (){
@@ -53,6 +58,16 @@ public class Tour {
 
     public int getCout (){
         return this.cout;
+    }
+
+    public ArrayList<Projectile> getProjectiles(){
+
+        return projectiles;
+    }
+
+    public void ajouterProjectile(Projectile p){
+
+        projectiles.add(p);
     }
 
     public String toString (){

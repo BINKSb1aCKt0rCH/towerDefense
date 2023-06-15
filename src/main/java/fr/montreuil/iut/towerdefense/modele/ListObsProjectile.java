@@ -23,7 +23,9 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
                     projectileVue.créerSprite(a);
                 }
             }else if(change.wasRemoved()){
-
+                for(Projectile a : change.getRemoved()) {
+                    //panneauJeu.getChildren().remove(panneauJeu.lookup(a.getId()));
+                }
             }
 
         }

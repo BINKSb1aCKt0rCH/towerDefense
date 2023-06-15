@@ -19,8 +19,11 @@ public class Projectile {
     //private Tour tour;
     private IntegerProperty xProperty, yProperty;
     private ArrayList<Projectile> projectiles;
+    private ArrayList<Projectile> monstres;
+
 
     private Target target;
+    private String id;
 
     //Connaitre la position de l'ennemi;
 
@@ -39,6 +42,7 @@ public class Projectile {
         //this.partie = new Partie();
         //this.mapModele = new MapModele();
         this.projectiles= new ArrayList<>();
+        this.monstres= new ArrayList<>();
     }
 
     public int getPositionX(){return this.xProperty.getValue();}
@@ -55,6 +59,8 @@ public class Projectile {
     public IntegerProperty yProperty(){
         return this.yProperty;
     }
+    public String getId (){ return this.id; }
+
 
     public void seDeplace() {
         setX(getPositionX() + 3);
@@ -66,20 +72,29 @@ public class Projectile {
         return this.xProperty;
     }
 
-    public final int getValue(){
+    public final int getxValue(){ return this.xProperty.getValue();}
 
-        return this.xProperty.getValue();
-
-    }
-
-
+    public final int getyValue(){ return this.yProperty.getValue();}
     public final IntegerProperty getyProperty() {
 
         return this.yProperty;
     }
 
+    public void collision(Monstre m, Projectile p){
+
+        if(getxValue()== m.getPositionX() && getyValue()== m.getPositionY()){
+            monstres.remove(m);
+            projectiles.remove(p);
+        }
+
+
+    }
+
+    /*
     public String getId(){
 
         return this.id;
     }
+
+     */
 }

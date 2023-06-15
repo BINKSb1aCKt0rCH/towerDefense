@@ -7,7 +7,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.node;
+//import javafx.scene.node;
 
 public class ProjectileVue {
 
@@ -19,7 +19,7 @@ public class ProjectileVue {
     public void créerSprite(Projectile projectiles) {
 
         Circle cercle = new Circle(10);
-        cercle .setId(projectiles.getId());
+        //cercle .setId(projectiles.getId());
         cercle.translateXProperty().bind(projectiles.getxProperty());
         cercle.translateYProperty().bind(projectiles.getyProperty());
 
@@ -29,7 +29,10 @@ public class ProjectileVue {
 
         l.setBackground(Background.fill(Color.CORNFLOWERBLUE));
 
-        if(projectiles instanceof TourElectro){
+
+
+/*
+        if(projectiles instanceof Tour){
             cercle.setFill(Color.PURPLE);
         }else if(projectiles instanceof TourPyro){
             cercle.setFill(Color.ORANGE);
@@ -40,6 +43,12 @@ public class ProjectileVue {
         }
         this.panneauJeu.getChildren().add(cercle);
         this.panneauJeu.getChildren().add(l);
+
+ */
+
+
+
+
 
     }
 
