@@ -131,6 +131,8 @@ public abstract class Monstre {
                 xCourant = xCourant - 32; // Met à jour la position X courante
             }
         }
+        setX(xCourant);
+        setY(yCourant);
         this.listePositions = listePos; // Met à jour la liste des positions du monstre
         System.out.println(listePositions);
     }
