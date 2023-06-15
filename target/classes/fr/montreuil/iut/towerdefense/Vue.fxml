@@ -102,7 +102,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="geoBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="geoBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="107.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -111,7 +111,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="cryoBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="cryoBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="108.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -136,7 +136,7 @@
             </HBox>
             <HBox prefHeight="108.0" prefWidth="222.0">
                <children>
-                  <Button fx:id="pyroBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="pyroBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="108.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -145,7 +145,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="electroBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="electroBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                            <image>
