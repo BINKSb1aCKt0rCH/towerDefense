@@ -4,8 +4,6 @@ import fr.montreuil.iut.towerdefense.modele.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,32 +19,32 @@ public class TourVue {
         if (tour instanceof TourElectro) {
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourElectro.jpg"));
             ImageView imageView = new ImageView(image);
-            imageView.translateXProperty().bind(tour.XProperty());
-            imageView.translateYProperty().bind(tour.YProperty());
+            imageView.translateXProperty().bind(tour.getXProperty());
+            imageView.translateYProperty().bind(tour.getYProperty());
             imageView.setId(tour.getId());
             panneauDeJeu.getChildren().add(imageView);
         }
         else if (tour instanceof TourCryo) {
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourGlace.png"));
             ImageView imageView = new ImageView(image);
-            imageView.translateXProperty().bind(tour.XProperty());
-            imageView.translateYProperty().bind(tour.YProperty());
+            imageView.translateXProperty().bind(tour.getXProperty());
+            imageView.translateYProperty().bind(tour.getYProperty());
             imageView.setId(tour.getId());
             panneauDeJeu.getChildren().add(imageView);
         }
         else if (tour instanceof TourPyro) {
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourFeu.jpg"));
             ImageView imageView = new ImageView(image);
-            imageView.translateXProperty().bind(tour.XProperty());
-            imageView.translateYProperty().bind(tour.YProperty());
+            imageView.translateXProperty().bind(tour.getXProperty());
+            imageView.translateYProperty().bind(tour.getYProperty());
             imageView.setId(tour.getId());
             panneauDeJeu.getChildren().add(imageView);
         }
         else {
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/tourTerre.png"));
             ImageView imageView = new ImageView(image);
-            imageView.translateXProperty().bind(tour.XProperty());
-            imageView.translateYProperty().bind(tour.YProperty());
+            imageView.translateXProperty().bind(tour.getXProperty());
+            imageView.translateYProperty().bind(tour.getYProperty());
             imageView.setId(tour.getId());
             panneauDeJeu.getChildren().add(imageView);
         }

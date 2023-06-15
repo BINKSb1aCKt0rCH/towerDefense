@@ -28,10 +28,10 @@ public abstract class Monstre {
     public void setY(int y){
         positionYProperty.setValue(y);
     }
-    public IntegerProperty PositionXProperty(){
+    public IntegerProperty getXProperty(){
         return this.positionXProperty;
     }
-    public IntegerProperty PositionYProperty(){
+    public IntegerProperty getYProperty(){
         return this.positionYProperty;
     }
     public boolean estMort(){

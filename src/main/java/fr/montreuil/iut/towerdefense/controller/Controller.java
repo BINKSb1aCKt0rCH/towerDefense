@@ -2,27 +2,19 @@ package fr.montreuil.iut.towerdefense.controller;
 
 import fr.montreuil.iut.towerdefense.modele.*;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
-import fr.montreuil.iut.towerdefense.vue.TourVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,13 +44,14 @@ public class Controller implements Initializable {
     @FXML
     private Label tempsSurvie1;
     @FXML
-    private Button pyroBoutton;
+    private Button pyroBouton;
     @FXML
-    private Button electroBoutton;
+    private Button electroBouton;
     @FXML
-    private Button terreBoutton;
+    private Button geoBouton;
     @FXML
-    private Button glaceBoutton;
+    private Button cryoBouton;
+    private int choixTour = 0;
 
 
 
@@ -90,20 +83,39 @@ public class Controller implements Initializable {
         gameLoop.play();
     }
 
+    public void DetectionEnnemi (){
+        //if (Math.sqrt(Math.pow(this.XProperty().getValue() - ennemi.XProperty().getValue(), 2) + Math.pow(this.YProperty().getValue() - ennemi.YProperty().getValue(), 2)) <= this.getRayonPerimetreAction())
+        //Le théorème de pythagore pr savoir si les ennemis sont dans le perimetre d'action de la tour
+
+
+
+       // if (this.partie.getListeTours())
+
+
+    }
+
     @FXML
-    //verif que
-    public void cliquerTour (MouseEvent eventSouris){
+    public void cliquerTour() {
+        //débloque la possibilité de poser des tour (peut etre debloquer si cliquer au bonne endroit et assez d'argent pour débloquer)
         this.autorisationPlacement = true;
+
+        //choix pour savoir quel boutton à été selectionner pour dans Partie pouvoir ajouter la bonne tour dans la liste
+        if (this.geoBouton.isArmed())
+            this.choixTour = 1;
+        else if (this.cryoBouton.isArmed())
+            this.choixTour = 2;
+        else if (this.pyroBouton.isArmed())
+            this.choixTour = 3;
+        else
+            this.choixTour = 4;
     }
 
     @FXML
     public void placerTour (MouseEvent eventSouris){
 
+        //obtient les coordonnée de la souris
         double x = eventSouris.getX();
-        double y = eventSouris.getY(); //obtient les coordonnée de la souris
-
-       // int choix = (tourElectro.is)
-//button.isArmed
+        double y = eventSouris.getY();
 
         //vérifie qu'on est bien dans le panneau de jeu
         if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()){
@@ -111,9 +123,10 @@ public class Controller implements Initializable {
             //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
             if (partie.getMapModele().getTile((int)(y/32), (int)((x/32))) == 2 && autorisationPlacement){
 
+                //positionne l'image au centre
                 int positionX =((int)x/32) * 32;
                 int positionY =((int)y/32) * 32;
-                this.partie.ajouterPositionTour(positionX, positionY, mapModele);
+                this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
                 autorisationPlacement = false;
             }
         }

@@ -4,9 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.LinearGradient;
-import java.util.ArrayList;
-import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
@@ -124,10 +121,16 @@ public class Partie {
         }
     }
 
-    public void ajouterPositionTour (double x, double y, MapModele mapModele){ //int choix
-    //if (choix == 1){}
-        listeTours.add(new TourElectro(x,y,mapModele));
+    //ajoute les nouvelles tours dans la liste des tours
+    public void ajouterTourDansListe(double x, double y, MapModele mapModele, int choixTour){
+    if (choixTour == 1)
+        listeTours.add(new TourGeo(x, y, mapModele));
+    else if (choixTour == 2)
+        listeTours.add(new TourCryo(x, y, mapModele));
+    else if (choixTour == 3)
+        listeTours.add(new TourPyro(x, y, mapModele));
+    else
+        listeTours.add(new TourElectro(x, y, mapModele));
     }
-
 
 }

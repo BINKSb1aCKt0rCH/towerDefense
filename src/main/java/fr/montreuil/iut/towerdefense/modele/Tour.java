@@ -1,5 +1,6 @@
 package fr.montreuil.iut.towerdefense.modele;
 
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
@@ -7,14 +8,17 @@ public abstract class Tour {
 
     private int cout;
     private String element;
+    private int perimetre;
     private DoubleProperty x, y ;
     private MapModele mapModele;
+    private Monstre monstre;
     private String id;
 
     private static int compteur =0;
-    public Tour(int cout, String couleur, double x, double y, MapModele mapModele){
+    public Tour(int cout, String element, int perimetre, double x, double y, MapModele mapModele){
         this.cout=cout;
-        this.element = couleur;
+        this.element = element;
+        this.perimetre = perimetre;
         this.x= new SimpleDoubleProperty(x);
         this.y= new SimpleDoubleProperty(y);
         this.mapModele = mapModele;
@@ -26,11 +30,11 @@ public abstract class Tour {
         return this.id;
     }
 
-    public DoubleProperty XProperty (){
+    public DoubleProperty getXProperty(){
         return this.x;
     }
 
-    public DoubleProperty YProperty (){
+    public DoubleProperty getYProperty(){
         return this.y;
     }
 
@@ -51,6 +55,12 @@ public abstract class Tour {
 
     public int getCout (){
         return this.cout;
+    }
+
+    public void detectionEnnemi (){
+        //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <=
+        //périmètre )
+       // Math.sqrt(Math.pow(getXProperty().getValue() - this.monstre.))
     }
 
     public String toString (){
