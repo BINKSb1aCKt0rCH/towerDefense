@@ -1,16 +1,15 @@
 package fr.montreuil.iut.towerdefense.modele;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+        import javafx.beans.property.DoubleProperty;
+        import javafx.beans.property.IntegerProperty;
+        import javafx.beans.property.SimpleDoubleProperty;
+        import javafx.beans.property.SimpleIntegerProperty;
 
-import java.util.ArrayList;
-
-public class Tour {
+public abstract class Tour {
 
     private int cout;
     private String element;
+    private int perimetre;
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
@@ -26,7 +25,6 @@ public class Tour {
         this.mapModele = mapModele;
         compteur++;
         this.id = "T"+compteur;
-        this.projectiles = new ArrayList<>();
     }
 
     public String getId (){
@@ -58,6 +56,13 @@ public class Tour {
 
     public int getCout (){
         return this.cout;
+    }
+
+    public void detectionEnnemi (Monstre monstre){
+        //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
+        if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
+            System.out.println("Ennemis détecter !!");
+        }
     }
 
     public ArrayList<Projectile> getProjectiles(){

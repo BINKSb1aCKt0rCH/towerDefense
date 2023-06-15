@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -51,13 +50,16 @@ public class Controller implements Initializable {
     @FXML
     private Label tempsSurvie1;
     @FXML
-    private ImageView tourElectro;
+    private Button pyroBouton;
     @FXML
-    private ImageView tourFeu;
+    private Button electroBouton;
     @FXML
-    private ImageView tourGlace;
+    private Button geoBouton;
     @FXML
-    private ImageView tourTerre;
+    private Button cryoBouton;
+    private int choixTour = 0;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -75,65 +77,52 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
         initAnimation();
-        this.monstre = new Monstre(350,5,"Slime");
+        this.monstre = new Slime();
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
+        this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
+
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
-        //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
-        ListChangeListener<Tour> listenerTours = new ListChangeListener<Tour>() {
-            @Override
-            public void onChanged(Change<? extends Tour> change) {
-                while (change.next()){
-                    for(Tour tour : change.getAddedSubList()){
-                        try {
-                            creerSpriteTour(tour);
-                        } catch (FileNotFoundException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }
-        };
-        this.partie.getListeTours().addListener(listenerTours);
     }
     @FXML
-    void commencerPartie(ActionEvent event) throws InterruptedException {
+    void commencerPartie(ActionEvent event){
         gameLoop.play();
     }
 
-    public void creerSpriteTour (Tour tour) throws FileNotFoundException {
-//        Rectangle r = new Rectangle();
-//        r.translateXProperty().bind(tour.XProperty());
-//        r.translateYProperty().bind(tour.YProperty());
-//        r.setWidth(5);
-//        r.setHeight(10);
-//        r.setFill(Color.VIOLET);
 
-        Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/foudre.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.translateXProperty().bind(tour.XProperty());
-        imageView.translateYProperty().bind(tour.YProperty());
-        imageView.setId(tour.getId());
-        panneauDeJeu.getChildren().add(imageView);
-    }
     @FXML
-    public void cliquerTour (MouseEvent eventSouris){
-        System.out.println("OK appuyer");
+    public void cliquerTour() {
+        //débloque la possibilité de poser des tour (peut etre debloquer si cliquer au bonne endroit et assez d'argent pour débloquer)
         this.autorisationPlacement = true;
+
+        //choix pour savoir quel boutton à été selectionner pour dans Partie pouvoir ajouter la bonne tour dans la liste
+        if (this.geoBouton.isArmed())
+            this.choixTour = 1;
+        else if (this.cryoBouton.isArmed())
+            this.choixTour = 2;
+        else if (this.pyroBouton.isArmed())
+            this.choixTour = 3;
+        else
+            this.choixTour = 4;
     }
 
     @FXML
     public void placerTour (MouseEvent eventSouris){
-        System.out.println("enter2");
+
+        //obtient les coordonnée de la souris
         double x = eventSouris.getX();
-        double y = eventSouris.getY(); //obtient les coordonnée de la souris
+        double y = eventSouris.getY();
 
         //vérifie qu'on est bien dans le panneau de jeu
-        if (x >= panneauDeJeu.getLayoutX() && x <= panneauDeJeu.getLayoutX() + panneauDeJeu.getWidth() && y >= panneauDeJeu.getLayoutY() && y <= panneauDeJeu.getLayoutY() + panneauDeJeu.getHeight()){
-            System.out.println("enter");
+        if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()){
+
             //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
-            if (partie.getMapModele().getTile((int)((y - panneauDeJeu.getLayoutY())/32), (int)((x - panneauDeJeu.getLayoutX())/32)) == 2 && autorisationPlacement){
-                this.partie.ajouterPositionTour((int) (x- panneauDeJeu.getLayoutX()), (int) (y- panneauDeJeu.getLayoutY()), mapModele);
+            if (partie.getMapModele().getTile((int)(y/32), (int)((x/32))) == 2 && autorisationPlacement){
+
+                //positionne l'image au centre
+                int positionX =((int)x/32) * 32;
+                int positionY =((int)y/32) * 32;
+                this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
                 autorisationPlacement = false;
             }
         }
@@ -144,9 +133,6 @@ public class Controller implements Initializable {
         gameLoop = new Timeline();
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-            /*Monstre m = new Slime();
-            creerSprite(m);
-            ajouter(m);*/
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
@@ -160,20 +146,4 @@ public class Controller implements Initializable {
         );
         gameLoop.getKeyFrames().add(kf);
     }
-
-    /*
-    public Projectile conversionProjectile(Tour tour){
-
-        Projectile p = new Projectile();
-
-
-        if(){
-
-        }else if(){
-
-        }
-        return p;
-    }
-
-     */
 }
