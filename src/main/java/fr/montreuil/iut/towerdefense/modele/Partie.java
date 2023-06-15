@@ -15,6 +15,7 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+    //private Vague vague;
 
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
@@ -22,6 +23,7 @@ public class Partie {
         this.berrys = new SimpleIntegerProperty(75);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
+        //this.vague = new Vague();
 
     }
     public void ajouter(Monstre m){
@@ -72,46 +74,106 @@ public class Partie {
     puis les slimes apparaissent toutes les 1.7s jusqu'à 80s
     */
     //36monstres apparaissent pdt vagueMonstres1
+    public void apparitionSlime(){
+        Slime s = new Slime();
+        ajouter(s);
+    }
+    public void apparitionZodd(){
+        Zodd z = new Zodd();
+        ajouter(z);
+    }
+    public void apparitionKaido(){
+        Kaido k = new Kaido();
+        ajouter(k);
+    }
     public void vagueMonstres1(int temps){
         //Pdt les 30premières secondes 10slimes vont apparaitre
         if (getTempsSurvie() < 30) {
             if (temps % 30 == 0) {
-                Slime s = new Slime();
-                ajouter(s);
+                    apparitionSlime();
             }
         }
-         else if (getTempsSurvie() < 40) {
-                if (temps% 20 == 0){
-                    Slime s = new Slime();
-                    ajouter(s);
-                }
+        else if (getTempsSurvie() < 40) {
+            if (temps% 20 == 0){
+                apparitionSlime();
+            }
         }
-         //pause de 5secondes afin de pouvoir acheter une 2eme tour
+        //pause de 5secondes afin de pouvoir acheter une 2eme tour
         else if (getTempsSurvie() >= 45 &&getTempsSurvie() < 80){
             if (temps%17 == 0){
-                Slime s = new Slime();
-                ajouter(s);
+                apparitionSlime();
                 System.out.println("2eme partie");
             }
         }
     }
     public void vagueMonstres2(int temps) {
-
+        if (getTempsSurvie() < 100) {
+            if (temps % 85 == 0) {
+                apparitionZodd();
+            }
+        }
+        else if (getTempsSurvie() < 120) {
+             if (temps % 100 ==0) {
+                apparitionZodd();
+            }
+        }
+        else if(getTempsSurvie() < 140) {
+            if (temps% 10 ==0 ){
+                apparitionSlime();
+            }
+        }
     }
+    public void vagueMonstres3(int temps){
+        if(getTempsSurvie() < 160){
+            if (temps%150 ==0){
+                apparitionZodd();
+                apparitionSlime();
+            }
+        }
+        //apparition de 2 zodds mais il n'y a qu'un seul Zodd visible
+        else if (getTempsSurvie() <190) {
+            if(temps % 161 ==0){
+                for (int i = 0; i < 2; i++) {
+                  apparitionZodd();
+                }
+            } else if (temps% 175 == 0) {apparitionZodd();}
+        }
+        else if (getTempsSurvie() < 210) {
+            if (temps % 10 == 0){
+                for (int i = 0; i < 5; i++) {
+                    apparitionSlime();
+                }
+            }
+        } else {
+                if (temps% 20 ==0)
+                for (int i = 0; i < 10; i++) {
+                    apparitionSlime();
+                }
+            }
+    }
+    public void vaguesMonstres4(int temps){
+        if (getTempsSurvie() < 270){
+            if (temps % 260 ==0){
+                apparitionKaido();
+            }
+        }
+    }
+
     //méthode permettant la gestion des vagues
-    public void vagueMonstres(int temps){
-            if (getTempsSurvie() < 80){//<40
-                vagueMonstres1(temps);
-                System.out.println("vague1");
-            }
-             else if (getTempsSurvie() < 100) {
-                //vagueMonstres2(temps);
-            }
+    public void vagueMonstres(int temps) {
+        if (getTempsSurvie() < 80) {//<40
+            vagueMonstres1(temps);
+        } else if (getTempsSurvie() < 150) {
+            vagueMonstres2(temps);
+        } else if (getTempsSurvie() < 240) {
+            vagueMonstres3(temps);
+        }
     }
     public MapModele getMapModele(){
         return mapModele;
     }
     public void unTour(int temps){
+        compteurBerrys();
         setTempsSurvie(temps/10);
         vagueMonstres(temps);
         for (int i = 0; i < monstres.size(); i++) {
