@@ -15,6 +15,8 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+    private IntegerProperty vies;
+    //private Vague vague;
     private boolean tourPrésent = false;
 
     public Partie(){
@@ -23,8 +25,12 @@ public class Partie {
         this.berrys = new SimpleIntegerProperty(75);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
-
+        this.vies = new SimpleIntegerProperty(3);
     }
+    public int getVies(){
+        return this.vies.getValue();
+    }
+    //public void setVies(int x)
     public void ajouter(Monstre m){
         monstres.add(m);
     }
@@ -52,11 +58,9 @@ public class Partie {
     public void setBerrys(int b){
         berrys.setValue(b);
     }
-
     public IntegerProperty berrysProperty(){
         return this.berrys;
     }
-
     public IntegerProperty compteurBerrys(){
         for (int i = 0; i < monstres.size(); i++) {
             if (monstres.get(i).estMort()){
@@ -73,23 +77,16 @@ public class Partie {
         }
         return berrys;
     }
-
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
-
     public IntegerProperty tempsSurvie(){
         return tempsSurvie;
     }
-
     public int getTempsSurvie(){return tempsSurvie.getValue();}
 
     //les vagues sont faites en fonction du temps
 
-    /*
-    au debut faire ppop 2ennemis puis
-    si il n'ya a palus d'ennemis attendre et en faire pop d'autres
-     */
     public void apparitionSlime(){
         Slime s = new Slime();
         ajouter(s);
@@ -98,8 +95,6 @@ public class Partie {
         Zodd z = new Zodd();
         ajouter(z);
     }
-
-
     public void apparitionKaido(){
         Kaido k = new Kaido();
         ajouter(k);
@@ -174,9 +169,38 @@ public class Partie {
             if (temps % 260 ==0){
                 apparitionKaido();
             }
+        } else if (getTempsSurvie() < 280) {
+            if (temps % 275 ==0){
+                apparitionKaido();
+            }
         }
     }
-
+    public void vaguesMonstres5(int temps){
+        if (getTempsSurvie() > 300 && getTempsSurvie() < 350){
+            if (temps%10 == 0){
+                for (int i = 0; i < 20; i++) {
+                    apparitionSlime();
+                }
+            } else if (temps% 33 ==0) {
+                apparitionZodd();
+            }
+        } else if (getTempsSurvie() > 355 &&getTempsSurvie() < 410) {
+            if (temps % 50 == 0){
+                for (int i = 0; i < 5; i++) {
+                    apparitionZodd();
+                }
+            }
+        }
+    }
+    public void vaguesMonstres6(int temps){
+        if (getTempsSurvie() < 460){
+            if (temps%100 == 0){
+                apparitionKaido();
+            } else if (temps % 30 ==0) {
+                apparitionZodd();
+            }
+        }
+    }
     //méthode permettant la gestion des vagues
     public void vagueMonstres(int temps) {
         if (getTempsSurvie() < 80) {//<40
@@ -185,9 +209,14 @@ public class Partie {
             vagueMonstres2(temps);
         } else if (getTempsSurvie() < 240) {
             vagueMonstres3(temps);
+        } else if (getTempsSurvie() < 300) {
+            vaguesMonstres4(temps);
+        } else if (getTempsSurvie() < 420) {
+            vaguesMonstres5(temps);
+        } else if (getTempsSurvie() < 460) {
+            vaguesMonstres6(temps);
         }
     }
-
     public MapModele getMapModele(){
         return mapModele;
     }

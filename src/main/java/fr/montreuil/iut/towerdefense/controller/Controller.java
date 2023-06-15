@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,7 +60,8 @@ public class Controller implements Initializable {
     private Button cryoBouton;
     private int choixTour = 0;
 
-
+    @FXML
+    private Label vies;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -77,12 +79,15 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
         initAnimation();
-        this.monstre = new Slime();
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
 
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
+        //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
+
+        this.vies.textProperty().bind(partie.vies.asString());
+        this.partie.getListeTours().addListener(listenerTours);
     }
     @FXML
     void commencerPartie(ActionEvent event){
