@@ -11,7 +11,6 @@ public abstract class Tour {
     private int perimetre;
     private DoubleProperty x, y ;
     private MapModele mapModele;
-    private Monstre monstre;
     private String id;
 
     private static int compteur =0;
@@ -57,10 +56,11 @@ public abstract class Tour {
         return this.cout;
     }
 
-    public void detectionEnnemi (){
-        //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <=
-        //périmètre )
-       // Math.sqrt(Math.pow(getXProperty().getValue() - this.monstre.))
+    public void detectionEnnemi (Monstre monstre){
+        //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
+        if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
+            System.out.println("Ennemis détecter !!");
+        }
     }
 
     public String toString (){

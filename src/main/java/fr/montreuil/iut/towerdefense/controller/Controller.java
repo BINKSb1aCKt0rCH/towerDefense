@@ -150,6 +150,7 @@ public class Controller implements Initializable {
                     this.partie.unTour(temps);
                     temps++;
                 })
+
         );
         gameLoop.getKeyFrames().add(kf);
     }

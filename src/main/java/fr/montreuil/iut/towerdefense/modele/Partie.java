@@ -12,6 +12,7 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+    private boolean tourPrésent = false;
 
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
@@ -119,6 +120,15 @@ public class Partie {
             Monstre a = monstres.get(i);
             a.bouge();
         }
+        tourEstPrésent();
+        if (tourPrésent) {
+            for (int i = 0; i< getListeTours().size(); i++) {
+                for (int j = 0 ; j < this.getMonstres().size(); j++){
+                    getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+                }
+
+            }
+        }
     }
 
     //ajoute les nouvelles tours dans la liste des tours
@@ -131,6 +141,13 @@ public class Partie {
         listeTours.add(new TourPyro(x, y, mapModele));
     else
         listeTours.add(new TourElectro(x, y, mapModele));
+    }
+
+    public void tourEstPrésent (){
+        if (!getListeTours().isEmpty())
+            this.tourPrésent = true;
+        else
+            tourPrésent = false;
     }
 
 }
