@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
-public class Monstre {
+public abstract class Monstre {
     private int pv; // Points de vie du monstre
     private int vitesse; // Vitesse de déplacement du monstre
     private String nom; // Nom du monstre
@@ -134,7 +134,22 @@ public class Monstre {
         this.listePositions = listePos; // Met à jour la liste des positions du monstre
         System.out.println(listePositions);
     }
-
+/*
+    public int getPositionX(){return this.positionXProperty.getValue();}
+    public int getPositionY(){return this.positionYProperty.getValue();}
+    public void setX(int x){
+        positionXProperty.setValue(x);
+    }
+    public void setY(int y){
+        positionYProperty.setValue(y);
+    }
+    public IntegerProperty getXProperty(){
+        return this.positionXProperty;
+    }
+    public IntegerProperty getYProperty(){
+        return this.positionYProperty;
+    }
+ */
 
     public boolean estMort(){
         return this.pv <= 0;
