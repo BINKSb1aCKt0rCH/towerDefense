@@ -75,12 +75,10 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
         initAnimation();
-        this.monstre = new Monstre(350,5,"Slime");
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
-        gameLoop.play();
         ListChangeListener<Tour> listenerTours = new ListChangeListener<Tour>() {
             @Override
             public void onChanged(Change<? extends Tour> change) {
@@ -98,8 +96,8 @@ public class Controller implements Initializable {
         this.partie.getListeTours().addListener(listenerTours);
     }
     @FXML
-    void commencerPartie(ActionEvent event) throws InterruptedException {
-        //gameLoop.play();
+    void commencerPartie(ActionEvent event){
+        gameLoop.play();
     }
 
     public void creerSpriteTour (Tour tour) throws FileNotFoundException {
@@ -145,9 +143,6 @@ public class Controller implements Initializable {
         gameLoop = new Timeline();
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-            /*Monstre m = new Slime();
-            creerSprite(m);
-            ajouter(m);*/
 
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)

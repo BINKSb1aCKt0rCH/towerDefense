@@ -172,10 +172,12 @@ public class Partie {
     public MapModele getMapModele(){
         return mapModele;
     }
+
     public void unTour(int temps){
         compteurBerrys();
         setTempsSurvie(temps/10);
         vagueMonstres(temps);
+
         for (int i = 0; i < monstres.size(); i++) {
             Monstre a = monstres.get(i);
             a.bouge();
