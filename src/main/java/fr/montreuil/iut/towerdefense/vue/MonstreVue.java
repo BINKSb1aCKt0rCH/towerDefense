@@ -22,23 +22,23 @@ public class MonstreVue {
         if(m instanceof Slime){
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/slime.png"));
             ImageView image1Bis = new ImageView(image);
-            image1Bis.translateXProperty().bind(m.PositionXProperty());
-            image1Bis.translateYProperty().bind(m.PositionYProperty());
+            image1Bis.translateXProperty().bind(m.positionXProperty());
+            image1Bis.translateYProperty().bind(m.positionYProperty());
             panneauDeJeu.getChildren().add(image1Bis);
         } else if (m instanceof Zodd) {
 
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/zodd.png"));
             ImageView image1Bis = new ImageView(image);
-            image1Bis.translateXProperty().bind(m.PositionXProperty());
-            image1Bis.translateYProperty().bind(m.PositionYProperty());
+            image1Bis.translateXProperty().bind(m.positionXProperty());
+            image1Bis.translateYProperty().bind(m.positionYProperty());
             panneauDeJeu.getChildren().add(image1Bis);
         }
         else {
 
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/kaido.jpg"));
             ImageView image1Bis = new ImageView(image);
-            image1Bis.translateXProperty().bind(m.PositionXProperty());
-            image1Bis.translateYProperty().bind(m.PositionYProperty());
+            image1Bis.translateXProperty().bind(m.positionXProperty());
+            image1Bis.translateYProperty().bind(m.positionYProperty());
             panneauDeJeu.getChildren().add(image1Bis);
         }
     }

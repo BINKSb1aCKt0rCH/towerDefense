@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPane" onMouseClicked="#placerTour" prefHeight="564.0" prefWidth="798.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
+<BorderPane fx:id="borderPane" onMouseClicked="#placerTour" prefHeight="564.0" prefWidth="808.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
 <top>
    <Label prefHeight="52.0" prefWidth="217.0" text="SAUVE ARRASSIA">
          <font>
@@ -73,7 +65,7 @@
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="426.0" prefWidth="242.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="48.0" prefWidth="84.0">
                <children>
@@ -87,7 +79,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nbmonstresTues" alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="37.0" text="0">
+                  <Label fx:id="nbmonstresTues" alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="51.0" text="0">
                      <font>
                         <Font size="25.0" />
                      </font>

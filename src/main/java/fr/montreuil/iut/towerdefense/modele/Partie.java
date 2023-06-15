@@ -11,17 +11,19 @@ import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
-    private int width,height;
     private IntegerProperty berrys;
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+    //private Vague vague;
+
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
         this.berrys = new SimpleIntegerProperty(75);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
+        //this.vague = new Vague();
 
     }
     public void ajouter(Monstre m){
@@ -62,38 +64,120 @@ public class Partie {
         return tempsSurvie;
     }
     public int getTempsSurvie(){return tempsSurvie.getValue();}
-    /*
-    au debut faire ppop 2ennemis puis
-    si il n'ya a palus d'ennemis attendre et en faire pop d'autres
-     */
 
+    //les vagues sont faites en fonction du temps
+
+    /*
+    la premiere vague de slime jusqu'à 30s les monstres vont apparaitre toutes les 3s
+    jusqu'à 40s les slime vont apparaitre toutes les 2s (légère acceleration du spawn de monstre)
+    puis reprise à 45s afin d'acheter une tour geo
+    puis les slimes apparaissent toutes les 1.7s jusqu'à 80s
+    */
+    //36monstres apparaissent pdt vagueMonstres1
+    public void apparitionSlime(){
+        Slime s = new Slime();
+        ajouter(s);
+    }
+    public void apparitionZodd(){
+        Zodd z = new Zodd();
+        ajouter(z);
+    }
+    public void apparitionKaido(){
+        Kaido k = new Kaido();
+        ajouter(k);
+    }
     public void vagueMonstres1(int temps){
-            if (temps%20 == 0){
-                Slime s  =  new Slime();
-                ajouter(s);
+        //Pdt les 30premières secondes 10slimes vont apparaitre
+        if (getTempsSurvie() < 30) {
+            if (temps % 30 == 0) {
+                    apparitionSlime();
+            }
+        }
+        else if (getTempsSurvie() < 40) {
+            if (temps% 20 == 0){
+                apparitionSlime();
+            }
+        }
+        //pause de 5secondes afin de pouvoir acheter une 2eme tour
+        else if (getTempsSurvie() >= 45 &&getTempsSurvie() < 80){
+            if (temps%17 == 0){
+                apparitionSlime();
+                System.out.println("2eme partie");
+            }
+        }
+    }
+    public void vagueMonstres2(int temps) {
+        if (getTempsSurvie() < 100) {
+            if (temps % 85 == 0) {
+                apparitionZodd();
+            }
+        }
+        else if (getTempsSurvie() < 120) {
+             if (temps % 100 ==0) {
+                apparitionZodd();
+            }
+        }
+        else if(getTempsSurvie() < 140) {
+            if (temps% 10 ==0 ){
+                apparitionSlime();
+            }
+        }
+    }
+    public void vagueMonstres3(int temps){
+        if(getTempsSurvie() < 160){
+            if (temps%150 ==0){
+                apparitionZodd();
+                apparitionSlime();
+            }
+        }
+        //apparition de 2 zodds mais il n'y a qu'un seul Zodd visible
+        else if (getTempsSurvie() <190) {
+            if(temps % 161 ==0){
+                for (int i = 0; i < 2; i++) {
+                  apparitionZodd();
+                }
+            } else if (temps% 175 == 0) {apparitionZodd();}
+        }
+        else if (getTempsSurvie() < 210) {
+            if (temps % 10 == 0){
+                for (int i = 0; i < 5; i++) {
+                    apparitionSlime();
+                }
+            }
+        } else {
+                if (temps% 20 ==0)
+                for (int i = 0; i < 10; i++) {
+                    apparitionSlime();
+                }
             }
     }
-    public void vagueMonstres(int temps){
-            if (getTempsSurvie() < 40){
-                vagueMonstres1(temps);
+    public void vaguesMonstres4(int temps){
+        if (getTempsSurvie() < 270){
+            if (temps % 260 ==0){
+                apparitionKaido();
             }
+        }
+    }
+
+    //méthode permettant la gestion des vagues
+    public void vagueMonstres(int temps) {
+        if (getTempsSurvie() < 80) {//<40
+            vagueMonstres1(temps);
+        } else if (getTempsSurvie() < 150) {
+            vagueMonstres2(temps);
+        } else if (getTempsSurvie() < 240) {
+            vagueMonstres3(temps);
+        }
     }
     public MapModele getMapModele(){
         return mapModele;
     }
+
     public void unTour(int temps){
+        compteurBerrys();
         setTempsSurvie(temps/10);
-        /*if (temps % 10 == 0){
-            Monstre m = new Slime();
-            ajouter(m);
-        }else if (temps % 17 ==0) {
-            Monstre m = new Zodd();
-            ajouter(m);
-        } else if (temps % 29 == 0) {
-            Monstre m = new Kaido();
-            ajouter(m);
-        }*/
         vagueMonstres(temps);
+
         for (int i = 0; i < monstres.size(); i++) {
             Monstre a = monstres.get(i);
             a.bouge();
