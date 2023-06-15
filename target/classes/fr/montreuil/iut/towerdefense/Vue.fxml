@@ -96,7 +96,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="nbmonstresTues" alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="82.0" text="0">
+                  <Label fx:id="nbmonstresTues" alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="51.0" text="0">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -105,15 +105,12 @@
             </HBox>
             <HBox prefHeight="26.0" prefWidth="230.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="232.0" text="LES TOURS">
-                     <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                     </font></Label>
+                  <Label alignment="CENTER" prefHeight="24.0" prefWidth="306.0" text="LES TOURS" textAlignment="CENTER" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="geoBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="geoBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="107.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -122,7 +119,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="cryoBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="cryoBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="108.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -150,7 +147,7 @@
             </HBox>
             <HBox prefHeight="108.0" prefWidth="222.0">
                <children>
-                  <Button fx:id="pyroBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="pyroBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="108.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -159,7 +156,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="electroBouton" mnemonicParsing="false" onAction="#cliquerTour">
+                  <Button fx:id="electroBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
                      <graphic>
                         <ImageView fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                            <image>

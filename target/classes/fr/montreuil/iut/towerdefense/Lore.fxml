@@ -41,12 +41,12 @@
             </Label>
             <Label prefHeight="30.0" prefWidth="673.0" text="En réponse, Arrassia a érigé des tours élémentaires pour se défendre.  Les tours de terre ont une forte vitesse d'ATK,">
                <font>
-                  <Font name="Imprint MT Shadow" size="13.5" />
+                  <Font name="System Italic" size="13.5" />
                </font>
             </Label>
             <Label prefHeight="30.0" prefWidth="674.0" text=" les tours de glace gêlent les monstres durant un court instant , les tours de feu réduisent les monstres en cendres et">
                <font>
-                  <Font name="Imprint MT Shadow" size="13.5" />
+                  <Font name="System Italic" size="13.5" />
                </font>
             </Label>
             <Label prefHeight="30.0" prefWidth="673.0" text="les tours electro les plus redoutables attaquent plusieurs ennemis et leurs infligent de gros dégats.">
