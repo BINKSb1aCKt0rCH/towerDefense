@@ -1,13 +1,14 @@
 package fr.montreuil.iut.towerdefense.modele;
 
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Kaido;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Slime;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Zodd;
+import fr.montreuil.iut.towerdefense.modele.lestours.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.LinearGradient;
-
-import java.util.ArrayList;
-import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
@@ -15,8 +16,9 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
-    private IntegerProperty vies;
+    private IntegerProperty vies; //vies restante
     //private Vague vague;
+    private boolean tourPrésent = false;
     private IntegerProperty score;
     private boolean tourPrésent = false;
     private IntegerProperty cout;
@@ -28,6 +30,7 @@ public class Partie {
         this.berrys = new SimpleIntegerProperty(150);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
+        this.vies = new SimpleIntegerProperty(3);
         this.score = new SimpleIntegerProperty(0);
         this.cout = new SimpleIntegerProperty();
         this.vies = new SimpleIntegerProperty(3);
@@ -94,15 +97,29 @@ public class Partie {
                 else if (monstres.get(i)instanceof Kaido) {
                     setBerrys(getBerrys()+45);
                     setScore(getScore()+100);
+
                 }
             }
         }
     }
-
+    public void perdreVie(Monstre m){
+        System.out.println("methode perdre vie");
+        if (this.mapModele.verificationArrive(m.getPositionX(),m.getPositionY()) && getVies() >0){
+            System.out.println("une vie en moins");
+            setVies(getVies() -1);
+            this.monstres.remove(m);
+        }
+    }
+    public void enleveEnnemiMort(){
+        for (int i = monstres.size()-1; i >= 0 ; i--) {
+            if (this.monstres.get(i).estMort()){
+                this.monstres.remove(i);
+            }
+        }
+    }
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
-
     public IntegerProperty tempsSurvie(){
         return tempsSurvie;
     }
@@ -186,15 +203,20 @@ public class Partie {
         }
         return true;
     }
+    public boolean achaterTour (int choix){
 
+        if (getBerrys() >= coutTour(choix)){
+            achatTour = true;
+        }
+        else{
+            achatTour = false;
+        }
+        return achatTour;
+    }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
     //les vagues sont faites en fonction du temps
 
-    /*
-    au debut faire ppop 2ennemis puis
-    si il n'ya a palus d'ennemis attendre et en faire pop d'autres
-     */
     public void apparitionSlime(){
         Slime s = new Slime();
         ajouter(s);
@@ -203,7 +225,6 @@ public class Partie {
         Zodd z = new Zodd();
         ajouter(z);
     }
-
     public void apparitionKaido(){
         Kaido k = new Kaido();
         ajouter(k);
@@ -340,5 +361,55 @@ public class Partie {
             vaguesMonstres6(temps);
         }
     }
-//-------------------------------------------------------------------------------------------------------------------------------------
+    public MapModele getMapModele(){
+        return mapModele;
+    }
+
+    //Boucle principale
+    public void unTour(int temps){
+        if (getVies() !=0) {
+            compteurScoreBerrys();
+            setTempsSurvie(temps / 10);//permet de nous donner / setle temps
+            vagueMonstres(temps);//appelle des vagues de monstres en fonction du temps
+            enleveEnnemiMort();
+            for (int i = 0; i < monstres.size(); i++) {
+                Monstre a = monstres.get(i);
+                a.bouge();
+                System.out.println("pos X " + a.getPositionX());
+                System.out.println("pos Y " + a.getPositionY());
+                perdreVie(a);
+                //System.out.println("id" +a.getId());
+            }
+            tourEstPrésent();
+            if (tourPrésent) {
+                for (int i = 0; i < getListeTours().size(); i++) {
+                    for (int j = 0; j < this.getMonstres().size(); j++) {
+                        getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+                    }
+                }
+            }
+        }
+        System.out.println("vous avez perdu");
+        enleveEnnemiMort();
+    }
+
+    //ajoute les nouvelles tours dans la liste des tours
+    public void ajouterTourDansListe(double x, double y, MapModele mapModele, int choixTour){
+    if (choixTour == 1)
+        listeTours.add(new TourGeo(x, y, mapModele));
+    else if (choixTour == 2)
+        listeTours.add(new TourCryo(x, y, mapModele));
+    else if (choixTour == 3)
+        listeTours.add(new TourPyro(x, y, mapModele));
+    else
+        listeTours.add(new TourElectro(x, y, mapModele));
+    }
+
+    public void tourEstPrésent (){
+        if (!getListeTours().isEmpty())
+            this.tourPrésent = true;
+        else
+            tourPrésent = false;
+    }
+
 }

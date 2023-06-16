@@ -1,25 +1,27 @@
 package fr.montreuil.iut.towerdefense.modele;
 
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+
 import java.util.ArrayList;
 
 public class MapModele {
-    public int map[][]; // Déclaration d'une variable pour stocker la carte sous forme d'un tableau à deux dimensions
-    private fr.montreuil.iut.towerdefense.modele.Monstre monstre; // Déclaration d'une variable pour stocker un monstre
+    public int map[][];
     private ArrayList<Tuile> tuiles, sommetsParcourus; // Déclaration de deux listes d'objets Tuile et sommetsParcourus
     private ArrayList<String> listeDirection; // Déclaration d'une liste de chaînes de caractères pour stocker les directions
+    private Tuile depart, arrive;
 
     public MapModele() {
         // Initialisation de la carte avec des valeurs initiales
         this.map = new int[][]{
                 {1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-                {1,1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
+                {1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
                 {3, 2, 1, 2, 3, 3, 3, 2, 3, 3, 3, 3, 3, 3, 3},
                 {3, 3, 1, 1, 1, 3, 1, 1, 1, 3, 3, 3, 3, 3, 3},
                 {3, 3, 3, 2, 1, 2, 1, 2, 1, 3, 1, 1, 1, 3, 3},
                 {3, 3, 3, 3, 1, 1, 1, 3, 1, 2, 1, 2, 1, 3, 3},
                 {3, 3, 3, 3, 3, 2, 3, 2, 1, 1, 1, 2, 1, 2, 3},
                 {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3},
-                {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 0, 4, 4},
+                {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 5, 4, 4},
                 {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4},
         };
 
@@ -30,8 +32,45 @@ public class MapModele {
                 this.tuiles.add(new Tuile(j, i)); // Création d'un nouvel objet Tuile et ajout à la liste
             }
         }
+
         this.sommetsParcourus = new ArrayList(); // Initialisation d'une liste pour stocker les sommets parcourus
         this.listeDirection = new ArrayList<>(); // Initialisation d'une liste pour stocker les directions
+        this.setDepart(this.calculerPointDepart());
+        this.setArrive(this.calculerPointArrive());
+    }
+    public int[][]getMap(){
+        return this.map;
+    }
+    public Tuile getDepart(){return  this.depart;}
+    public Tuile getArrive(){return this.arrive;}
+    public void setDepart(Tuile t){this.depart = t;}
+    public void setArrive(Tuile t){this.arrive = t;}
+
+    public Tuile calculerPointDepart(){
+        //on crée une premiere case de depart
+        Tuile t = new Tuile(0,0);
+        //boucle qui permet de connaitre la case de depart
+        for (int i = 0; i < this.getMap().length; i++) {
+            for (int j = 0; j < this.getMap()[i].length; j++) {
+                if (map[i][j]==1){
+                    //inversion i et j pour mettre en relation la position du tableau et la pos sur la map
+                    t = new Tuile(j,i);
+                }
+            }
+        }return t;
+    }
+    public Tuile calculerPointArrive(){
+        //on crée une premiere case de depart
+        Tuile t = new Tuile(0,0);
+        //boucle qui permet de connaitre la case de depart
+        for (int i = 0; i < this.getMap().length; i++) {
+            for (int j = 0; j < this.getMap()[i].length; j++) {
+                if (this.map[i][j]== 5){
+                    //inversion i et j pour mettre en relation la position du tableau et la pos sur la map
+                    t = new Tuile(j,i);
+                }
+            }
+        }return t;
     }
 
     public int[][] getTuileMap() {
@@ -123,5 +162,14 @@ public class MapModele {
     public int getTile (int x, int y){
         return this.map[x][y];
     }
-
+    public boolean verificationArrive(int x,int y){
+        boolean verification = false;
+        System.out.println("posx" + x +"pos y " + y);
+        System.out.println("position case arrive" + arrive.getX() +arrive.gety());
+        if ((x) == arrive.getX()*31+4 && (y) == arrive.gety()*28){
+            System.out.println("est arrivé");
+             verification = true;
+        }
+        return verification;
+    }
 }

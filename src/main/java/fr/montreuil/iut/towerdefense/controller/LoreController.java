@@ -21,6 +21,7 @@ public class LoreController implements Initializable {
     public void initialize(URL url, ResourceBundle ressourceBundle) {
     }
 
+
     @FXML
     void defendre(ActionEvent event) throws IOException {
         System.out.println("Click sur defendre Arrassia");

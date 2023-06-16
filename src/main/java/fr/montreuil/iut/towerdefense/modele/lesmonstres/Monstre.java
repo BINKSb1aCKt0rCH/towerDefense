@@ -1,5 +1,7 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.modele.lesmonstres;
 
+import fr.montreuil.iut.towerdefense.modele.MapModele;
+import fr.montreuil.iut.towerdefense.modele.Partie;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -17,12 +19,15 @@ public abstract class Monstre {
     private fr.montreuil.iut.towerdefense.modele.MapModele mapModele; // Modèle de la carte
     private ArrayList<String> listePositions ; // Liste des positions du monstre
     private int numPos; // Numéro de position courant
-    private  MapModele map;
-
+    private MapModele map;
+    private String id;
+    private static int compteur =0;
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
         this.vitesse = v;
         this.nom = nom;
+        this.id = "m"+compteur; // chaque monstre ont un identifiant different
+        compteur++;
         this.positionXProperty = new SimpleIntegerProperty(16); // Position X initiale du monstre
         this.positionYProperty = new SimpleIntegerProperty(16); // Position Y initiale du monstre
         this.partie = new Partie(); // Instance d'une partie avec une taille de 500x500
@@ -31,21 +36,22 @@ public abstract class Monstre {
         setListePositions(mapModele.getListeDirection());
         this.numPos = 0; // Numéro de position initial
     }
-
+    public int getPv(){return this.pv;}
+    public void setPv(int x){this.pv = x;}
     public int getPositionX() {
-        return this.positionXProperty.get(); // Renvoie la position X du monstre
+        return this.positionXProperty.getValue(); // Renvoie la position X du monstre
     }
 
     public int getPositionY() {
-        return this.positionYProperty.get(); // Renvoie la position Y du monstre
+        return this.positionYProperty.getValue(); // Renvoie la position Y du monstre
     }
 
     public void setPositionX(int x) {
-        this.positionXProperty.set(x); // Définit la position X du monstre
+        this.positionXProperty.setValue(x); // Définit la position X du monstre
     }
 
     public void setPositionY(int y) {
-        this.positionYProperty.set(y); // Définit la position Y du monstre
+        this.positionYProperty.setValue(y); // Définit la position Y du monstre
     }
 
     public IntegerProperty positionXProperty() {
@@ -57,12 +63,6 @@ public abstract class Monstre {
     }
 
     public void bouge() {
-        //this.listePositions.clear();
-        //setListePositions(mapModele.getListeDirection());
-        //System.out.println(listePositions.size() + "aze");
-        //mapModele.setListeDirectionToEmpty();
-        //System.out.println(mapModele.getListeDirection() +  " liste de direction");
-        //System.out.println(listePositions.size() + " liste");
         if (numPos < listePositions.size()) {
             String pos = listePositions.get(numPos);
             setPositionX(Integer.valueOf(pos.split("_")[0])); // Met à jour la position X du monstre avec la valeur extraite de la liste des positions
@@ -71,7 +71,7 @@ public abstract class Monstre {
             for (int i = 0; i < mapModele.getTuileMap().length; i++) {
                 for (int j = 0; j < mapModele.getTuileMap()[i].length; j++) {
                     if (mapModele.getTuileMap()[i][j] == 12 && mapModele.getTuileMap()[i][j] == 6) {
-                        System.out.println("ok");
+                        //System.out.println("ok");
                     }
                 }
             }
@@ -80,15 +80,7 @@ public abstract class Monstre {
 
         }
         this.numPos++; // Incrémente le numéro de position courant
-
-
-
     }
-
-    public void bouge2() {
-
-    }
-
 
     /**W
      * Calcule les coordonnées de la case correspondant à une position donnée en pixels.
@@ -162,8 +154,9 @@ public abstract class Monstre {
     public IntegerProperty getYProperty(){
         return this.positionYProperty;
     }
+    public String getId(){return this.id;}
 
-
+    //vérifie si un ennemi est mort
     public boolean estMort(){
         return this.pv <= 0;
     }

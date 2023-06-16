@@ -1,6 +1,9 @@
 package fr.montreuil.iut.towerdefense.vue;
 
-import fr.montreuil.iut.towerdefense.modele.*;
+import fr.montreuil.iut.towerdefense.modele.lestours.Tour;
+import fr.montreuil.iut.towerdefense.modele.lestours.TourCryo;
+import fr.montreuil.iut.towerdefense.modele.lestours.TourElectro;
+import fr.montreuil.iut.towerdefense.modele.lestours.TourPyro;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
