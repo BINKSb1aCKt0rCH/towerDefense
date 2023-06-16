@@ -30,7 +30,8 @@ public class Partie {
     public int getVies(){
         return this.vies.getValue();
     }
-    //public void setVies(int x)
+    public void setVies(int x){this.vies.setValue(x);}
+    public IntegerProperty viesProperty(){return this.vies;}
     public void ajouter(Monstre m){
         monstres.add(m);
     }
@@ -193,11 +194,25 @@ public class Partie {
         }
     }
     public void vaguesMonstres6(int temps){
-        if (getTempsSurvie() < 460){
+        if (getTempsSurvie() < 440){
             if (temps%100 == 0){
                 apparitionKaido();
             } else if (temps % 30 ==0) {
                 apparitionZodd();
+            }
+        } else if (getTempsSurvie() < 520) {
+            if (temps % 20 == 0 ){
+                for (int i = 0; i < 2; i++) {
+                    apparitionZodd();
+                }
+                for (int i = 0; i < 10; i++) {
+                    apparitionSlime();
+                }
+            }
+            else if (temps% 200 ==0){
+                for (int i = 0; i < 2; i++) {
+                    apparitionKaido();
+                }
             }
         }
     }
@@ -213,7 +228,7 @@ public class Partie {
             vaguesMonstres4(temps);
         } else if (getTempsSurvie() < 420) {
             vaguesMonstres5(temps);
-        } else if (getTempsSurvie() < 460) {
+        } else if (getTempsSurvie() < 530) {
             vaguesMonstres6(temps);
         }
     }

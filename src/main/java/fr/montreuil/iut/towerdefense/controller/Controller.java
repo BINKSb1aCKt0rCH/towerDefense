@@ -86,8 +86,8 @@ public class Controller implements Initializable {
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
 
-        this.vies.textProperty().bind(partie.vies.asString());
-        this.partie.getListeTours().addListener(listenerTours);
+        this.vies.textProperty().bind(partie.viesProperty().asString());
+        //this.partie.getListeTours().addListener(listenerTours);
     }
     @FXML
     void commencerPartie(ActionEvent event){
