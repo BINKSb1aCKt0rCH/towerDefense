@@ -12,6 +12,7 @@ public abstract class Tour {
     private int cout;
     private String element;
     private int perimetre;
+    private int degat;
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
@@ -19,12 +20,13 @@ public abstract class Tour {
     private ArrayList<Monstre> monstres;
 
     private static int compteur =0;
-    public Tour(int cout, String couleur, double x, double y, MapModele mapModele){
+    public Tour(int cout, String couleur, double x, double y, int degat, MapModele mapModele){
         this.cout=cout;
         this.element = couleur;
         this.x= new SimpleDoubleProperty(x);
         this.y= new SimpleDoubleProperty(y);
         this.mapModele = mapModele;
+        this.degat=degat;
         compteur++;
         this.id = "T"+compteur;
         this.projectiles=new ArrayList<>();
@@ -41,6 +43,10 @@ public abstract class Tour {
 
     public DoubleProperty getYProperty (){
         return this.y;
+    }
+
+    public int getDegat(){
+        return this.degat;
     }
 
     public void emplacement(int x, int y){
@@ -91,7 +97,7 @@ public abstract class Tour {
         //detectionEnnemi();
 
     }
-    public ArrayList<Projectile> getProjectiles(){
+    public ArrayList<Projectile> getProjectiles() {
 
         return projectiles;
     }

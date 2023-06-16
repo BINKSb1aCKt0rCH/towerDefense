@@ -15,6 +15,7 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+    private ObservableList<Projectile> projectiles;
     private boolean tourPrésent = false;
 
     public Partie(){
@@ -23,6 +24,7 @@ public class Partie {
         this.berrys = new SimpleIntegerProperty(75);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
+        this.projectiles = FXCollections.observableArrayList();
 
     }
     public void ajouter(Monstre m){
@@ -39,6 +41,9 @@ public class Partie {
 
     public ObservableList<Tour> getListeTours() {
         return listeTours;
+    }
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public boolean dansTerrain(int x, int y){
