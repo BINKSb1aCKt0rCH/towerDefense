@@ -197,6 +197,35 @@ public class Partie {
         return mapModele;
     }
 
+    public void projectilesCollisions(){
+
+        for(int i=0; i < projectiles.size(); i++){
+            for(int j=0; j < monstres.size(); j++){
+                projectiles.get(i).collision(monstres.get(j));
+            }
+            if(projectiles.get(i).getaAttaque()){
+                projectiles.remove(i);
+            }
+        }
+    }
+
+    public void verifierEnnemisMorts(){
+
+        for(int i=0; i < monstres.size(); i++){
+            if(monstres.get(i).getPv() <= 0){
+                monstres.remove(i);
+            }
+        }
+    }
+
+    public void seDeplacer(){
+
+        for(int i=0; i < projectiles.size(); i++){
+            projectiles.get(i).seDeplacer();
+
+        }
+    }
+
     public void unTour(int temps){
         compteurBerrys();
         setTempsSurvie(temps/10);
@@ -214,7 +243,9 @@ public class Partie {
                 }
 
             }
-        }
+        }seDeplacer();
+        projectilesCollisions();
+        verifierEnnemisMorts();
     }
 
     //ajoute les nouvelles tours dans la liste des tours
@@ -235,5 +266,7 @@ public class Partie {
         else
             tourPrésent = false;
     }
+
+
 
 }

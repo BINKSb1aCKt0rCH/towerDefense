@@ -17,6 +17,8 @@ public class Projectile {
     private ArrayList<Projectile> projectiles;
     private ArrayList<Projectile> monstres;
     private String id;
+    private boolean aAttaque;
+    private Monstre monstreCible;
 
     //Connaitre la position de l'ennemi;
 
@@ -30,6 +32,7 @@ public class Projectile {
         this.yProperty= new SimpleIntegerProperty();
         this.projectiles= new ArrayList<>();
         this.monstres= new ArrayList<>();
+        this.aAttaque = false;
     }
 
     public int getPositionX(){ return this.xProperty.getValue(); }
@@ -60,19 +63,42 @@ public class Projectile {
     public final int getxValue(){ return this.xProperty.getValue();}
 
     public final int getyValue(){ return this.yProperty.getValue();}
+    public boolean getaAttaque(){ return this.aAttaque; }
+    public int getVitesseAtk(){ return this.vitesseAtk; }
     public final IntegerProperty getyProperty() {
 
         return this.yProperty;
     }
-
     public void collision(Monstre m){
 
-        if(getxValue()== m.getPositionX() && getyValue()== m.getPositionY()){
-            monstres.remove(m);
+        if (getxValue() - m.getPositionX() < 3 && getyValue() - m.getPositionY() <3) {
+
+            m.decrementerPv(degats);
+            aAttaque=true;
             //this.remove();
+        }
+    }
+
+    public String getId() { return this.id; }
+
+    public void seDeplacer(){
+
+        if(this.monstreCible != null) {
+            //x droite
+            if (this.xProperty().getValue() < this.monstreCible.getXProperty().getValue()) {
+                this.xProperty().setValue(this.xProperty().getValue() + this.getVitesseAtk());
+            } else { // x gauche
+                this.xProperty().setValue(this.xProperty().getValue() - this.vitesseAtk);
+            }
+            //x droite
+
+            if (this.yProperty().getValue() < this.monstreCible.getYProperty().getValue()) {
+                this.yProperty().setValue(this.yProperty().getValue() + this.getVitesseAtk());
+            } else { // x gauche
+                this.yProperty().setValue(this.yProperty().getValue() - this.vitesseAtk);
+            }
         }
 
 
     }
-
 }

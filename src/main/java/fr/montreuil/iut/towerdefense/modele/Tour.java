@@ -20,9 +20,10 @@ public abstract class Tour {
     private ArrayList<Monstre> monstres;
 
     private static int compteur =0;
-    public Tour(int cout, String couleur, double x, double y, int degat, MapModele mapModele){
+    public Tour(int cout, String couleur, int perimetre, double x, double y, int degat, MapModele mapModele){
         this.cout=cout;
         this.element = couleur;
+        this.perimetre=perimetre;
         this.x= new SimpleDoubleProperty(x);
         this.y= new SimpleDoubleProperty(y);
         this.mapModele = mapModele;
@@ -73,29 +74,6 @@ public abstract class Tour {
         if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
             System.out.println("Ennemis détecter !!");
         }
-    }
-
-    public void attaquerEnnemi(Monstre m) {
-        int distance = calculerDistance(m.getPositionX(), m.getPositionY());
-
-        if (distance <= perimetre) {
-            m.estMort();
-            System.out.println("La tour attaque l'ennemi ");
-        } else {
-            System.out.println("L'ennemi est hors de portée.");
-        }
-    }
-
-    private int calculerDistance(double cibleX, double cibleY) {
-        double disX = cibleX - x.getValue();
-        double disY = cibleY - y.getValue();
-        return (int) Math.sqrt(disX * disX + disY * disY);
-    }
-
-    public void update(){
-
-        //detectionEnnemi();
-
     }
     public ArrayList<Projectile> getProjectiles() {
 

@@ -159,10 +159,16 @@ public abstract class Monstre {
     public IntegerProperty getYProperty(){
         return this.positionYProperty;
     }
+    public int getPv(){ return this.pv; }
 
 
     public boolean estMort(){
         return this.pv <= 0;
+    }
+
+    public void decrementerPv(int pvEnleves){
+
+        this.pv = pv - pvEnleves;
     }
 
 }
