@@ -71,7 +71,7 @@ public abstract class Monstre {
             for (int i = 0; i < mapModele.getTuileMap().length; i++) {
                 for (int j = 0; j < mapModele.getTuileMap()[i].length; j++) {
                     if (mapModele.getTuileMap()[i][j] == 12 && mapModele.getTuileMap()[i][j] == 6) {
-                        System.out.println("ok");
+                        //System.out.println("ok");
                     }
                 }
             }
@@ -155,18 +155,10 @@ public abstract class Monstre {
         return this.positionYProperty;
     }
     public String getId(){return this.id;}
-    public boolean estMort(){
-        return this.pv <= 0;
-    }
 
     //vérifie si un ennemi est mort
-    public boolean ennemiMort (){
-        if (this.pv <= 0){
-            System.out.println("ennemi mort");
-            return true;
-        }
-        else
-            return false;
+    public boolean estMort(){
+        return this.pv <= 0;
     }
 
 }

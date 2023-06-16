@@ -29,14 +29,11 @@ public class MonstreVue {
              image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/kaido.jpg"));
         }
         ImageView image1Bis = new ImageView(image);
+        image1Bis.setId(m.getId());
         image1Bis.translateXProperty().bind(m.positionXProperty());
         image1Bis.translateYProperty().bind(m.positionYProperty());
+
         panneauDeJeu.getChildren().add(image1Bis);
     }
-    public void retirerSprite(Monstre m){
-        //if (m.estMort()) {
-         if (m.ennemiMort()== true){
-            this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#" + m.getId()));
-        }
-    }
+
 }

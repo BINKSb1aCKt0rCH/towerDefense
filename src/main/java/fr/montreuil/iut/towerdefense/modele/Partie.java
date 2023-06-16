@@ -87,7 +87,21 @@ public class Partie {
             }
         }
     }
-
+    public void perdreVie(Monstre m){
+        System.out.println("methode perdre vie");
+        if (this.mapModele.verificationArrive(m.getPositionX(),m.getPositionY()) && getVies() >=0){
+            System.out.println("une vie en moins");
+            setVies(getVies() -1);
+            this.monstres.remove(m);
+        }
+    }
+    public void enleveEnnemiMort(){
+        for (int i = monstres.size()-1; i >= 0 ; i--) {
+            if (this.monstres.get(i).estMort()){
+                this.monstres.remove(i);
+            }
+        }
+    }
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
@@ -228,6 +242,12 @@ public class Partie {
     }
     //méthode permettant la gestion des vagues
     public void vagueMonstres(int temps) {
+        if (getTempsSurvie() < 41){
+            if (temps % 4000 == 0)
+            for (int i = 0; i < 1; i++) {
+                apparitionSlime();
+            }
+        }
         if (getTempsSurvie() < 80) {//<40
             vagueMonstres1(temps);
         } else if (getTempsSurvie() < 150) {
@@ -251,18 +271,20 @@ public class Partie {
         compteurScoreBerrys();
         setTempsSurvie(temps/10);//permet de nous donner / setle temps
         vagueMonstres(temps);//appelle des vagues de monstres en fonction du temps
-
+        enleveEnnemiMort();
         for (int i = 0; i < monstres.size(); i++) {
             Monstre a = monstres.get(i);
             a.bouge();
+            System.out.println("pos X " + a.getPositionX());
+            System.out.println("pos Y " + a.getPositionY());
+            perdreVie(a);
+            //System.out.println("id" +a.getId());
         }
         tourEstPrésent();
         if (tourPrésent) {
             for (int i = 0; i< getListeTours().size(); i++) {
                 for (int j = 0 ; j < this.getMonstres().size(); j++){
                     getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
-                    getListeTours().get(i).attaque(this.getMonstres().get(j),300,temps);
-                    getMonstres().get(j).ennemiMort();
                 }
             }
         }

@@ -1,5 +1,6 @@
 package fr.montreuil.iut.towerdefense.controller;
 
+import fr.montreuil.iut.towerdefense.Main;
 import fr.montreuil.iut.towerdefense.modele.*;
 import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
 import fr.montreuil.iut.towerdefense.modele.lestours.Tour;
@@ -8,7 +9,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +22,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -75,10 +80,9 @@ public class Controller implements Initializable {
             throw new RuntimeException(e);
         }
         //initialisation de la methode initAnimation
-
+        initAnimation();
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));//ajout d'un Listener pour les Monstres
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
-
         this.berrys.textProperty().bind(partie.berrysProperty().asString()); //bind des Berrys du modele dans la vue
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());//bind du temps du modele dans la vue
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
@@ -92,6 +96,16 @@ public class Controller implements Initializable {
         gameLoop.play();
     }
 
+    void aPerdu() throws IOException {
+        if (vies.textProperty().equals(0)){
+            System.out.println("click sur Lore");
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Lore.fxml"));
+            Parent root = fxmlLoader.load();
+            Main.stg.setScene(new Scene(root));
+            Main.stg.setTitle("Lore!");
+            Main.stg.show();
+        }
+    }
 
     @FXML
     public void cliquerTour() {
@@ -140,12 +154,15 @@ public class Controller implements Initializable {
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.1),
+
                 // on définit ce qui se passe à chaque frame 
                 // c'est un eventHandler d'ou le lambda
-                (ev ->{
-                    this.partie.unTour(temps);
-                    temps++;
-                })
+
+            (ev -> {
+                this.partie.unTour(temps);
+                temps++;
+            })
+
         );
         gameLoop.getKeyFrames().add(kf);
     }
