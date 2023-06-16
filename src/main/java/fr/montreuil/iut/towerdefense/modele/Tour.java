@@ -65,14 +65,9 @@ public abstract class Tour {
         }
         return false;
     }
-    public void attaque(Monstre m){
-        if (detectionEnnemi(m) == true && !m.estMort()){
-            m.setPv(m.getPv() -100);
-        }
-    }
+    public int getPerimetre(){ return this.perimetre;}
     public String toString (){
         return "La tour de " + this.element + " coûte " + this.cout + " berrys ";
     }
-
 
 }

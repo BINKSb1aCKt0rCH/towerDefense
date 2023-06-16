@@ -18,11 +18,14 @@ public abstract class Monstre {
     private ArrayList<String> listePositions ; // Liste des positions du monstre
     private int numPos; // Numéro de position courant
     private  MapModele map;
-
+    private String id;
+    private static int compteur =0;
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
         this.vitesse = 5;
         this.nom = nom;
+        this.id = "m"+compteur;
+        compteur++;
         this.positionXProperty = new SimpleIntegerProperty(16); // Position X initiale du monstre
         this.positionYProperty = new SimpleIntegerProperty(16); // Position Y initiale du monstre
         this.partie = new Partie(); // Instance d'une partie avec une taille de 500x500
@@ -31,7 +34,8 @@ public abstract class Monstre {
         setListePositions(mapModele.getListeDirection());
         this.numPos = 0; // Numéro de position initial
     }
-
+    public int getPv(){return this.pv;}
+    public void setPv(int x){this.pv = x;}
     public int getPositionX() {
         return this.positionXProperty.get(); // Renvoie la position X du monstre
     }
@@ -57,12 +61,6 @@ public abstract class Monstre {
     }
 
     public void bouge() {
-        //this.listePositions.clear();
-        //setListePositions(mapModele.getListeDirection());
-        //System.out.println(listePositions.size() + "aze");
-        //mapModele.setListeDirectionToEmpty();
-        //System.out.println(mapModele.getListeDirection() +  " liste de direction");
-        //System.out.println(listePositions.size() + " liste");
         if (numPos < listePositions.size()) {
             String pos = listePositions.get(numPos);
             setPositionX(Integer.valueOf(pos.split("_")[0])); // Met à jour la position X du monstre avec la valeur extraite de la liste des positions
@@ -162,8 +160,7 @@ public abstract class Monstre {
     public IntegerProperty getYProperty(){
         return this.positionYProperty;
     }
-
-
+    public String getId(){return this.id;}
     public boolean estMort(){
         return this.pv <= 0;
     }
