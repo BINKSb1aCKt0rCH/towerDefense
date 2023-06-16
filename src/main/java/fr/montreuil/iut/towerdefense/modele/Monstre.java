@@ -21,7 +21,7 @@ public abstract class Monstre {
 
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
-        this.vitesse = v;
+        this.vitesse = 5;
         this.nom = nom;
         this.positionXProperty = new SimpleIntegerProperty(16); // Position X initiale du monstre
         this.positionYProperty = new SimpleIntegerProperty(16); // Position Y initiale du monstre
@@ -59,18 +59,31 @@ public abstract class Monstre {
     public void bouge() {
         //this.listePositions.clear();
         //setListePositions(mapModele.getListeDirection());
-        System.out.println(listePositions.size() + "aze");
+        //System.out.println(listePositions.size() + "aze");
         //mapModele.setListeDirectionToEmpty();
         //System.out.println(mapModele.getListeDirection() +  " liste de direction");
         //System.out.println(listePositions.size() + " liste");
         if (numPos < listePositions.size()) {
-            System.out.println("ok 2");
             String pos = listePositions.get(numPos);
             setPositionX(Integer.valueOf(pos.split("_")[0])); // Met à jour la position X du monstre avec la valeur extraite de la liste des positions
             setPositionY(Integer.valueOf(pos.split("_")[1])); // Met à jour la position Y du monstre avec la valeur extraite de la liste des positions
 
+            for (int i = 0; i < mapModele.getTuileMap().length; i++) {
+                for (int j = 0; j < mapModele.getTuileMap()[i].length; j++) {
+                    if (mapModele.getTuileMap()[i][j] == 12 && mapModele.getTuileMap()[i][j] == 6) {
+                        System.out.println("ok");
+                    }
+                    System.out.println(" ok 2");
+                }
+            }
+
+
+
         }
         this.numPos++; // Incrémente le numéro de position courant
+
+
+
     }
 
     public void bouge2() {
@@ -103,38 +116,38 @@ public abstract class Monstre {
         //listeDirection =mapModele.getListeDirection();
         int xCourant = getPositionX(); // Position X courante du monstre
         int yCourant = getPositionY(); // Position Y courante du monstre
-        int nbpos = 32 / vitesse + 1; // Nombre de positions à ajouter en fonction de la vitesse du monstre
+        int  nbpos = 30 / vitesse + 2; // Nombre de positions à ajouter en fonction de la vitesse du monstre
         for (String dir : listeDirection) {
             if ("bas".equals(dir)) {
                 for (int i = 1; i < nbpos; i++) {
                     String pos = xCourant + "_" + (yCourant + i * 4); // Calcule la position basée sur la position courante et la vitesse du monstre
                     listePos.add(pos); // Ajoute la position à la liste des positions
                 }
-                yCourant = yCourant + 32; // Met à jour la position Y courante
+                yCourant = yCourant + 30; // Met à jour la position Y courante
             } else if ("haut".equals(dir)) {
                 for (int i = 1; i < nbpos; i++) {
                     String pos = xCourant + "_" + (yCourant - i * 4); // Calcule la position basée sur la position courante et la vitesse du monstre
                     listePos.add(pos); // Ajoute la position à la liste des positions
                 }
-                yCourant = yCourant - 32; // Met à jour la position Y courante
+                yCourant = yCourant - 30; // Met à jour la position Y courante
             } else if ("droite".equals(dir)) {
                 for (int i = 1; i < nbpos; i++) {
                     String pos = (xCourant + i * 4) + "_" + yCourant; // Calcule la position basée sur la position courante et la vitesse du monstre
                     listePos.add(pos); // Ajoute la position à la liste des positions
                 }
-                xCourant = xCourant + 32; // Met à jour la position X courante
+                xCourant = xCourant + 30; // Met à jour la position X courante
             } else if ("gauche".equals(dir)) {
                 for (int i = 1; i < nbpos; i++) {
                     String pos = (xCourant - i * 4) + "_" + yCourant; // Calcule la position basée sur la position courante et la vitesse du monstre
                     listePos.add(pos); // Ajoute la position à la liste des positions
                 }
-                xCourant = xCourant - 32; // Met à jour la position X courante
+                xCourant = xCourant - 30; // Met à jour la position X courante
             }
         }
         setX(xCourant);
         setY(yCourant);
         this.listePositions = listePos; // Met à jour la liste des positions du monstre
-        System.out.println(listePositions);
+      //  System.out.println(listePositions);
     }
 
 
