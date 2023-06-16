@@ -78,8 +78,8 @@ public class Projectile {
         return this.yProperty;
     }
 
-    public String getId(){
 
-        return this.id;
-    }
+
+
+
 }
