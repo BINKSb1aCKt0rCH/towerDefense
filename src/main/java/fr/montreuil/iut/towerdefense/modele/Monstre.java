@@ -59,12 +59,11 @@ public abstract class Monstre {
     public void bouge() {
         //this.listePositions.clear();
         //setListePositions(mapModele.getListeDirection());
-        System.out.println(listePositions.size() + "aze");
+        //System.out.println(listePositions.size() + "aze");
         //mapModele.setListeDirectionToEmpty();
         //System.out.println(mapModele.getListeDirection() +  " liste de direction");
         //System.out.println(listePositions.size() + " liste");
         if (numPos < listePositions.size()) {
-            System.out.println("ok 2");
             String pos = listePositions.get(numPos);
             setPositionX(Integer.valueOf(pos.split("_")[0])); // Met à jour la position X du monstre avec la valeur extraite de la liste des positions
             setPositionY(Integer.valueOf(pos.split("_")[1])); // Met à jour la position Y du monstre avec la valeur extraite de la liste des positions
@@ -132,7 +131,7 @@ public abstract class Monstre {
             }
         }
         this.listePositions = listePos; // Met à jour la liste des positions du monstre
-        System.out.println(listePositions);
+        //System.out.println(listePositions);
     }
 
 

@@ -4,10 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.LinearGradient;
-
-import java.util.ArrayList;
-import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
@@ -15,22 +11,23 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
+    private IntegerProperty score;
     private boolean tourPrésent = false;
+    private IntegerProperty cout;
+    private boolean achatTour = false;
 
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
-        this.berrys = new SimpleIntegerProperty(75);
+        this.berrys = new SimpleIntegerProperty(150);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
-
+        this.score = new SimpleIntegerProperty(0);
+        this.cout = new SimpleIntegerProperty();
     }
+
     public void ajouter(Monstre m){
         monstres.add(m);
-    }
-
-    public void ajouterTour (Tour t){
-        listeTours.add(t);
     }
 
     public ObservableList<Monstre> getMonstres(){
@@ -45,12 +42,26 @@ public class Partie {
         return x < 5 && y <9 && x >0 && y>0;
     }
 
+    public int getScore(){
+        return this.score.getValue();
+    }
+
+    public void setScore(int score){
+        this.score.setValue(score);
+    }
+
     public int getBerrys(){
         return this.berrys.getValue();
     }
 
     public void setBerrys(int b){
         berrys.setValue(b);
+    }
+    public int getCout(){
+        return this.cout.getValue();
+    }
+    public void setCout (int choix){
+        this.cout.setValue(choix);
     }
 
     public IntegerProperty berrysProperty(){
@@ -62,12 +73,15 @@ public class Partie {
             if (monstres.get(i).estMort()){
                 if (monstres.get(i)instanceof Slime){
                     setBerrys(getBerrys()+5);
+                    setScore(getScore()+10);
                 }
                 else if (monstres.get(i)instanceof Zodd) {
                     setBerrys(getBerrys()+15);
+                    setScore(getScore()+50);
                 }
                 else if (monstres.get(i)instanceof Kaido) {
                     setBerrys(getBerrys()+45);
+                    setScore(getScore()+100);
                 }
             }
         }
@@ -82,8 +96,88 @@ public class Partie {
         return tempsSurvie;
     }
 
-    public int getTempsSurvie(){return tempsSurvie.getValue();}
+    public int getTempsSurvie(){
+        return tempsSurvie.getValue();
+    }
 
+    public MapModele getMapModele(){
+        return mapModele;
+    }
+
+    public void unTour(int temps){
+        compteurBerrys();
+        setTempsSurvie(temps/10);
+        vagueMonstres(temps);
+
+        for (int i = 0; i < monstres.size(); i++) {
+            Monstre a = monstres.get(i);
+            a.bouge();
+        }
+
+        tourEstPrésent();
+        if (tourPrésent) {
+            for (int i = 0; i< getListeTours().size(); i++) {
+                for (int j = 0 ; j < this.getMonstres().size(); j++){
+                    getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+                }
+            }
+        }
+    }
+
+    //ajoute les nouvelles tours dans la liste des tours
+    public void ajouterTourDansListe(double x, double y, MapModele mapModele, int choixTour){
+    if (choixTour == 1)
+        listeTours.add(new TourGeo(x, y, mapModele));
+    else if (choixTour == 2)
+        listeTours.add(new TourCryo(x, y, mapModele));
+    else if (choixTour == 3)
+        listeTours.add(new TourPyro(x, y, mapModele));
+    else
+        listeTours.add(new TourElectro(x, y, mapModele));
+    }
+
+    //verif si au moins une tour est présente
+    public void tourEstPrésent (){
+        if (!getListeTours().isEmpty())
+            this.tourPrésent = true;
+        else
+            tourPrésent = false;
+    }
+
+    public int coutTour (int choix){
+        if (choix == 1)
+            setCout(75);
+        else if (choix == 2)
+            setCout(100);
+        else if (choix == 3)
+            setCout(110);
+        else
+            setCout(150);
+        return this.cout.getValue();
+    }
+
+    public boolean achaterTour (int choix){
+
+        if (getBerrys() >= coutTour(choix)){
+            achatTour = true;
+        }
+        else{
+            achatTour = false;
+        }
+        return achatTour;
+    }
+
+    public boolean verifPlacement(int x, int y){
+        for(Tour tour : this.getListeTours()){
+            if(x == tour.getXProperty().getValue() && y == tour.getYProperty().getValue() ){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------
     //les vagues sont faites en fonction du temps
 
     /*
@@ -99,7 +193,6 @@ public class Partie {
         ajouter(z);
     }
 
-
     public void apparitionKaido(){
         Kaido k = new Kaido();
         ajouter(k);
@@ -108,7 +201,7 @@ public class Partie {
         //Pdt les 30premières secondes 10slimes vont apparaitre
         if (getTempsSurvie() < 30) {
             if (temps % 30 == 0) {
-                    apparitionSlime();
+                apparitionSlime();
             }
         }
         else if (getTempsSurvie() < 40) {
@@ -131,7 +224,7 @@ public class Partie {
             }
         }
         else if (getTempsSurvie() < 120) {
-             if (temps % 100 ==0) {
+            if (temps % 100 ==0) {
                 apparitionZodd();
             }
         }
@@ -152,7 +245,7 @@ public class Partie {
         else if (getTempsSurvie() <190) {
             if(temps % 161 ==0){
                 for (int i = 0; i < 2; i++) {
-                  apparitionZodd();
+                    apparitionZodd();
                 }
             } else if (temps% 175 == 0) {apparitionZodd();}
         }
@@ -163,11 +256,11 @@ public class Partie {
                 }
             }
         } else {
-                if (temps% 20 ==0)
+            if (temps% 20 ==0)
                 for (int i = 0; i < 10; i++) {
                     apparitionSlime();
                 }
-            }
+        }
     }
     public void vaguesMonstres4(int temps){
         if (getTempsSurvie() < 270){
@@ -187,48 +280,5 @@ public class Partie {
             vagueMonstres3(temps);
         }
     }
-
-    public MapModele getMapModele(){
-        return mapModele;
-    }
-
-    public void unTour(int temps){
-        compteurBerrys();
-        setTempsSurvie(temps/10);
-        vagueMonstres(temps);
-
-        for (int i = 0; i < monstres.size(); i++) {
-            Monstre a = monstres.get(i);
-            a.bouge();
-        }
-        tourEstPrésent();
-        if (tourPrésent) {
-            for (int i = 0; i< getListeTours().size(); i++) {
-                for (int j = 0 ; j < this.getMonstres().size(); j++){
-                    getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
-                }
-
-            }
-        }
-    }
-
-    //ajoute les nouvelles tours dans la liste des tours
-    public void ajouterTourDansListe(double x, double y, MapModele mapModele, int choixTour){
-    if (choixTour == 1)
-        listeTours.add(new TourGeo(x, y, mapModele));
-    else if (choixTour == 2)
-        listeTours.add(new TourCryo(x, y, mapModele));
-    else if (choixTour == 3)
-        listeTours.add(new TourPyro(x, y, mapModele));
-    else
-        listeTours.add(new TourElectro(x, y, mapModele));
-    }
-
-    public void tourEstPrésent (){
-        if (!getListeTours().isEmpty())
-            this.tourPrésent = true;
-        else
-            tourPrésent = false;
-    }
-
+//-------------------------------------------------------------------------------------------------------------------------------------
 }

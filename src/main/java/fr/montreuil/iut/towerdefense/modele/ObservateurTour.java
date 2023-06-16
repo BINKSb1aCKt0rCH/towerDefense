@@ -34,5 +34,4 @@ public class ObservateurTour implements ListChangeListener<Tour> {
         }
     }
 
-
 }
