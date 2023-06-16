@@ -1,5 +1,6 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.controller;
 
+import fr.montreuil.iut.towerdefense.modele.Monstre;
 import fr.montreuil.iut.towerdefense.vue.MonstreVue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
