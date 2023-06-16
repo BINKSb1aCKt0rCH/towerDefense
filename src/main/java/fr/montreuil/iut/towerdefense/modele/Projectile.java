@@ -19,8 +19,6 @@ public class Projectile {
     private boolean aAttaque;
     private Monstre monstreCible;
 
-    //Connaitre la position de l'ennemi;
-
     public Projectile(int degats, int vitesseAtk, String couleur){
 
         this.degats=degats;
@@ -33,11 +31,13 @@ public class Projectile {
         this.aAttaque = false;
     }
 
-    public int getPositionX(){ return this.xProperty.getValue(); }
-    public int getPositionY(){ return this.yProperty.getValue(); }
+    public final int getxValue(){ return this.xProperty.getValue();}
+    public final int getyValue(){ return this.yProperty.getValue();}
+
     public void setX(int x){
         xProperty.setValue(x);
     }
+
     public void setY(int y){
         yProperty.setValue(y);
     }
@@ -47,52 +47,31 @@ public class Projectile {
     public IntegerProperty yProperty(){
         return this.yProperty;
     }
-
-    public void seDeplace() {
-        setX(getPositionX() + 3);
-        setY(getPositionY() + 3);
-    }
-
-    public final IntegerProperty getxProperty() {
-
-        return this.xProperty;
-    }
-
-    public final int getxValue(){ return this.xProperty.getValue();}
-
-    public final int getyValue(){ return this.yProperty.getValue();}
     public boolean getaAttaque(){ return this.aAttaque; }
     public int getVitesseAtk(){ return this.vitesseAtk; }
-    public final IntegerProperty getyProperty() {
-
-        return this.yProperty;
-    }
+    public String getId() { return this.id; }
     public void collision(Monstre m){
-
+        // si position du projectile - position de l'ennemi < pixel
         if (getxValue() - m.getPositionX() < 3 && getyValue() - m.getPositionY() <3) {
 
-            m.decrementerPv(degats);
+            m.decrementerPv(degats); // diminuer le nombre de pv de l'ennemi en lui infligeant des dégâts
             aAttaque=true;
-            //this.remove();
         }
     }
-
-    public String getId() { return this.id; }
-
     public void seDeplacer(){
 
-        if(this.monstreCible != null) {
-            //x droite
+        if(this.monstreCible != null) { // si le monstre ciblé est trouvé alors
+            //x droite : si position x du projectile en mouvement < position x du monstre alors incrémente position x du projectile en mouvement en additionnant sa vitesse d'attaque.
             if (this.xProperty().getValue() < this.monstreCible.getXProperty().getValue()) {
                 this.xProperty().setValue(this.xProperty().getValue() + this.getVitesseAtk());
-            } else { // x gauche
+            } else { // x gauche | décrémente position x du projectile en mouvement en soustrayant sa vitesse d'attaque.
                 this.xProperty().setValue(this.xProperty().getValue() - this.vitesseAtk);
             }
-            //x droite
+            //y droite : incrémente position y du projectile en mouvement en additionnant sa vitesse d'attaque.
 
             if (this.yProperty().getValue() < this.monstreCible.getYProperty().getValue()) {
                 this.yProperty().setValue(this.yProperty().getValue() + this.getVitesseAtk());
-            } else { // x gauche
+            } else { // y gauche : décrémente position y du projectile en mouvement en soustrayant sa vitesse d'attaque.
                 this.yProperty().setValue(this.yProperty().getValue() - this.vitesseAtk);
             }
         }

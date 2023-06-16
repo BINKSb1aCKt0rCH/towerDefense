@@ -12,22 +12,24 @@ import javafx.scene.shape.Circle;
 public class ProjectileVue {
 
     private Pane panneauJeu;
-    private Projectile projectiles;
-
     public ProjectileVue(Pane panneauJeu){ this.panneauJeu=panneauJeu; }
 
+    //créer et afficher des projectiles dans le panneau du jeu
     public void créerSprite(Projectile projectiles) {
 
         Circle cercle = new Circle(10);
         //cercle .setId(projectiles.getId());
-        cercle.translateXProperty().bind(projectiles.getxProperty());
-        cercle.translateYProperty().bind(projectiles.getyProperty());
+        cercle.translateXProperty().bind(projectiles.xProperty());
+        cercle.translateYProperty().bind(projectiles.yProperty());
 
         Label l = new Label();
-        l.translateXProperty().bind(projectiles.getxProperty());
-        l.translateYProperty().bind(projectiles.getyProperty());
+        l.translateXProperty().bind(projectiles.xProperty());
+        l.translateYProperty().bind(projectiles.yProperty());
 
         l.setBackground(Background.fill(Color.CORNFLOWERBLUE));
+
+        this.panneauJeu.getChildren().add(cercle);
+        this.panneauJeu.getChildren().add(l);
     }
 
 }

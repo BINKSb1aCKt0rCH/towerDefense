@@ -222,7 +222,6 @@ public class Partie {
 
         for(int i=0; i < projectiles.size(); i++){
             projectiles.get(i).seDeplacer();
-
         }
     }
 

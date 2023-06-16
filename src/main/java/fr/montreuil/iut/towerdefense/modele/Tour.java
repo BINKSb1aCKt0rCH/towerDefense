@@ -77,15 +77,8 @@ public abstract class Tour {
             System.out.println("Ennemis détecter !!");
         }
     }
-    public ArrayList<Projectile> getProjectiles() {
-
-        return projectiles;
-    }
-
-    public void ajouterProjectile(Projectile p){
-
-        projectiles.add(p);
-    }
+    public ArrayList<Projectile> getProjectiles() { return projectiles; }
+    public void ajouterProjectile(Projectile p){ projectiles.add(p); }
 
     public void creerProjectile(){
 
