@@ -73,7 +73,6 @@ public abstract class Monstre {
                     if (mapModele.getTuileMap()[i][j] == 12 && mapModele.getTuileMap()[i][j] == 6) {
                         System.out.println("ok");
                     }
-                    System.out.println(" ok 2");
                 }
             }
 

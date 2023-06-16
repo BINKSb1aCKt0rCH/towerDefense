@@ -18,6 +18,7 @@ public class Partie {
     private IntegerProperty vies;
     //private Vague vague;
     private boolean tourPrésent = false;
+    private IntegerProperty score;
 
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
@@ -26,7 +27,11 @@ public class Partie {
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
         this.vies = new SimpleIntegerProperty(3);
+        this.score = new SimpleIntegerProperty(0);
     }
+    public int getScore(){return score.getValue();}
+    public void setScore(int x){ score.setValue(x);}
+    public IntegerProperty scoreProperty(){return this.score ;}
     public int getVies(){
         return this.vies.getValue();
     }
@@ -62,22 +67,27 @@ public class Partie {
     public IntegerProperty berrysProperty(){
         return this.berrys;
     }
-    public IntegerProperty compteurBerrys(){
+    public void compteurScoreBerrys(){
         for (int i = 0; i < monstres.size(); i++) {
             if (monstres.get(i).estMort()){
                 if (monstres.get(i)instanceof Slime){
                     setBerrys(getBerrys()+5);
+                    setScore(getScore()+10);
+
                 }
                 else if (monstres.get(i)instanceof Zodd) {
                     setBerrys(getBerrys()+15);
+                    setScore(getScore()+50);
                 }
                 else if (monstres.get(i)instanceof Kaido) {
                     setBerrys(getBerrys()+45);
+                    setScore(getScore()+100);
+
                 }
             }
         }
-        return berrys;
     }
+
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
@@ -237,7 +247,7 @@ public class Partie {
     }
 
     public void unTour(int temps){
-        compteurBerrys();
+        compteurScoreBerrys();
         setTempsSurvie(temps/10);
         vagueMonstres(temps);
 
@@ -250,6 +260,7 @@ public class Partie {
             for (int i = 0; i< getListeTours().size(); i++) {
                 for (int j = 0 ; j < this.getMonstres().size(); j++){
                     getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+
                 }
 
             }

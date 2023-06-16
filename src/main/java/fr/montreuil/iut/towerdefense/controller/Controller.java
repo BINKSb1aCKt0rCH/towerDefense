@@ -59,9 +59,10 @@ public class Controller implements Initializable {
     @FXML
     private Button cryoBouton;
     private int choixTour = 0;
-
     @FXML
     private Label vies;
+    @FXML
+    private Label score;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -85,7 +86,7 @@ public class Controller implements Initializable {
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
-
+        this.score.textProperty().bind(partie.scoreProperty().asString());
         this.vies.textProperty().bind(partie.viesProperty().asString());
         //this.partie.getListeTours().addListener(listenerTours);
     }
