@@ -5,7 +5,7 @@ import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
 import java.util.ArrayList;
 
 public class MapModele {
-    public int map[][]; // Déclaration d'une variable pour stocker la carte sous forme d'un tableau à deux dimensions
+    public int map[][];
     private Monstre monstre; // Déclaration d'une variable pour stocker un monstre
     private ArrayList<Tuile> tuiles, sommetsParcourus; // Déclaration de deux listes d'objets Tuile et sommetsParcourus
     private ArrayList<String> listeDirection; // Déclaration d'une liste de chaînes de caractères pour stocker les directions

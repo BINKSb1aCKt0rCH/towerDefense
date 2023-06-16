@@ -16,7 +16,7 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
-    private IntegerProperty vies;
+    private IntegerProperty vies; //vies restante
     //private Vague vague;
     private boolean tourPrésent = false;
     private IntegerProperty score;
@@ -246,17 +246,17 @@ public class Partie {
         return mapModele;
     }
 
+    //Boucle principale
     public void unTour(int temps){
         compteurScoreBerrys();
-        setTempsSurvie(temps/10);
-        vagueMonstres(temps);
+        setTempsSurvie(temps/10);//permet de nous donner / setle temps
+        vagueMonstres(temps);//appelle des vagues de monstres en fonction du temps
 
         for (int i = 0; i < monstres.size(); i++) {
             Monstre a = monstres.get(i);
             a.bouge();
         }
         tourEstPrésent();
-        int k=0;
         if (tourPrésent) {
             for (int i = 0; i< getListeTours().size(); i++) {
                 for (int j = 0 ; j < this.getMonstres().size(); j++){
