@@ -7,15 +7,24 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+        import javafx.beans.property.DoubleProperty;
+        import javafx.beans.property.IntegerProperty;
+        import javafx.beans.property.SimpleDoubleProperty;
+        import javafx.beans.property.SimpleIntegerProperty;
+
+        import java.util.ArrayList;
 
 public abstract class Tour {
 
     private String element;
     private int perimetre;
+    private int degat;
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
-
+    private ArrayList<Projectile> projectiles;
+    private ArrayList<Monstre> monstres;
+    private Tour Partie;
     private static int compteur =0;
     public Tour(String element, int perimetre, double x, double y, MapModele mapModele){
         this.element = element;
@@ -23,20 +32,27 @@ public abstract class Tour {
         this.x= new SimpleDoubleProperty(x);
         this.y= new SimpleDoubleProperty(y);
         this.mapModele = mapModele;
+        this.degat=degat;
         compteur++;
         this.id = "T"+compteur;
+        this.projectiles=new ArrayList<>();
+        this.monstres=new ArrayList<>();
     }
 
     public String getId (){
         return this.id;
     }
 
-    public DoubleProperty getXProperty(){
+    public DoubleProperty getXProperty (){
         return this.x;
     }
 
-    public DoubleProperty getYProperty(){
+    public DoubleProperty getYProperty (){
         return this.y;
+    }
+
+    public int getDegat(){
+        return this.degat;
     }
 
     public void emplacement(int x, int y){
@@ -61,6 +77,22 @@ public abstract class Tour {
         }
         return true;
     }
+    public ArrayList<Projectile> getProjectiles() { return projectiles; }
+    public void ajouterProjectile(Projectile p){ projectiles.add(p); }
+
+    public void creerProjectile(){
+
+        for(int i=0; i < monstres.size(); i++){
+            boolean ennemiTrouve = false;
+            if(Math.sqrt(Math.pow(getXProperty().getValue() - monstres.get(i).getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstres.get(i).getYProperty().getValue(),2))) <= 65){
+                this.Partie.projectiles.add(new Projectile(100, 2, "BLUE"));
+                ennemiTrouve = true;
+            } if(ennemiTrouve){
+                break;
+            }
+        }
+    }
+
 
     public String toString (){
         return "La tour de " + this.element + " avec un périmètre de " + this.perimetre;

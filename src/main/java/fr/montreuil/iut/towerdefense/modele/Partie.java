@@ -17,7 +17,8 @@ public class Partie {
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
     private IntegerProperty vies; //vies restante
-    //private Vague vague;
+    private ObservableList<Projectile> projectiles;
+
     private boolean tourPrésent = false;
     private IntegerProperty score;
     private IntegerProperty cout;
@@ -33,6 +34,8 @@ public class Partie {
         this.score = new SimpleIntegerProperty(0);
         this.cout = new SimpleIntegerProperty();
         this.vies = new SimpleIntegerProperty(3);
+        this.projectiles = FXCollections.observableArrayList();
+
     }
 
     public IntegerProperty scoreProperty(){return this.score ;}
@@ -51,6 +54,9 @@ public class Partie {
 
     public ObservableList<Tour> getListeTours() {
         return listeTours;
+    }
+    public ObservableList<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public boolean dansTerrain(int x, int y){
@@ -326,6 +332,34 @@ public class Partie {
     }*/
 
     //Boucle principale
+    public void projectilesCollisions(){
+
+        for(int i=0; i < projectiles.size(); i++){
+            for(int j=0; j < monstres.size(); j++){
+                projectiles.get(i).collision(monstres.get(j));
+            }
+            if(projectiles.get(i).getaAttaque()){
+                projectiles.remove(i);
+            }
+        }
+    }
+
+    public void verifierEnnemisMorts(){
+
+        for(int i=0; i < monstres.size(); i++){
+            if(monstres.get(i).getPv() <= 0){
+                monstres.remove(i);
+            }
+        }
+    }
+
+    public void seDeplacer(){
+
+        for(int i=0; i < projectiles.size(); i++){
+            projectiles.get(i).seDeplacer();
+        }
+    }
+
     public void unTour(int temps){
         if (getVies() !=0) {
             compteurScoreBerrys();
@@ -347,8 +381,12 @@ public class Partie {
                         getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
                     }
                 }
+
             }
         }
+        seDeplacer();
+        projectilesCollisions();
+        verifierEnnemisMorts();
         else {
             System.out.println("vous avez perdu");
             enleveEnnemiMort();
@@ -367,5 +405,11 @@ public class Partie {
         listeTours.add(new TourElectro(x, y, mapModele));
     }
 
+    public void tourEstPrésent (){
+        if (!getListeTours().isEmpty())
+            this.tourPrésent = true;
+        else
+            tourPrésent = false;
+    }
 
 }

@@ -1,6 +1,8 @@
 module fr.montreuil.iut.towerdefense {
+
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
     requires org.controlsfx.controls;
 

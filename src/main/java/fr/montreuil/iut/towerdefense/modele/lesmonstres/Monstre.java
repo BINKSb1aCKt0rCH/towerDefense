@@ -22,6 +22,9 @@ public abstract class Monstre {
     private MapModele map;
     private String id;
     private static int compteur =0;
+    private  MapModele map;
+    private boolean detecté;
+
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
         this.vitesse = v;
@@ -35,6 +38,7 @@ public abstract class Monstre {
         this.listePositions = new ArrayList<>(); // Liste des positions du monstre
         setListePositions(mapModele.getListeDirection());
         this.numPos = 0; // Numéro de position initial
+        this.detecté=false;
     }
     public int getPv(){return this.pv;}
     public void setPv(int x){this.pv = x;}
@@ -64,6 +68,7 @@ public abstract class Monstre {
 
     public void bouge() {
         if (numPos < listePositions.size()) {
+            System.out.println("ok 2");
             String pos = listePositions.get(numPos);
             setPositionX(Integer.valueOf(pos.split("_")[0])); // Met à jour la position X du monstre avec la valeur extraite de la liste des positions
             setPositionY(Integer.valueOf(pos.split("_")[1])); // Met à jour la position Y du monstre avec la valeur extraite de la liste des positions
@@ -81,6 +86,20 @@ public abstract class Monstre {
         }
         this.numPos++; // Incrémente le numéro de position courant
     }
+
+    public boolean estDetecte(){
+
+        return detecté;
+    }
+
+    public void setDetecté(boolean detecté1){
+        this.detecté=detecté1;
+    }
+
+    public void bouge2() {
+
+    }
+
 
     /**W
      * Calcule les coordonnées de la case correspondant à une position donnée en pixels.
@@ -159,6 +178,12 @@ public abstract class Monstre {
     //vérifie si un ennemi est mort
     public boolean estMort(){
         return this.pv <= 0;
+    }
+    public int getPv(){ return this.pv; }
+
+    public void decrementerPv(int pvEnleves){
+
+        this.pv = pv - pvEnleves;
     }
 
 }
