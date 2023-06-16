@@ -27,7 +27,7 @@ public abstract class Tour {
     private ArrayList<Monstre> monstres;
     private Tour Partie;
     private static int compteur =0;
-    public Tour(String element, int perimetre, double x, double y, MapModele mapModele){
+    public Tour(String element, int perimetre, double x, double y,int degat, MapModele mapModele){
         this.element = element;
         this.perimetre = perimetre;
         this.x= new SimpleDoubleProperty(x);
