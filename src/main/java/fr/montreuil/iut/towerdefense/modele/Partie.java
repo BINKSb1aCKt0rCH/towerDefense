@@ -73,7 +73,6 @@ public class Partie {
                 if (monstres.get(i)instanceof Slime){
                     setBerrys(getBerrys()+5);
                     setScore(getScore()+10);
-
                 }
                 else if (monstres.get(i)instanceof Zodd) {
                     setBerrys(getBerrys()+15);

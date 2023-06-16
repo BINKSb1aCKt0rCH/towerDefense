@@ -19,28 +19,19 @@ public class MonstreVue {
         this.panneauDeJeu = pane;
     }
     public void creerSprite(Monstre m) throws FileNotFoundException {
+        Image image;
         if(m instanceof Slime){
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/slime.png"));
-            ImageView image1Bis = new ImageView(image);
-            image1Bis.translateXProperty().bind(m.positionXProperty());
-            image1Bis.translateYProperty().bind(m.positionYProperty());
-            panneauDeJeu.getChildren().add(image1Bis);
+             image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/slime.png"));
         } else if (m instanceof Zodd) {
-
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/zodd.png"));
-            ImageView image1Bis = new ImageView(image);
-            image1Bis.translateXProperty().bind(m.positionXProperty());
-            image1Bis.translateYProperty().bind(m.positionYProperty());
-            panneauDeJeu.getChildren().add(image1Bis);
+             image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/zodd.png"));
         }
         else {
-
-            Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/kaido.jpg"));
-            ImageView image1Bis = new ImageView(image);
-            image1Bis.translateXProperty().bind(m.positionXProperty());
-            image1Bis.translateYProperty().bind(m.positionYProperty());
-            panneauDeJeu.getChildren().add(image1Bis);
+             image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/kaido.jpg"));
         }
+        ImageView image1Bis = new ImageView(image);
+        image1Bis.translateXProperty().bind(m.positionXProperty());
+        image1Bis.translateYProperty().bind(m.positionYProperty());
+        panneauDeJeu.getChildren().add(image1Bis);
     }
     public void retirerSprite(Monstre m){
         this.panneauDeJeu.getChildren().remove(m);
