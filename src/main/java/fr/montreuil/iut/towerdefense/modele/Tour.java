@@ -15,7 +15,6 @@ public abstract class Tour {
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
-
     private ArrayList<Projectile> projectiles;
     private ArrayList<Monstre> monstres;
 
@@ -69,6 +68,24 @@ public abstract class Tour {
             System.out.println("Ennemis détecter !!");
         }
     }
+
+    public void attaquerEnnemi(Monstre m) {
+        int distance = calculerDistance(m.getPositionX(), m.getPositionY());
+
+        if (distance <= perimetre) {
+            m.estMort();
+            System.out.println("La tour attaque l'ennemi ");
+        } else {
+            System.out.println("L'ennemi est hors de portée.");
+        }
+    }
+
+    private int calculerDistance(double cibleX, double cibleY) {
+        double disX = cibleX - x.getValue();
+        double disY = cibleY - y.getValue();
+        return (int) Math.sqrt(disX * disX + disY * disY);
+    }
+
     public void update(){
 
         //detectionEnnemi();

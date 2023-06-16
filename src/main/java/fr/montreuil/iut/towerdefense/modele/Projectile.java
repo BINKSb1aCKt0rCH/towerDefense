@@ -13,10 +13,6 @@ public class Projectile {
     private int vitesseAtk;
     private int portee;
     private String couleur;
-    private int x,y;
-    private int maxTraj, traj;
-    private double distance;
-    //private Tour tour;
     private IntegerProperty xProperty, yProperty;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Projectile> monstres;
@@ -50,8 +46,6 @@ public class Projectile {
     public IntegerProperty yProperty(){
         return this.yProperty;
     }
-    public String getId (){ return this.id; }
-
 
     public void seDeplace() {
         setX(getPositionX() + 3);
