@@ -3,6 +3,7 @@ package fr.montreuil.iut.towerdefense.modele;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.layout.Pane;
 
 public abstract class Tour {
 
@@ -56,13 +57,19 @@ public abstract class Tour {
         return this.cout;
     }
 
-    public void detectionEnnemi (Monstre monstre){
+    public boolean detectionEnnemi (Monstre monstre){
         //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
         if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
             System.out.println("Ennemis détecter !!");
+            return true;
+        }
+        return false;
+    }
+    public void attaque(Monstre m){
+        if (detectionEnnemi(m) == true && !m.estMort()){
+            m.setPv(m.getPv() -100);
         }
     }
-
     public String toString (){
         return "La tour de " + this.element + " coûte " + this.cout + " berrys ";
     }

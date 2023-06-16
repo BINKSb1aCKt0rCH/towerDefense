@@ -237,7 +237,7 @@ public class Partie {
     }
 
     public void unTour(int temps){
-        compteurBerrys();
+        //compteurBerrys();
         setTempsSurvie(temps/10);
         vagueMonstres(temps);
 
@@ -249,9 +249,10 @@ public class Partie {
         if (tourPrésent) {
             for (int i = 0; i< getListeTours().size(); i++) {
                 for (int j = 0 ; j < this.getMonstres().size(); j++){
+                    int k = 0;
                     getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+li                    k++;
                 }
-
             }
         }
     }

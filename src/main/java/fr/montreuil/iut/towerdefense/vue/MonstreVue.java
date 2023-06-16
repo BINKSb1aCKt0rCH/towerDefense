@@ -22,6 +22,7 @@ public class MonstreVue {
         if(m instanceof Slime){
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/slime.png"));
             ImageView image1Bis = new ImageView(image);
+            image1Bis.setId(m.getId());
             image1Bis.translateXProperty().bind(m.positionXProperty());
             image1Bis.translateYProperty().bind(m.positionYProperty());
             panneauDeJeu.getChildren().add(image1Bis);
@@ -29,6 +30,7 @@ public class MonstreVue {
 
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/zodd.png"));
             ImageView image1Bis = new ImageView(image);
+            image1Bis.setId(m.getId());
             image1Bis.translateXProperty().bind(m.positionXProperty());
             image1Bis.translateYProperty().bind(m.positionYProperty());
             panneauDeJeu.getChildren().add(image1Bis);
@@ -37,12 +39,15 @@ public class MonstreVue {
 
             Image image = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/kaido.jpg"));
             ImageView image1Bis = new ImageView(image);
+            image1Bis.setId(m.getId());
             image1Bis.translateXProperty().bind(m.positionXProperty());
             image1Bis.translateYProperty().bind(m.positionYProperty());
             panneauDeJeu.getChildren().add(image1Bis);
         }
     }
     public void retirerSprite(Monstre m){
-        this.panneauDeJeu.getChildren().remove(m);
+        if (m.estMort()) {
+            this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#" + m.getId()));
+        }
     }
 }

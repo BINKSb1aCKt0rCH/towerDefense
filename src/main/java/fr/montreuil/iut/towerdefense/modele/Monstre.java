@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.ArrayList;
 
 public abstract class Monstre {
-    private int pv; // Points de vie du monstre
+    private IntegerProperty pv; // Points de vie du monstre
     private int vitesse; // Vitesse de déplacement du monstre
     private String nom; // Nom du monstre
     private IntegerProperty positionXProperty; // Propriété pour la position X du monstre
@@ -18,9 +18,10 @@ public abstract class Monstre {
     private ArrayList<String> listePositions ; // Liste des positions du monstre
     private int numPos; // Numéro de position courant
     private  MapModele map;
-
+    public static int compteur =0;
+    private String id;
     public Monstre(int pv, int v, String nom) {
-        this.pv = pv;
+        this.pv = new SimpleIntegerProperty(pv);
         this.vitesse = v;
         this.nom = nom;
         this.positionXProperty = new SimpleIntegerProperty(16); // Position X initiale du monstre
@@ -30,7 +31,16 @@ public abstract class Monstre {
         this.listePositions = new ArrayList<>(); // Liste des positions du monstre
         setListePositions(mapModele.getListeDirection());
         this.numPos = 0; // Numéro de position initial
+        this.id = "#" + compteur;
+        compteur++;
+
+        /*this.pv.addListener((observableValue, number, t1) -> {
+            if(t1.intValue() <=0){
+                System.out.println("IL EST MOOOORT");
+            }
+        });*/
     }
+    public String getId(){return id;}
 
     public int getPositionX() {
         return this.positionXProperty.get(); // Renvoie la position X du monstre
@@ -153,7 +163,15 @@ public abstract class Monstre {
 
 
     public boolean estMort(){
-        return this.pv <= 0;
+        if (getPv() <= 0){
+            setX(getPositionX() -1);
+            setY(getPositionY() -1);
+            return true;
+        }
+        return false;
     }
-
+    public void setPv(int x){pv.setValue(x);}
+    public int getPv(){
+        System.out.println(pv.getValue());
+        return this.pv.getValue();}
 }
