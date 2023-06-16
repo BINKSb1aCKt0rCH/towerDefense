@@ -4,18 +4,23 @@ import fr.montreuil.iut.towerdefense.modele.*;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +41,25 @@ public class Controller implements Initializable {
     private Label berrys;
     @FXML
     private Label tempsSurvie;
+    @FXML
+    private BorderPane borderPane;
+    private Tour tour;
+    private boolean autorisationPlacement = false;
+    @FXML
+    private Label nbmonstresTues;
+    @FXML
+    private Label tempsSurvie1;
+    @FXML
+    private Button pyroBouton;
+    @FXML
+    private Button electroBouton;
+    @FXML
+    private Button geoBouton;
+    @FXML
+    private Button cryoBouton;
+    private int choixTour = 0;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -43,7 +67,8 @@ public class Controller implements Initializable {
         tuile.setPrefRows(10);
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
-        this.mapModele = new MapModele();
+        this.partie = new Partie();
+        this.mapModele = partie.getMapModele();
         this.mapVue = new MapVue();
         //affiche la map composée de tuiles
         try {
@@ -51,21 +76,64 @@ public class Controller implements Initializable {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        this.partie = new Partie();
         initAnimation();
-        this.monstre = new Monstre(350,5,"Slime");
-        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu));
+        this.monstre = new Slime();
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
+        this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
+
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
     }
     @FXML
-    void commencerPartie(ActionEvent event) {
+    void commencerPartie(ActionEvent event){
         gameLoop.play();
     }
+
+
+    @FXML
+    public void cliquerTour() {
+        //débloque la possibilité de poser des tour (peut etre debloquer si cliquer au bonne endroit et assez d'argent pour débloquer)
+        this.autorisationPlacement = true;
+
+        //choix pour savoir quel boutton à été selectionner pour dans Partie pouvoir ajouter la bonne tour dans la liste
+        if (this.geoBouton.isArmed())
+            this.choixTour = 1;
+        else if (this.cryoBouton.isArmed())
+            this.choixTour = 2;
+        else if (this.pyroBouton.isArmed())
+            this.choixTour = 3;
+        else
+            this.choixTour = 4;
+    }
+
+    @FXML
+    public void placerTour (MouseEvent eventSouris){
+
+        //obtient les coordonnée de la souris
+        double x = eventSouris.getX();
+        double y = eventSouris.getY();
+
+        //vérifie qu'on est bien dans le panneau de jeu
+        if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()){
+
+            //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
+            if (partie.getMapModele().getTile((int)(y/32), (int)((x/32))) == 2 && autorisationPlacement){
+
+                //positionne l'image au centre
+                int positionX =((int)x/32) * 32;
+                int positionY =((int)y/32) * 32;
+                this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
+                autorisationPlacement = false;
+            }
+        }
+    }
+
+
     private void initAnimation() {
         gameLoop = new Timeline();
         temps = 0;
         gameLoop.setCycleCount(Timeline.INDEFINITE);
+
         KeyFrame kf = new KeyFrame(
                 // on définit le FPS (nbre de frame par seconde)
                 Duration.seconds(0.1),
@@ -77,20 +145,5 @@ public class Controller implements Initializable {
                 })
         );
         gameLoop.getKeyFrames().add(kf);
-    }
-
-    public Projectile conversionProjectile(Tour tour){
-
-        Projectile p = new Projectile();
-
-        /*
-        if(){
-
-        }else if(){
-
-        }
-        return p;
-
-         */
     }
 }

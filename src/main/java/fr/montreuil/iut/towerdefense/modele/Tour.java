@@ -1,17 +1,23 @@
 package fr.montreuil.iut.towerdefense.modele;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+        import javafx.beans.property.DoubleProperty;
+        import javafx.beans.property.IntegerProperty;
+        import javafx.beans.property.SimpleDoubleProperty;
+        import javafx.beans.property.SimpleIntegerProperty;
 
-public class Tour {
+        import java.util.ArrayList;
+
+public abstract class Tour {
 
     private int cout;
     private String element;
+    private int perimetre;
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
+
+    private ArrayList<Projectile> projectiles;
+    private ArrayList<Monstre> monstres;
 
     private static int compteur =0;
     public Tour(int cout, String couleur, double x, double y, MapModele mapModele){
@@ -22,17 +28,19 @@ public class Tour {
         this.mapModele = mapModele;
         compteur++;
         this.id = "T"+compteur;
+        this.projectiles=new ArrayList<>();
+        this.monstres=new ArrayList<>();
     }
 
     public String getId (){
         return this.id;
     }
 
-    public DoubleProperty XProperty (){
+    public DoubleProperty getXProperty (){
         return this.x;
     }
 
-    public DoubleProperty YProperty (){
+    public DoubleProperty getYProperty (){
         return this.y;
     }
 
@@ -54,6 +62,28 @@ public class Tour {
     public int getCout (){
         return this.cout;
     }
+
+    public void detectionEnnemi (Monstre monstre){
+        //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
+        if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
+            System.out.println("Ennemis détecter !!");
+        }
+    }
+    public void update(){
+
+        //detectionEnnemi();
+
+    }
+    public ArrayList<Projectile> getProjectiles(){
+
+        return projectiles;
+    }
+
+    public void ajouterProjectile(Projectile p){
+
+        projectiles.add(p);
+    }
+
 
     public String toString (){
         return "La tour de " + this.element + " coûte " + this.cout + " berrys ";

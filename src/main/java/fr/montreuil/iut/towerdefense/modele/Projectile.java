@@ -19,8 +19,8 @@ public class Projectile {
     //private Tour tour;
     private IntegerProperty xProperty, yProperty;
     private ArrayList<Projectile> projectiles;
-
-    private Target target;
+    private ArrayList<Projectile> monstres;
+    private String id;
 
     //Connaitre la position de l'ennemi;
 
@@ -30,19 +30,14 @@ public class Projectile {
         this.vitesseAtk=vitesseAtk;
         this.portee=portee;
         this.couleur=couleur;
-        this.x=0;
-        this.y=0;
-        //this.tour=tour;
-        //this.distance=0;
         this.xProperty= new SimpleIntegerProperty();
         this.yProperty= new SimpleIntegerProperty();
-        //this.partie = new Partie();
-        //this.mapModele = new MapModele();
         this.projectiles= new ArrayList<>();
+        this.monstres= new ArrayList<>();
     }
 
-    public int getPositionX(){return this.xProperty.getValue();}
-    public int getPositionY(){return this.yProperty.getValue();}
+    public int getPositionX(){ return this.xProperty.getValue(); }
+    public int getPositionY(){ return this.yProperty.getValue(); }
     public void setX(int x){
         xProperty.setValue(x);
     }
@@ -55,6 +50,8 @@ public class Projectile {
     public IntegerProperty yProperty(){
         return this.yProperty;
     }
+    public String getId (){ return this.id; }
+
 
     public void seDeplace() {
         setX(getPositionX() + 3);
@@ -66,20 +63,22 @@ public class Projectile {
         return this.xProperty;
     }
 
-    public final int getValue(){
+    public final int getxValue(){ return this.xProperty.getValue();}
 
-        return this.xProperty.getValue();
-
-    }
-
-
+    public final int getyValue(){ return this.yProperty.getValue();}
     public final IntegerProperty getyProperty() {
 
         return this.yProperty;
     }
 
+    public void collision(Monstre m){
+
+        if(getxValue()== m.getPositionX() && getyValue()== m.getPositionY()){
+            monstres.remove(m);
+            //this.remove();
+        }
 
 
-
+    }
 
 }

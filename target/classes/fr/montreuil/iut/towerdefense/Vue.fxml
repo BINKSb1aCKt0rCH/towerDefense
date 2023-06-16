@@ -14,15 +14,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="jeu" prefHeight="572.0" prefWidth="801.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
+<BorderPane fx:id="borderPane" prefHeight="564.0" prefWidth="798.0" style="-fx-background-color: #4aa3a2;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.montreuil.iut.towerdefense.controller.Controller">
 <top>
    <Label prefHeight="52.0" prefWidth="217.0" text="SAUVE ARRASSIA">
          <font>
             <Font name="System Bold Italic" size="24.0" />
-         </font></Label>
+         </font>
+   </Label>
 </top>
    <left>
-      <Pane fx:id="panneauDeJeu" maxHeight="303.0" maxWidth="470.0" prefHeight="303.0" prefWidth="470.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <Pane fx:id="panneauDeJeu" maxHeight="303.0" maxWidth="470.0" onMouseClicked="#placerTour" prefHeight="303.0" prefWidth="470.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets left="60.0" />
          </BorderPane.margin></Pane>
@@ -59,7 +60,7 @@
                 <RowConstraints maxHeight="26.0" minHeight="3.0" prefHeight="3.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="commencerPartie" mnemonicParsing="false" onAction="#commencerPartie" prefHeight="39.0" prefWidth="144.0" style="-fx-background-color: #a7e0e0;" text="Commencer">
+                  <Button fx:id="commencerPartie" mnemonicParsing="false" onAction="#commencerPartie" prefHeight="39.0" prefWidth="144.0" text="Commencer">
                      <font>
                         <Font name="System Bold Italic" size="18.0" />
                      </font>
@@ -73,7 +74,7 @@
       </HBox>
    </bottom>
    <right>
-      <VBox prefHeight="420.0" prefWidth="230.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="426.0" prefWidth="242.0" style="-fx-background-color: #a7e0e0;" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="48.0" prefWidth="84.0">
                <children>
@@ -87,7 +88,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nbmonstresTues" alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="37.0" text="0">
+                  <Label fx:id="nbmonstresTues" alignment="CENTER_RIGHT" prefHeight="47.0" prefWidth="51.0" text="0">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -96,49 +97,75 @@
             </HBox>
             <HBox prefHeight="26.0" prefWidth="230.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="232.0" text="LES TOURS" />
+                  <Label alignment="CENTER" prefHeight="24.0" prefWidth="306.0" text="LES TOURS" textAlignment="CENTER" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="tourTerre" fitHeight="107.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@tour terre.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="     " />
-                  <ImageView fx:id="tourGlace" fitHeight="108.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@glace.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="geoBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
+                     <graphic>
+                        <ImageView fitHeight="107.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@tourTerre.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="cryoBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
+                     <graphic>
+                        <ImageView fitHeight="108.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@tourGlace.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox prefHeight="35.0" prefWidth="230.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="37.0" prefWidth="113.0" text="TERRE" />
-                  <Label alignment="CENTER" prefHeight="36.0" prefWidth="119.0" text="GLACE" />
+                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="136.0" text="GEO">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Label>
+                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="134.0" text="CRYO" />
                </children>
             </HBox>
             <HBox prefHeight="108.0" prefWidth="222.0">
                <children>
-                  <ImageView fx:id="tourFeu" fitHeight="108.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@tour feu.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="       " />
-                  <ImageView fx:id="tourElectro" fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@foudre.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="pyroBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
+                     <graphic>
+                        <ImageView fitHeight="108.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@tourFeu.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="electroBouton" mnemonicParsing="false" onAction="#cliquerTour" style="-fx-background-color: #a7e0e0;">
+                     <graphic>
+                        <ImageView fitHeight="108.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@tourElectro.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
             <HBox prefHeight="35.0" prefWidth="230.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="37.0" prefWidth="113.0" text="FEU" />
-                  <Label alignment="CENTER" prefHeight="36.0" prefWidth="119.0" text="ELECTRO" />
+                  <Label alignment="CENTER" prefHeight="32.0" prefWidth="123.0" text="PYRO" />
+                  <Label alignment="CENTER" prefHeight="32.0" prefWidth="129.0" text="ELECTRO">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Label>
                </children>
             </HBox>
             <HBox prefHeight="67.0" prefWidth="230.0">
