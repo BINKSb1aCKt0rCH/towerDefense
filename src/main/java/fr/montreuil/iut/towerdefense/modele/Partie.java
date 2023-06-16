@@ -20,7 +20,6 @@ public class Partie {
     //private Vague vague;
     private boolean tourPrésent = false;
     private IntegerProperty score;
-    private boolean tourPrésent = false;
     private IntegerProperty cout;
     private boolean achatTour = false;
 
@@ -132,37 +131,8 @@ public class Partie {
         return mapModele;
     }
 
-    public void unTour(int temps){
-        compteurScoreBerrys();
-        setTempsSurvie(temps/10);
-        vagueMonstres(temps);
-
-        for (int i = 0; i < monstres.size(); i++) {
-            Monstre a = monstres.get(i);
-            a.bouge();
-        }
-
-        tourEstPrésent();
-        if (tourPrésent) {
-            for (int i = 0; i< getListeTours().size(); i++) {
-                for (int j = 0 ; j < this.getMonstres().size(); j++){
-                    getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
-                }
-            }
-        }
-    }
 
     //ajoute les nouvelles tours dans la liste des tours
-    public void ajouterTourDansListe(double x, double y, MapModele mapModele, int choixTour){
-    if (choixTour == 1)
-        listeTours.add(new TourGeo(x, y, mapModele));
-    else if (choixTour == 2)
-        listeTours.add(new TourCryo(x, y, mapModele));
-    else if (choixTour == 3)
-        listeTours.add(new TourPyro(x, y, mapModele));
-    else
-        listeTours.add(new TourElectro(x, y, mapModele));
-    }
 
     //verif si au moins une tour est présente
     public void tourEstPrésent (){
@@ -202,16 +172,6 @@ public class Partie {
             }
         }
         return true;
-    }
-    public boolean achaterTour (int choix){
-
-        if (getBerrys() >= coutTour(choix)){
-            achatTour = true;
-        }
-        else{
-            achatTour = false;
-        }
-        return achatTour;
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -361,9 +321,9 @@ public class Partie {
             vaguesMonstres6(temps);
         }
     }
-    public MapModele getMapModele(){
+    /*public MapModele getMapModele(){
         return mapModele;
-    }
+    }*/
 
     //Boucle principale
     public void unTour(int temps){
@@ -389,8 +349,10 @@ public class Partie {
                 }
             }
         }
-        System.out.println("vous avez perdu");
-        enleveEnnemiMort();
+        else {
+            System.out.println("vous avez perdu");
+            enleveEnnemiMort();
+        }
     }
 
     //ajoute les nouvelles tours dans la liste des tours
@@ -405,11 +367,5 @@ public class Partie {
         listeTours.add(new TourElectro(x, y, mapModele));
     }
 
-    public void tourEstPrésent (){
-        if (!getListeTours().isEmpty())
-            this.tourPrésent = true;
-        else
-            tourPrésent = false;
-    }
 
 }

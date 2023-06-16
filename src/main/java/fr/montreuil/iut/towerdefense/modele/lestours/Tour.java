@@ -1,6 +1,8 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.modele.lestours;
 
 
+import fr.montreuil.iut.towerdefense.modele.MapModele;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
