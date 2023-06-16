@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -44,7 +43,7 @@ public class Controller implements Initializable {
     private Label tempsSurvie;
     @FXML
     private BorderPane borderPane;
-    private Tour tour;
+
     private boolean autorisationPlacement = false;
     @FXML
     private Label nbmonstresTues;
@@ -59,6 +58,9 @@ public class Controller implements Initializable {
     @FXML
     private Button cryoBouton;
     private int choixTour = 0;
+    private Tour tour;
+
+
     @FXML
     private Label vies;
     @FXML
@@ -119,17 +121,28 @@ public class Controller implements Initializable {
         double x = eventSouris.getX();
         double y = eventSouris.getY();
 
-        //vérifie qu'on est bien dans le panneau de jeu
-        if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()){
+        if (this.partie.achaterTour(choixTour) == true) {
 
-            //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
-            if (partie.getMapModele().getTile((int)(y/32), (int)((x/32))) == 2 && autorisationPlacement){
+            //vérifie qu'on est bien dans le panneau de jeu
+            if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()) {
 
-                //positionne l'image au centre
-                int positionX =((int)x/32) * 32;
-                int positionY =((int)y/32) * 32;
-                this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
-                autorisationPlacement = false;
+                //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
+                if (partie.getMapModele().getTile((int) (y / 32), (int) ((x / 32))) == 2 && autorisationPlacement) {
+
+                    //positionne l'image au centre
+                    int positionX = ((int) x / 32) * 32;
+                    int positionY = ((int) y / 32) * 32;
+
+                    //verif si pas d'autre tour à l'emplacement
+                    if (this.partie.verifPlacement(positionX, positionY)) {
+                        this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
+                        autorisationPlacement = false;
+
+                        int prix = this.partie.getCout();
+
+                        this.partie.setBerrys(this.partie.getBerrys() - prix);
+                    }
+                }
             }
         }
     }

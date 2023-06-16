@@ -2,11 +2,12 @@ package fr.montreuil.iut.towerdefense.modele;
 
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public abstract class Tour {
 
-    private int cout;
     private String element;
     private int perimetre;
     private DoubleProperty x, y ;
@@ -14,8 +15,7 @@ public abstract class Tour {
     private String id;
 
     private static int compteur =0;
-    public Tour(int cout, String element, int perimetre, double x, double y, MapModele mapModele){
-        this.cout=cout;
+    public Tour(String element, int perimetre, double x, double y, MapModele mapModele){
         this.element = element;
         this.perimetre = perimetre;
         this.x= new SimpleDoubleProperty(x);
@@ -52,19 +52,16 @@ public abstract class Tour {
         return false;
     }
 
-    public int getCout (){
-        return this.cout;
-    }
-
-    public void detectionEnnemi (Monstre monstre){
+    public boolean detectionEnnemi (Monstre monstre){
         //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
         if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
             System.out.println("Ennemis détecter !!");
         }
+        return true;
     }
 
     public String toString (){
-        return "La tour de " + this.element + " coûte " + this.cout + " berrys ";
+        return "La tour de " + this.element + " avec un périmètre de " + this.perimetre;
     }
 
 

@@ -21,7 +21,7 @@ public abstract class Monstre {
 
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
-        this.vitesse = 5;
+        this.vitesse = v;
         this.nom = nom;
         this.positionXProperty = new SimpleIntegerProperty(16); // Position X initiale du monstre
         this.positionYProperty = new SimpleIntegerProperty(16); // Position Y initiale du monstre
