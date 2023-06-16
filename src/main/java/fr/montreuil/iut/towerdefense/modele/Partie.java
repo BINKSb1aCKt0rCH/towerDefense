@@ -116,7 +116,7 @@ public class Partie {
     }
 
     public void unTour(int temps){
-        compteurBerrys();
+        compteurScoreBerrys();
         setTempsSurvie(temps/10);
         vagueMonstres(temps);
 
