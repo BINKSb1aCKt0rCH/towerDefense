@@ -22,7 +22,6 @@ public abstract class Monstre {
     private MapModele map;
     private String id;
     private static int compteur =0;
-    private  MapModele map;
     private boolean detecté;
 
     public Monstre(int pv, int v, String nom) {
@@ -40,7 +39,6 @@ public abstract class Monstre {
         this.numPos = 0; // Numéro de position initial
         this.detecté=false;
     }
-    public int getPv(){return this.pv;}
     public void setPv(int x){this.pv = x;}
     public int getPositionX() {
         return this.positionXProperty.getValue(); // Renvoie la position X du monstre
@@ -96,9 +94,6 @@ public abstract class Monstre {
         this.detecté=detecté1;
     }
 
-    public void bouge2() {
-
-    }
 
 
     /**W

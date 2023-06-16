@@ -378,15 +378,14 @@ public class Partie {
             if (tourPrésent) {
                 for (int i = 0; i < getListeTours().size(); i++) {
                     for (int j = 0; j < this.getMonstres().size(); j++) {
+                        getListeTours().get(i).creerProjectile();
                         getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
                     }
                 }
-
-            }
+            }seDeplacer();
+            projectilesCollisions();
+            verifierEnnemisMorts();
         }
-        seDeplacer();
-        projectilesCollisions();
-        verifierEnnemisMorts();
         else {
             System.out.println("vous avez perdu");
             enleveEnnemiMort();
@@ -405,11 +404,5 @@ public class Partie {
         listeTours.add(new TourElectro(x, y, mapModele));
     }
 
-    public void tourEstPrésent (){
-        if (!getListeTours().isEmpty())
-            this.tourPrésent = true;
-        else
-            tourPrésent = false;
-    }
 
 }

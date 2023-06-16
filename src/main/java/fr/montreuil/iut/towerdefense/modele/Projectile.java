@@ -1,5 +1,6 @@
 package fr.montreuil.iut.towerdefense.modele;
 
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
