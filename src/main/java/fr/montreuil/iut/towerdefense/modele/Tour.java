@@ -5,6 +5,8 @@ package fr.montreuil.iut.towerdefense.modele;
         import javafx.beans.property.SimpleDoubleProperty;
         import javafx.beans.property.SimpleIntegerProperty;
 
+        import java.util.ArrayList;
+
 public abstract class Tour {
 
     private int cout;
@@ -15,6 +17,7 @@ public abstract class Tour {
     private String id;
 
     private ArrayList<Projectile> projectiles;
+    private ArrayList<Monstre> monstres;
 
     private static int compteur =0;
     public Tour(int cout, String couleur, double x, double y, MapModele mapModele){
@@ -25,17 +28,19 @@ public abstract class Tour {
         this.mapModele = mapModele;
         compteur++;
         this.id = "T"+compteur;
+        this.projectiles=new ArrayList<>();
+        this.monstres=new ArrayList<>();
     }
 
     public String getId (){
         return this.id;
     }
 
-    public DoubleProperty XProperty (){
+    public DoubleProperty getXProperty (){
         return this.x;
     }
 
-    public DoubleProperty YProperty (){
+    public DoubleProperty getYProperty (){
         return this.y;
     }
 
@@ -65,6 +70,11 @@ public abstract class Tour {
         }
     }
 
+    public void update(){
+
+        //detectionEnnemi();
+
+    }
     public ArrayList<Projectile> getProjectiles(){
 
         return projectiles;

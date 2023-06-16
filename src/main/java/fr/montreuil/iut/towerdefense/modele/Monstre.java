@@ -18,6 +18,7 @@ public abstract class Monstre {
     private ArrayList<String> listePositions ; // Liste des positions du monstre
     private int numPos; // Numéro de position courant
     private  MapModele map;
+    private boolean detecté;
 
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
@@ -30,6 +31,7 @@ public abstract class Monstre {
         this.listePositions = new ArrayList<>(); // Liste des positions du monstre
         setListePositions(mapModele.getListeDirection());
         this.numPos = 0; // Numéro de position initial
+        this.detecté=false;
     }
 
     public int getPositionX() {
@@ -71,6 +73,15 @@ public abstract class Monstre {
 
         }
         this.numPos++; // Incrémente le numéro de position courant
+    }
+
+    public boolean estDetecte(){
+
+        return detecté;
+    }
+
+    public void setDetecté(boolean detecté1){
+        this.detecté=detecté1;
     }
 
     public void bouge2() {

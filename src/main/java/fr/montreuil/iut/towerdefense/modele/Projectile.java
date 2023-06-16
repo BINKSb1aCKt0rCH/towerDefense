@@ -45,8 +45,8 @@ public class Projectile {
         this.monstres= new ArrayList<>();
     }
 
-    public int getPositionX(){return this.xProperty.getValue();}
-    public int getPositionY(){return this.yProperty.getValue();}
+    public int getPositionX(){ return this.xProperty.getValue(); }
+    public int getPositionY(){ return this.yProperty.getValue(); }
     public void setX(int x){
         xProperty.setValue(x);
     }
@@ -90,11 +90,4 @@ public class Projectile {
 
     }
 
-    /*
-    public String getId(){
-
-        return this.id;
-    }
-
-     */
 }
