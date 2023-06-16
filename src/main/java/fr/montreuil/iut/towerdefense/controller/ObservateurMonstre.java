@@ -32,6 +32,8 @@ public class ObservateurMonstre implements ListChangeListener<Monstre> {
                 }
             }
             for(Monstre mort:m.getRemoved()){
+                //regarde la liste d'ennemis morts si un monstre est mort il se supprime
+                if (mort.ennemiMort())
                 monstreVue.retirerSprite(mort);
             }
         }
