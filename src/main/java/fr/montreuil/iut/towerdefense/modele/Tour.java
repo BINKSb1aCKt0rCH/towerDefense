@@ -69,7 +69,6 @@ public abstract class Tour {
             System.out.println("Ennemis détecter !!");
         }
     }
-
     public void update(){
 
         //detectionEnnemi();
@@ -84,6 +83,7 @@ public abstract class Tour {
 
         projectiles.add(p);
     }
+
 
     public String toString (){
         return "La tour de " + this.element + " coûte " + this.cout + " berrys ";

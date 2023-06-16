@@ -11,18 +11,10 @@ public class Projectile {
 
     private int degats;
     private int vitesseAtk;
-    private int portee;
     private String couleur;
-    private int x,y;
-    private int maxTraj, traj;
-    private double distance;
-    //private Tour tour;
     private IntegerProperty xProperty, yProperty;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Projectile> monstres;
-
-
-    private Target target;
     private String id;
 
     //Connaitre la position de l'ennemi;
@@ -31,16 +23,9 @@ public class Projectile {
 
         this.degats=degats;
         this.vitesseAtk=vitesseAtk;
-        this.portee=portee;
         this.couleur=couleur;
-        this.x=0;
-        this.y=0;
-        //this.tour=tour;
-        //this.distance=0;
         this.xProperty= new SimpleIntegerProperty();
         this.yProperty= new SimpleIntegerProperty();
-        //this.partie = new Partie();
-        //this.mapModele = new MapModele();
         this.projectiles= new ArrayList<>();
         this.monstres= new ArrayList<>();
     }
@@ -80,11 +65,11 @@ public class Projectile {
         return this.yProperty;
     }
 
-    public void collision(Monstre m, Projectile p){
+    public void collision(Monstre m){
 
         if(getxValue()== m.getPositionX() && getyValue()== m.getPositionY()){
             monstres.remove(m);
-            projectiles.remove(p);
+            //this.remove();
         }
 
 

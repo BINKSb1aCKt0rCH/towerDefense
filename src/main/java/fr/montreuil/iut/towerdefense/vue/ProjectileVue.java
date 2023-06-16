@@ -28,28 +28,6 @@ public class ProjectileVue {
         l.translateYProperty().bind(projectiles.getyProperty());
 
         l.setBackground(Background.fill(Color.CORNFLOWERBLUE));
-
-
-
-/*
-        if(projectiles instanceof Tour){
-            cercle.setFill(Color.PURPLE);
-        }else if(projectiles instanceof TourPyro){
-            cercle.setFill(Color.ORANGE);
-        }else if(projectiles instanceof TourCryo){
-            cercle.setFill(Color.WHITE);
-        }else if(projectiles instanceof TourGeo){
-            cercle.setFill(Color.BROWN);
-        }
-        this.panneauJeu.getChildren().add(cercle);
-        this.panneauJeu.getChildren().add(l);
-
- */
-
-
-
-
-
     }
 
 }
