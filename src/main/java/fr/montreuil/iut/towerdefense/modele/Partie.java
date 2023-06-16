@@ -251,7 +251,7 @@ public class Partie {
                 for (int j = 0 ; j < this.getMonstres().size(); j++){
                     int k = 0;
                     getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
-li                    k++;
+                    k++;
                 }
             }
         }
