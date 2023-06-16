@@ -95,9 +95,9 @@ public class Controller implements Initializable {
     void commencerPartie(ActionEvent event){
         gameLoop.play();
     }
-
+    @FXML
     void aPerdu() throws IOException {
-        if (vies.textProperty().equals(0)){
+        if (this.vies.textProperty().equals(0)){
             System.out.println("click sur Lore");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Lore.fxml"));
             Parent root = fxmlLoader.load();
@@ -160,6 +160,11 @@ public class Controller implements Initializable {
 
             (ev -> {
                 this.partie.unTour(temps);
+                try {
+                    aPerdu();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 temps++;
             })
 

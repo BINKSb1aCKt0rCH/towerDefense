@@ -89,7 +89,7 @@ public class Partie {
     }
     public void perdreVie(Monstre m){
         System.out.println("methode perdre vie");
-        if (this.mapModele.verificationArrive(m.getPositionX(),m.getPositionY()) && getVies() >=0){
+        if (this.mapModele.verificationArrive(m.getPositionX(),m.getPositionY()) && getVies() >0){
             System.out.println("une vie en moins");
             setVies(getVies() -1);
             this.monstres.remove(m);
@@ -125,6 +125,7 @@ public class Partie {
         ajouter(k);
     }
     public void vagueMonstres1(int temps){
+
         //Pdt les 30premières secondes 10slimes vont apparaitre
         if (getTempsSurvie() < 30) {
             if (temps % 30 == 0) {
@@ -268,26 +269,30 @@ public class Partie {
 
     //Boucle principale
     public void unTour(int temps){
-        compteurScoreBerrys();
-        setTempsSurvie(temps/10);//permet de nous donner / setle temps
-        vagueMonstres(temps);//appelle des vagues de monstres en fonction du temps
-        enleveEnnemiMort();
-        for (int i = 0; i < monstres.size(); i++) {
-            Monstre a = monstres.get(i);
-            a.bouge();
-            System.out.println("pos X " + a.getPositionX());
-            System.out.println("pos Y " + a.getPositionY());
-            perdreVie(a);
-            //System.out.println("id" +a.getId());
-        }
-        tourEstPrésent();
-        if (tourPrésent) {
-            for (int i = 0; i< getListeTours().size(); i++) {
-                for (int j = 0 ; j < this.getMonstres().size(); j++){
-                    getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+        if (getVies() !=0) {
+            compteurScoreBerrys();
+            setTempsSurvie(temps / 10);//permet de nous donner / setle temps
+            vagueMonstres(temps);//appelle des vagues de monstres en fonction du temps
+            enleveEnnemiMort();
+            for (int i = 0; i < monstres.size(); i++) {
+                Monstre a = monstres.get(i);
+                a.bouge();
+                System.out.println("pos X " + a.getPositionX());
+                System.out.println("pos Y " + a.getPositionY());
+                perdreVie(a);
+                //System.out.println("id" +a.getId());
+            }
+            tourEstPrésent();
+            if (tourPrésent) {
+                for (int i = 0; i < getListeTours().size(); i++) {
+                    for (int j = 0; j < this.getMonstres().size(); j++) {
+                        getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+                    }
                 }
             }
         }
+        System.out.println("vous avez perdu");
+        enleveEnnemiMort();
     }
 
     //ajoute les nouvelles tours dans la liste des tours
