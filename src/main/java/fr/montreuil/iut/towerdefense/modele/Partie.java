@@ -15,7 +15,7 @@ public class Partie {
     public IntegerProperty tempsSurvie;
     private ObservableList<Tour> listeTours;
     private ObservableList<Monstre> monstres;
-    //private Vague vague;
+    private boolean tourPrésent = false;
 
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
@@ -23,24 +23,40 @@ public class Partie {
         this.berrys = new SimpleIntegerProperty(75);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
-        //this.vague = new Vague();
 
     }
     public void ajouter(Monstre m){
         monstres.add(m);
     }
+
+    public void ajouterTour (Tour t){
+        listeTours.add(t);
+    }
+
     public ObservableList<Monstre> getMonstres(){
         return monstres;
     }
-    public boolean dansTerrain(int x, int y){return x < 5 && y <9 && x >0 && y>0;}
 
-    public int getBerrys(){return this.berrys.getValue();}
+    public ObservableList<Tour> getListeTours() {
+        return listeTours;
+    }
+
+    public boolean dansTerrain(int x, int y){
+        return x < 5 && y <9 && x >0 && y>0;
+    }
+
+    public int getBerrys(){
+        return this.berrys.getValue();
+    }
+
     public void setBerrys(int b){
         berrys.setValue(b);
     }
+
     public IntegerProperty berrysProperty(){
         return this.berrys;
     }
+
     public IntegerProperty compteurBerrys(){
         for (int i = 0; i < monstres.size(); i++) {
             if (monstres.get(i).estMort()){
@@ -57,23 +73,23 @@ public class Partie {
         }
         return berrys;
     }
+
     public void setTempsSurvie(int x){
         tempsSurvie.setValue(x);
     }
+
     public IntegerProperty tempsSurvie(){
         return tempsSurvie;
     }
+
     public int getTempsSurvie(){return tempsSurvie.getValue();}
 
     //les vagues sont faites en fonction du temps
 
     /*
-    la premiere vague de slime jusqu'à 30s les monstres vont apparaitre toutes les 3s
-    jusqu'à 40s les slime vont apparaitre toutes les 2s (légère acceleration du spawn de monstre)
-    puis reprise à 45s afin d'acheter une tour geo
-    puis les slimes apparaissent toutes les 1.7s jusqu'à 80s
-    */
-    //36monstres apparaissent pdt vagueMonstres1
+    au debut faire ppop 2ennemis puis
+    si il n'ya a palus d'ennemis attendre et en faire pop d'autres
+     */
     public void apparitionSlime(){
         Slime s = new Slime();
         ajouter(s);
@@ -82,6 +98,8 @@ public class Partie {
         Zodd z = new Zodd();
         ajouter(z);
     }
+
+
     public void apparitionKaido(){
         Kaido k = new Kaido();
         ajouter(k);
@@ -169,6 +187,7 @@ public class Partie {
             vagueMonstres3(temps);
         }
     }
+
     public MapModele getMapModele(){
         return mapModele;
     }
@@ -182,19 +201,34 @@ public class Partie {
             Monstre a = monstres.get(i);
             a.bouge();
         }
+        tourEstPrésent();
+        if (tourPrésent) {
+            for (int i = 0; i< getListeTours().size(); i++) {
+                for (int j = 0 ; j < this.getMonstres().size(); j++){
+                    getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
+                }
+
+            }
+        }
     }
 
-
-
-    public void ajouterTour (Tour t){
-        listeTours.add(t);
+    //ajoute les nouvelles tours dans la liste des tours
+    public void ajouterTourDansListe(double x, double y, MapModele mapModele, int choixTour){
+    if (choixTour == 1)
+        listeTours.add(new TourGeo(x, y, mapModele));
+    else if (choixTour == 2)
+        listeTours.add(new TourCryo(x, y, mapModele));
+    else if (choixTour == 3)
+        listeTours.add(new TourPyro(x, y, mapModele));
+    else
+        listeTours.add(new TourElectro(x, y, mapModele));
     }
 
-    public void ajouterPositionTour (int x, int y, MapModele mapModele){
-        listeTours.add(new TourElectro(x,y,mapModele));
-    }
-    public ObservableList<Tour> getListeTours() {
-        return listeTours;
+    public void tourEstPrésent (){
+        if (!getListeTours().isEmpty())
+            this.tourPrésent = true;
+        else
+            tourPrésent = false;
     }
 
 }
