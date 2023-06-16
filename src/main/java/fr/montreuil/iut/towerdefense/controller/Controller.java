@@ -4,24 +4,17 @@ import fr.montreuil.iut.towerdefense.modele.*;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,9 +52,10 @@ public class Controller implements Initializable {
     @FXML
     private Button cryoBouton;
     private int choixTour = 0;
-
     @FXML
     private Label vies;
+    @FXML
+    private Label score;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -85,7 +79,7 @@ public class Controller implements Initializable {
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
-
+        this.score.textProperty().bind(partie.scoreProperty().asString());
         this.vies.textProperty().bind(partie.viesProperty().asString());
         //this.partie.getListeTours().addListener(listenerTours);
     }
