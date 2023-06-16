@@ -1,6 +1,8 @@
 package fr.montreuil.iut.towerdefense.controller;
 
 import fr.montreuil.iut.towerdefense.modele.*;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import fr.montreuil.iut.towerdefense.modele.lestours.Tour;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -64,24 +66,26 @@ public class Controller implements Initializable {
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
         this.partie = new Partie();
-        this.mapModele = partie.getMapModele();
-        this.mapVue = new MapVue();
+        this.mapModele = partie.getMapModele();//recuperation de la mapModele
+        this.mapVue = new MapVue();//création de la mapvue
         //affiche la map composée de tuiles
         try {
-            mapVue.afficherMap2D(mapModele,tuile);
+            mapVue.afficherMap2D(mapModele,tuile);//affichage de la mapVue(le pane)
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        initAnimation();
-        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
+        //initialisation de la methode initAnimation
+
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));//ajout d'un Listener pour les Monstres
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
 
-        this.berrys.textProperty().bind(partie.berrysProperty().asString());
-        this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
+        this.berrys.textProperty().bind(partie.berrysProperty().asString()); //bind des Berrys du modele dans la vue
+        this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());//bind du temps du modele dans la vue
         //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
-        this.score.textProperty().bind(partie.scoreProperty().asString());
-        this.vies.textProperty().bind(partie.viesProperty().asString());
+        this.score.textProperty().bind(partie.scoreProperty().asString());//bind du score du modele dans la vue
+        this.vies.textProperty().bind(partie.viesProperty().asString());//bind des vi
         //this.partie.getListeTours().addListener(listenerTours);
+
     }
     @FXML
     void commencerPartie(ActionEvent event){

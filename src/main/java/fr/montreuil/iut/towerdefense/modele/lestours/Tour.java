@@ -1,9 +1,10 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.modele.lestours;
 
 
+import fr.montreuil.iut.towerdefense.modele.MapModele;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.layout.Pane;
 
 public abstract class Tour {
 
@@ -52,7 +53,12 @@ public abstract class Tour {
         }
         return false;
     }
-
+    public  void  attaque(Monstre m, int atk, int temps){
+        if (detectionEnnemi(m) == true && /*!m.estMort() &&*/ temps %10 == 0){
+            m.setPv(m.getPv() - atk);
+            System.out.println("attaque");
+        }
+    }
     public int getCout (){
         return this.cout;
     }
@@ -60,7 +66,7 @@ public abstract class Tour {
     public boolean detectionEnnemi (Monstre monstre){
         //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
         if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
-            System.out.println("Ennemis détecter !!");
+            //System.out.println("Ennemis détecter !!");
             return true;
         }
         return false;

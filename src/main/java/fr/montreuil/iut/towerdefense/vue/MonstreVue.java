@@ -1,8 +1,8 @@
 package fr.montreuil.iut.towerdefense.vue;
 
-import fr.montreuil.iut.towerdefense.modele.Monstre;
-import fr.montreuil.iut.towerdefense.modele.Slime;
-import fr.montreuil.iut.towerdefense.modele.Zodd;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Slime;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Zodd;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -34,6 +34,9 @@ public class MonstreVue {
         panneauDeJeu.getChildren().add(image1Bis);
     }
     public void retirerSprite(Monstre m){
-        this.panneauDeJeu.getChildren().remove("#"+ m.getId());
+        //if (m.estMort()) {
+         if (m.ennemiMort()== true){
+            this.panneauDeJeu.getChildren().remove(this.panneauDeJeu.lookup("#" + m.getId()));
+        }
     }
 }

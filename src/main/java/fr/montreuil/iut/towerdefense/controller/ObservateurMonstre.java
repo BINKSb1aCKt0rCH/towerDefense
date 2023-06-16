@@ -1,12 +1,13 @@
 package fr.montreuil.iut.towerdefense.controller;
 
-import fr.montreuil.iut.towerdefense.modele.Monstre;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
 import fr.montreuil.iut.towerdefense.vue.MonstreVue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import java.io.FileNotFoundException;
+
 
 public class ObservateurMonstre implements ListChangeListener<Monstre> {
     private Pane panneauDeJeu;
@@ -24,6 +25,7 @@ public class ObservateurMonstre implements ListChangeListener<Monstre> {
             for(Monstre nouveau: m.getAddedSubList()){
                 this.nbmonstresTues.setText(""+m.getList().size());
                 try {
+                    //chaque fois qu'un monstre est crée dans le model on crée un sprite coté vue
                     monstreVue.creerSprite(nouveau);
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);

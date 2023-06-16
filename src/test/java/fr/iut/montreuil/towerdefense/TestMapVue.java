@@ -2,7 +2,7 @@ package fr.iut.montreuil.towerdefense;
 
 import fr.montreuil.iut.towerdefense.vue.MapVue;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 public class TestMapVue {
 
     @Test
@@ -20,7 +20,11 @@ public class TestMapVue {
                 {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4},
         };
         MapVue mapVue = new MapVue();
-
+        assertArrayEquals(50,);
+        assertE
     }
-
+    @Test
+    public void getPv(){
+        assert
+    }
 }

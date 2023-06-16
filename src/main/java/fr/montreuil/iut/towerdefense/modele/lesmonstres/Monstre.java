@@ -1,5 +1,7 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.modele.lesmonstres;
 
+import fr.montreuil.iut.towerdefense.modele.MapModele;
+import fr.montreuil.iut.towerdefense.modele.Partie;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -17,14 +19,14 @@ public abstract class Monstre {
     private fr.montreuil.iut.towerdefense.modele.MapModele mapModele; // Modèle de la carte
     private ArrayList<String> listePositions ; // Liste des positions du monstre
     private int numPos; // Numéro de position courant
-    private  MapModele map;
+    private MapModele map;
     private String id;
     private static int compteur =0;
     public Monstre(int pv, int v, String nom) {
         this.pv = pv;
         this.vitesse = 5;
         this.nom = nom;
-        this.id = "m"+compteur;
+        this.id = "m"+compteur; // chaque monstre ont un identifiant different
         compteur++;
         this.positionXProperty = new SimpleIntegerProperty(16); // Position X initiale du monstre
         this.positionYProperty = new SimpleIntegerProperty(16); // Position Y initiale du monstre
@@ -37,19 +39,19 @@ public abstract class Monstre {
     public int getPv(){return this.pv;}
     public void setPv(int x){this.pv = x;}
     public int getPositionX() {
-        return this.positionXProperty.get(); // Renvoie la position X du monstre
+        return this.positionXProperty.getValue(); // Renvoie la position X du monstre
     }
 
     public int getPositionY() {
-        return this.positionYProperty.get(); // Renvoie la position Y du monstre
+        return this.positionYProperty.getValue(); // Renvoie la position Y du monstre
     }
 
     public void setPositionX(int x) {
-        this.positionXProperty.set(x); // Définit la position X du monstre
+        this.positionXProperty.setValue(x); // Définit la position X du monstre
     }
 
     public void setPositionY(int y) {
-        this.positionYProperty.set(y); // Définit la position Y du monstre
+        this.positionYProperty.setValue(y); // Définit la position Y du monstre
     }
 
     public IntegerProperty positionXProperty() {
@@ -78,15 +80,7 @@ public abstract class Monstre {
 
         }
         this.numPos++; // Incrémente le numéro de position courant
-
-
-
     }
-
-    public void bouge2() {
-
-    }
-
 
     /**W
      * Calcule les coordonnées de la case correspondant à une position donnée en pixels.
@@ -163,6 +157,16 @@ public abstract class Monstre {
     public String getId(){return this.id;}
     public boolean estMort(){
         return this.pv <= 0;
+    }
+
+    //vérifie si un ennemi est mort
+    public boolean ennemiMort (){
+        if (this.pv <= 0){
+            System.out.println("ennemi mort");
+            return true;
+        }
+        else
+            return false;
     }
 
 }

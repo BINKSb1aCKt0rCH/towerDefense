@@ -1,13 +1,14 @@
 package fr.montreuil.iut.towerdefense.modele;
 
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Kaido;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Slime;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Zodd;
+import fr.montreuil.iut.towerdefense.modele.lestours.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.LinearGradient;
-
-import java.util.ArrayList;
-import javafx.collections.ObservableArray;
 
 public class Partie {
     MapModele mapModele;
@@ -255,13 +256,14 @@ public class Partie {
             a.bouge();
         }
         tourEstPrésent();
+        int k=0;
         if (tourPrésent) {
             for (int i = 0; i< getListeTours().size(); i++) {
                 for (int j = 0 ; j < this.getMonstres().size(); j++){
                     getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
-
+                    getListeTours().get(i).attaque(this.getMonstres().get(j),300,temps);
+                    getMonstres().get(j).ennemiMort();
                 }
-
             }
         }
     }
