@@ -11,7 +11,6 @@ public class Projectile {
 
     private int degats;
     private int vitesseAtk;
-    private int portee;
     private String couleur;
     private IntegerProperty xProperty, yProperty;
     private ArrayList<Projectile> projectiles;
@@ -22,11 +21,10 @@ public class Projectile {
 
     //Connaitre la position de l'ennemi;
 
-    public Projectile(int degats, int vitesseAtk, int portee, String couleur){
+    public Projectile(int degats, int vitesseAtk, String couleur){
 
         this.degats=degats;
         this.vitesseAtk=vitesseAtk;
-        this.portee=portee;
         this.couleur=couleur;
         this.xProperty= new SimpleIntegerProperty();
         this.yProperty= new SimpleIntegerProperty();

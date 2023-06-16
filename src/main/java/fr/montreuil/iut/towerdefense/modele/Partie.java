@@ -243,7 +243,8 @@ public class Partie {
                 }
 
             }
-        }seDeplacer();
+        }Tour.creerProjectile();
+        seDeplacer();
         projectilesCollisions();
         verifierEnnemisMorts();
     }

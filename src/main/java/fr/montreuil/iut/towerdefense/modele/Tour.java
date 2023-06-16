@@ -20,6 +20,8 @@ public abstract class Tour {
     private ArrayList<Monstre> monstres;
 
     private static int compteur =0;
+    private Tour Partie;
+
     public Tour(int cout, String couleur, int perimetre, double x, double y, int degat, MapModele mapModele){
         this.cout=cout;
         this.element = couleur;
@@ -83,6 +85,19 @@ public abstract class Tour {
     public void ajouterProjectile(Projectile p){
 
         projectiles.add(p);
+    }
+
+    public void creerProjectile(){
+
+        for(int i=0; i < monstres.size(); i++){
+            boolean ennemiTrouve = false;
+            if(Math.sqrt(Math.pow(getXProperty().getValue() - monstres.get(i).getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstres.get(i).getYProperty().getValue(),2))) <= 65){
+                this.Partie.projectiles.add(new Projectile(100, 2, "BLUE"));
+                ennemiTrouve = true;
+            } if(ennemiTrouve){
+                break;
+            }
+        }
     }
 
 
