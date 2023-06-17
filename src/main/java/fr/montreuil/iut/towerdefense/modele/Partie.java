@@ -236,13 +236,14 @@ public class Partie {
         }
         tourEstPrésent();
         if (tourPrésent) {
-            for (int i = 0; i< getListeTours().size(); i++) {
-                for (int j = 0 ; j < this.getMonstres().size(); j++){
+            for (int i = 0; i < getListeTours().size(); i++) {
+                for (int j = 0; j < this.getMonstres().size(); j++) {
+                    getListeTours().get(i).creerProjectile();
                     getListeTours().get(i).detectionEnnemi(this.getMonstres().get(j));
                 }
 
             }
-        }Tour.creerProjectile();
+        }
         seDeplacer();
         projectilesCollisions();
         verifierEnnemisMorts();

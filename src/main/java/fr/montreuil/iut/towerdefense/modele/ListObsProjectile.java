@@ -19,7 +19,7 @@ public class ListObsProjectile implements ListChangeListener<Projectile> {
         while(change.next()) {
             if(change.wasAdded()){
                 for(Projectile a : change.getAddedSubList()) {
-                    ProjectileVue projectileVue = new ProjectileVue(panneauJeu);
+                    projectileVue = new ProjectileVue(panneauJeu);
                     projectileVue.créerSprite(a);
                 }
             }else if(change.wasRemoved()){

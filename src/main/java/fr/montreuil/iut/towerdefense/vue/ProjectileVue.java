@@ -18,7 +18,7 @@ public class ProjectileVue {
     public void créerSprite(Projectile projectiles) {
 
         Circle cercle = new Circle(10);
-        //cercle .setId(projectiles.getId());
+        cercle.setId(projectiles.getId());
         cercle.translateXProperty().bind(projectiles.xProperty());
         cercle.translateYProperty().bind(projectiles.yProperty());
 

@@ -80,7 +80,7 @@ public class Controller implements Initializable {
         this.monstre = new Slime();
         this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
-
+        this.partie.getProjectiles().addListener(new ListObsProjectile(this.panneauDeJeu));
         this.berrys.textProperty().bind(partie.berrysProperty().asString());
         this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
     }
