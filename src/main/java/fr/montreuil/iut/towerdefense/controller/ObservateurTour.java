@@ -1,6 +1,6 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.controller;
 
-import fr.montreuil.iut.towerdefense.controller.Controller;
+import fr.montreuil.iut.towerdefense.modele.lestours.Tour;
 import fr.montreuil.iut.towerdefense.vue.TourVue;
 import javafx.collections.ListChangeListener;
 import javafx.scene.layout.Pane;
@@ -33,6 +33,5 @@ public class ObservateurTour implements ListChangeListener<Tour> {
             }
         }
     }
-
 
 }

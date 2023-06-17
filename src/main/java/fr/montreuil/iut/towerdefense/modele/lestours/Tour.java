@@ -1,39 +1,41 @@
-package fr.montreuil.iut.towerdefense.modele;
+package fr.montreuil.iut.towerdefense.modele.lestours;
 
-        import javafx.beans.property.DoubleProperty;
-        import javafx.beans.property.IntegerProperty;
-        import javafx.beans.property.SimpleDoubleProperty;
-        import javafx.beans.property.SimpleIntegerProperty;
 
-        import java.util.ArrayList;
+import fr.montreuil.iut.towerdefense.modele.MapModele;
+import fr.montreuil.iut.towerdefense.modele.Partie;
+import fr.montreuil.iut.towerdefense.modele.Projectile;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+import java.util.ArrayList;
 
 public abstract class Tour {
 
-    private int cout;
     private String element;
     private int perimetre;
     private int degat;
     private DoubleProperty x, y ;
     private MapModele mapModele;
     private String id;
-    private ArrayList<Projectile> projectiles;
-    private ArrayList<Monstre> monstres;
-
+    private Partie partie;
     private static int compteur =0;
-    private Tour Partie;
-
-    public Tour(int cout, String couleur, int perimetre, double x, double y, int degat, MapModele mapModele){
-        this.cout=cout;
-        this.element = couleur;
-        this.perimetre=perimetre;
+    public Tour(String element, int perimetre, double x, double y,int degat, MapModele mapModele,Partie partie){
+        this.element = element;
+        this.perimetre = perimetre;
         this.x= new SimpleDoubleProperty(x);
         this.y= new SimpleDoubleProperty(y);
         this.mapModele = mapModele;
         this.degat=degat;
         compteur++;
         this.id = "T"+compteur;
-        this.projectiles=new ArrayList<>();
-        this.monstres=new ArrayList<>();
+        this.partie = partie;
     }
 
     public String getId (){
@@ -47,6 +49,8 @@ public abstract class Tour {
     public DoubleProperty getYProperty (){
         return this.y;
     }
+
+
 
     public int getDegat(){
         return this.degat;
@@ -67,24 +71,22 @@ public abstract class Tour {
         return false;
     }
 
-    public int getCout (){
-        return this.cout;
-    }
-
-    public void detectionEnnemi (Monstre monstre){
+    public boolean detectionEnnemi (Monstre monstre){
         //(RacineCarré((PosXTour - posXEnnemis)^2 + (PosYTtour - posYEnnemis)^2 ) <= périmètre )
         if (Math.sqrt(Math.pow(getXProperty().getValue() - monstre.getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstre.getYProperty().getValue(),2))) <= this.perimetre){
+            this.partie.getProjectiles().add(new Projectile(10, 2, "BLUE",monstre,this.x.getValue(),this.y.getValue(),this.partie));
             System.out.println("Ennemis détecter !!");
         }
+        return true;
     }
-    public ArrayList<Projectile> getProjectiles() { return projectiles; }
-    public void ajouterProjectile(Projectile p){ projectiles.add(p); }
 
+    /*
     public void creerProjectile(){
 
         for(int i=0; i < monstres.size(); i++){
             boolean ennemiTrouve = false;
             if(Math.sqrt(Math.pow(getXProperty().getValue() - monstres.get(i).getXProperty().getValue(),2) + (Math.pow(getYProperty().getValue() - monstres.get(i).getYProperty().getValue(),2))) <= 65){
+                System.out.println("Ennemi trouvé ");
                 this.Partie.projectiles.add(new Projectile(100, 2, "BLUE"));
                 ennemiTrouve = true;
             } if(ennemiTrouve){
@@ -93,10 +95,13 @@ public abstract class Tour {
         }
     }
 
+     */
+
 
     public String toString (){
-        return "La tour de " + this.element + " coûte " + this.cout + " berrys ";
+        return "La tour de " + this.element + " avec un périmètre de " + this.perimetre;
     }
 
 
 }
+

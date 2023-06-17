@@ -1,53 +1,51 @@
 package fr.montreuil.iut.towerdefense.modele;
 
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
-
-import java.lang.annotation.Target;
-import java.util.ArrayList;
 
 public class Projectile {
 
     private int degats;
     private int vitesseAtk;
     private String couleur;
-    private IntegerProperty xProperty, yProperty;
-    private ArrayList<Projectile> projectiles;
-    private ArrayList<Projectile> monstres;
+    private DoubleProperty posX, posY;
     private String id;
-    private boolean aAttaque;
+    private static int compteur = 0;
     private Monstre monstreCible;
+    private Partie partie;
 
-    public Projectile(int degats, int vitesseAtk, String couleur){
-
+    public Projectile(int degats, int vitesseAtk, String couleur,Monstre monstreCible,double posX,double posY,Partie partie){
+        compteur++;
+        this.id = "" + compteur;
         this.degats=degats;
         this.vitesseAtk=vitesseAtk;
         this.couleur=couleur;
-        this.xProperty= new SimpleIntegerProperty();
-        this.yProperty= new SimpleIntegerProperty();
-        this.projectiles= new ArrayList<>();
-        this.monstres= new ArrayList<>();
-        this.aAttaque = false;
+        this.posX = new SimpleDoubleProperty(posX);
+        this.posY = new SimpleDoubleProperty(posY);
+        this.monstreCible = monstreCible;
+        this.partie = partie;
     }
 
-    public final int getxValue(){ return this.xProperty.getValue();}
-    public final int getyValue(){ return this.yProperty.getValue();}
+
+    public final double getxValue(){ return this.posX.getValue();}
+    public final double getyValue(){ return this.posY.getValue();}
 
     public void setX(int x){
-        xProperty.setValue(x);
+        posX.setValue(x);
     }
 
     public void setY(int y){
-        yProperty.setValue(y);
+        posY.setValue(y);
     }
-    public IntegerProperty xProperty(){
-        return this.xProperty;
+    public DoubleProperty xProperty(){
+        return this.posX;
     }
-    public IntegerProperty yProperty(){
-        return this.yProperty;
+    public DoubleProperty yProperty(){
+        return this.posY;
     }
-    public boolean getaAttaque(){ return this.aAttaque; }
     public int getVitesseAtk(){ return this.vitesseAtk; }
     public String getId() { return this.id; }
     public void collision(Monstre m){
@@ -55,7 +53,9 @@ public class Projectile {
         if (getxValue() - m.getPositionX() < 3 && getyValue() - m.getPositionY() <3) {
 
             m.decrementerPv(degats); // diminuer le nombre de pv de l'ennemi en lui infligeant des dégâts
-            aAttaque=true;
+            System.out.println("Taille liste projectiles : " + this.partie.getProjectiles().size());
+            this.partie.getProjectiles().remove(this);
+            System.out.println("Taille liste projectiles après enlever : " + this.partie.getProjectiles().size());
         }
     }
     public void seDeplacer(){
@@ -79,3 +79,4 @@ public class Projectile {
 
     }
 }
+

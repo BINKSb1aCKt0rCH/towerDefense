@@ -1,13 +1,19 @@
 package fr.montreuil.iut.towerdefense.controller;
 
+import fr.montreuil.iut.towerdefense.Main;
 import fr.montreuil.iut.towerdefense.modele.*;
+import fr.montreuil.iut.towerdefense.modele.lesmonstres.Monstre;
+import fr.montreuil.iut.towerdefense.modele.lestours.Tour;
 import fr.montreuil.iut.towerdefense.vue.MapVue;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,6 +28,7 @@ import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -43,7 +50,7 @@ public class Controller implements Initializable {
     private Label tempsSurvie;
     @FXML
     private BorderPane borderPane;
-    private Tour tour;
+
     private boolean autorisationPlacement = false;
     @FXML
     private Label nbmonstresTues;
@@ -58,8 +65,13 @@ public class Controller implements Initializable {
     @FXML
     private Button cryoBouton;
     private int choixTour = 0;
+    private Tour tour;
 
 
+    @FXML
+    private Label vies;
+    @FXML
+    private Label score;
 
     @Override
     public void initialize(URL url, ResourceBundle ressourceBundle){
@@ -68,27 +80,41 @@ public class Controller implements Initializable {
         tuile.setPrefColumns(15);
         panneauDeJeu.getChildren().add(tuile);
         this.partie = new Partie();
-        this.mapModele = partie.getMapModele();
-        this.mapVue = new MapVue();
+        this.mapModele = partie.getMapModele();//recuperation de la mapModele
+        this.mapVue = new MapVue();//création de la mapvue
         //affiche la map composée de tuiles
         try {
-            mapVue.afficherMap2D(mapModele,tuile);
+            mapVue.afficherMap2D(mapModele,tuile);//affichage de la mapVue(le pane)
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         initAnimation();
-        this.monstre = new Slime();
-        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));
+        this.partie.getMonstres().addListener(new ObservateurMonstre(this.panneauDeJeu,this.nbmonstresTues));//ajout d'un Listener pour les Monstres
         this.partie.getListeTours().addListener(new ObservateurTour(this.panneauDeJeu));
         this.partie.getProjectiles().addListener(new ListObsProjectile(this.panneauDeJeu));
-        this.berrys.textProperty().bind(partie.berrysProperty().asString());
-        this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());
+        this.berrys.textProperty().bind(partie.berrysProperty().asString()); //bind des Berrys du modele dans la vue
+        this.tempsSurvie.textProperty().bind(partie.tempsSurvie().asString());//bind du temps du modele dans la vue
+        //this.nbmonstresTues.textProperty().addListener(new ObservateurMonstre(th));
+        this.score.textProperty().bind(partie.scoreProperty().asString());//bind du score du modele dans la vue
+        this.vies.textProperty().bind(partie.viesProperty().asString());//bind des vi
+        //this.partie.getListeTours().addListener(listenerTours);
+
     }
     @FXML
     void commencerPartie(ActionEvent event){
         gameLoop.play();
     }
-
+    @FXML
+    void aPerdu() throws IOException {
+        if (this.vies.textProperty().equals(0)){
+            System.out.println("click sur Lore");
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Lore.fxml"));
+            Parent root = fxmlLoader.load();
+            Main.stg.setScene(new Scene(root));
+            Main.stg.setTitle("Lore!");
+            Main.stg.show();
+        }
+    }
 
     @FXML
     public void cliquerTour() {
@@ -113,17 +139,28 @@ public class Controller implements Initializable {
         double x = eventSouris.getX();
         double y = eventSouris.getY();
 
-        //vérifie qu'on est bien dans le panneau de jeu
-        if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()){
+        if (this.partie.achaterTour(choixTour) == true) {
 
-            //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
-            if (partie.getMapModele().getTile((int)(y/32), (int)((x/32))) == 2 && autorisationPlacement){
+            //vérifie qu'on est bien dans le panneau de jeu
+            if (x >= 0 && x <= panneauDeJeu.getWidth() && y >= 0 && y <= panneauDeJeu.getHeight()) {
 
-                //positionne l'image au centre
-                int positionX =((int)x/32) * 32;
-                int positionY =((int)y/32) * 32;
-                this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
-                autorisationPlacement = false;
+                //vérif que c'est bien un emplacement de tour & qu'il à cliquer sur la tour choisi (cf.fxml)
+                if (partie.getMapModele().getTile((int) (y / 32), (int) ((x / 32))) == 2 && autorisationPlacement) {
+
+                    //positionne l'image au centre
+                    int positionX = ((int) x / 32) * 32;
+                    int positionY = ((int) y / 32) * 32;
+
+                    //verif si pas d'autre tour à l'emplacement
+                    if (this.partie.verifPlacement(positionX, positionY)) {
+                        this.partie.ajouterTourDansListe(positionX, positionY, mapModele, this.choixTour);
+                        autorisationPlacement = false;
+
+                        int prix = this.partie.getCout();
+
+                        this.partie.setBerrys(this.partie.getBerrys() - prix);
+                    }
+                }
             }
         }
     }
@@ -139,10 +176,17 @@ public class Controller implements Initializable {
                 Duration.seconds(0.1),
                 // on définit ce qui se passe à chaque frame 
                 // c'est un eventHandler d'ou le lambda
-                (ev ->{
-                    this.partie.unTour(temps);
-                    temps++;
-                })
+
+            (ev -> {
+                this.partie.unTour(temps);
+                try {
+                    aPerdu();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                temps++;
+            })
+
         );
         gameLoop.getKeyFrames().add(kf);
     }
