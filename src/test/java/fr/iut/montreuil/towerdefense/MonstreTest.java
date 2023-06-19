@@ -19,8 +19,6 @@ class MonstreTest {
         Assertions.assertEquals(2, positionX);
     }
 
-
-
     @Test
     void setPositionX() {
         Slime monstre = new Slime();
