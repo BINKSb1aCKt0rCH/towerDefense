@@ -27,7 +27,7 @@ public class Partie {
     public Partie(){
         this.monstres = FXCollections.observableArrayList();
         this.mapModele = new MapModele();
-        this.berrys = new SimpleIntegerProperty(150);
+        this.berrys = new SimpleIntegerProperty(800);
         this.tempsSurvie = new SimpleIntegerProperty(0);
         this.listeTours = FXCollections.observableArrayList();
         this.vies = new SimpleIntegerProperty(3);

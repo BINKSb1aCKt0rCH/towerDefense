@@ -22,7 +22,7 @@ public class ProjectileVue {
     //créer et afficher des projectiles dans le panneau du jeu
     public void créerSprite(Projectile projectiles) throws FileNotFoundException {
 
-        Image projectile = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/bouleDeTerre.gif"));
+        Image projectile = new Image(new FileInputStream("src/main/resources/fr/montreuil/iut/towerdefense/bouleFeu.gif"));
         ImageView projectileVue = new ImageView(projectile);
         /*
         Circle cercle = new Circle(2);
